@@ -104,12 +104,11 @@ public Pelicula(Pelicula a) {
     }
 
     public void setCantidad_copias(int cantidad_copias) {
-	if (cantidad_copias>3000){
-	    System.out.println("No podemos guardar mas de 3000 copias, hemos ingresado el maximo");
-	    System.exit(0); 
-	}else{
-	    this.cantidad_copias = cantidad_copias;
-	}	    
+	    if(this.cantidad_copias>3000){
+		System.out.println("Ya no podemos almacenar mas peliculas");
+	    }
+	    else
+		this.cantidad_copias = cantidad_copias;    
     }
 
     public int getReservas() {
@@ -117,9 +116,14 @@ public Pelicula(Pelicula a) {
     }
 
     public void setReservas(int reservas) {
-	this.reservas = reservas;
+	if (this.reservas>this.cantidad_copias){
+	    System.out.println("Mas reservas que copias? so tryhard");
+	}
+	else
+	    this.reservas = reservas;
     }
      public static void añadirPelicula(ArrayList<Pelicula> pepe) {
+	 
 	Scanner sc = new Scanner(System.in);
 	Pelicula p1 = new Pelicula();
 	System.out.println("Titulo de la pelicula:");
@@ -133,19 +137,19 @@ public Pelicula(Pelicula a) {
 	System.out.println("Año:");
 	p1.setDuracion(sc.nextInt());
 	p1.setDisponibilidad(true);//digo yo que si ingresas un pelicula es porque si hay esa pelicula no?
-	System.out.println("Cantidad de copias:");
+	System.out.println("Cantidad de copias(máximo 3000):");
 	p1.setCantidad_copias(sc.nextInt());
 	System.out.println("Reservas:");
 	p1.setReservas(sc.nextInt());
-	pepe.add(p1);
+	if (p1.getCantidad_copias()> 3000){
+	    System.out.println("No podemos guardar mas de 3000 copias, no hemos podido ingresar la pelicula");
+	}
+	else
+	    pepe.add(p1);
     }
     static public  void reservarPelicula(int cantidad_copias) {
-	if (cantidad_copias>3000 || cantidad_copias <0){
-	    System.out.println("Cantidad de copias superada");
-	}
-	else{
-	    cantidad_copias = cantidad_copias;
-	}
+	System.out.println("Que pelicula quieres reservas?");
+	
     }
 
 }

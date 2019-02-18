@@ -34,7 +34,7 @@ public class P04 {
            System.out.println("4. Opcion 4 - Buscar peliculas");            
            System.out.println("5. Salir");
             
-           System.out.println("Escribe una de las opciones");
+           System.out.println("Escribe una de las opcio1nes");
 	    opcion= sc.nextInt();
 	    switch (opcion) {
 		case 1:	
@@ -45,6 +45,7 @@ public class P04 {
 		    break;
 		case 3:
 		    for (int i = 0; i< listaPeliculas.size(); i++){
+			System.out.println("");
 			System.out.println("ID: " + (i));//La id comienza por 0?
 			System.out.println("Título: " + listaPeliculas.get(i).titulo);
 			System.out.println("Director: " + listaPeliculas.get(i).director);
@@ -69,7 +70,9 @@ public class P04 {
 		    break;
 	    }
 	}
+	
     }
-   
-
+    static public void reservarPelicula() {
+	    
+    }
 }
