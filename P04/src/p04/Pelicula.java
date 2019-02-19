@@ -121,7 +121,14 @@ public Pelicula(Pelicula a) {
 	    System.out.println("Mas reservas que copias? so tryhard bro");
 	}
 	else
-	    this.reservas = reservas;
+	    this.reservas= reservas;
+    }
+        public void incrementarReservas() {
+	if (this.reservas>this.cantidad_copias){
+	    System.out.println("Mas reservas que copias? so tryhard bro");
+	}
+	else
+	    this.reservas++;
     }
      public static void añadirPelicula(ArrayList<Pelicula> pepe) {// para que requiere nombre?
 	 
@@ -156,7 +163,7 @@ public Pelicula(Pelicula a) {
 	id = sc.nextInt();
 	if (listaPeliculas.get(id).disponibilidad == true && listaPeliculas.get(id).cantidad_copias<listaPeliculas.get(id).reservas){
 	    System.out.println("Se ha reservado la pelicula");
-	    listaPeliculas.set(id).reservas++;
+	    listaPeliculas.get(id).incrementarReservas();
 	}
 	
     }
