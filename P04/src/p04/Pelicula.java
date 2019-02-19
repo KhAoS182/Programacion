@@ -8,6 +8,7 @@ package p04;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static p04.P04.listaPeliculas;
+import static p04.P04.listarPeliculas;//hace falta???
 import static p04.P04.readString;
 
 /**
@@ -122,7 +123,7 @@ public Pelicula(Pelicula a) {
 	else
 	    this.reservas = reservas;
     }
-     public static void añadirPelicula(ArrayList<Pelicula> pepe) {
+     public static void añadirPelicula(ArrayList<Pelicula> pepe) {// para que requiere nombre?
 	 
 	Scanner sc = new Scanner(System.in);
 	Pelicula p1 = new Pelicula();
@@ -147,8 +148,16 @@ public Pelicula(Pelicula a) {
 	else
 	    pepe.add(p1);
     }
-    static public  void reservarPelicula(int cantidad_copias) {
+    static public  void reservarPelicula() {
+	Scanner sc = new Scanner(System.in);
+	int id;
+	listarPeliculas();
 	System.out.println("Que pelicula quieres reservas?");
+	id = sc.nextInt();
+	if (listaPeliculas.get(id).disponibilidad == true && listaPeliculas.get(id).cantidad_copias<listaPeliculas.get(id).reservas){
+	    System.out.println("Se ha reservado la pelicula");
+	    listaPeliculas.set(id).reservas++;
+	}
 	
     }
 

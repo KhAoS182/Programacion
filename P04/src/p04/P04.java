@@ -28,14 +28,16 @@ public class P04 {
 	boolean menu = true;
 	int opcion=0;
 	while(menu==true){
+	   System.out.println("   M	   E	   N	   U	");
+	   System.out.println("==================================");
 	   System.out.println("1. Opcion 1 - Añadir pelicula");
            System.out.println("2. Opcion 2 - Reservar pelicula");
            System.out.println("3. Opcion 3 - Lista de peliculas");
            System.out.println("4. Opcion 4 - Buscar peliculas");            
            System.out.println("5. Salir");
-            
-           System.out.println("Escribe una de las opcio1nes");
-	    opcion= sc.nextInt();
+	   System.out.println("==================================");  
+           System.out.println("Escribe una de las opciones");
+	   opcion= sc.nextInt();
 	    switch (opcion) {
 		case 1:	
 		    Pelicula.añadirPelicula(listaPeliculas);
@@ -44,19 +46,7 @@ public class P04 {
 		    Pelicula.reservarPelicula();
 		    break;
 		case 3:
-		    for (int i = 0; i< listaPeliculas.size(); i++){
-			System.out.println("");
-			System.out.println("ID: " + (i));//La id comienza por 0?
-			System.out.println("Título: " + listaPeliculas.get(i).titulo);
-			System.out.println("Director: " + listaPeliculas.get(i).director);
-			System.out.println("Duración: " + listaPeliculas.get(i).duracion);
-			System.out.println("Género: " + listaPeliculas.get(i).genero);
-			System.out.println("Año: " + listaPeliculas.get(i).año);
-			System.out.println("Disponibilidad: " + (listaPeliculas.get(i).disponibilidad ? "Disponible" : "No disponible"));
-			System.out.println("Cantidad de copias: " + listaPeliculas.get(i).cantidad_copias);
-			System.out.println("Reservas: " + listaPeliculas.get(i).reservas);
-			System.out.println("----------------------------------");
-		    }
+		    listarPeliculas();
 		    break;
 		case 4:
 
@@ -72,7 +62,19 @@ public class P04 {
 	}
 	
     }
-    static public void reservarPelicula() {
-	    
+    public static void listarPeliculas() {//Deberia estar en pelicula.java? qisas
+	for (int i = 0; i < listaPeliculas.size(); i++) {
+	    System.out.println("");
+	    System.out.println("ID: " + (i));//La id comienza por 0?
+	    System.out.println("Título: " + listaPeliculas.get(i).titulo);
+	    System.out.println("Director: " + listaPeliculas.get(i).director);
+	    System.out.println("Duración: " + listaPeliculas.get(i).duracion);
+	    System.out.println("Género: " + listaPeliculas.get(i).genero);
+	    System.out.println("Año: " + listaPeliculas.get(i).año);
+	    System.out.println("Disponibilidad: " + (listaPeliculas.get(i).disponibilidad ? "Disponible" : "No disponible"));
+	    System.out.println("Cantidad de copias: " + listaPeliculas.get(i).cantidad_copias);
+	    System.out.println("Reservas: " + listaPeliculas.get(i).reservas);
+	    System.out.println("----------------------------------");
+	}
     }
 }
