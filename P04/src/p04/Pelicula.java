@@ -81,7 +81,7 @@ public Pelicula(Pelicula a) {
     }
 
     public void setGenero(String genero) {
-	this.genero = genero;
+	this.genero = genero.toUpperCase();
     }
 
     public int getAño() {
@@ -118,7 +118,7 @@ public Pelicula(Pelicula a) {
 
     public void setReservas(int reservas) {
 	if (this.reservas>this.cantidad_copias){
-	    System.out.println("Mas reservas que copias? so tryhard");
+	    System.out.println("Mas reservas que copias? so tryhard bro");
 	}
 	else
 	    this.reservas = reservas;
@@ -136,7 +136,7 @@ public Pelicula(Pelicula a) {
 	System.out.println("Genero:");
 	p1.setGenero(readString());
 	System.out.println("Año:");
-	p1.setDuracion(sc.nextInt());
+	p1.setAño(sc.nextInt());
 	p1.setDisponibilidad(true);//digo yo que si ingresas un pelicula es porque si hay esa pelicula no?
 	System.out.println("Cantidad de copias(máximo 3000):");
 	p1.setCantidad_copias(sc.nextInt());
