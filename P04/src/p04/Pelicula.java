@@ -123,13 +123,13 @@ public Pelicula(Pelicula a) {
 	else
 	    this.reservas= reservas;
     }
-        public void incrementarReservas() {
+       /* public void incrementarReservas() {// Creo que complica la cosa
 	if (this.reservas>this.cantidad_copias){
 	    System.out.println("Mas reservas que copias? so tryhard bro");
 	}
 	else
 	    this.reservas++;
-    }
+    }*/
      public static void añadirPelicula(ArrayList<Pelicula> pepe) {// para que requiere nombre?
 	 
 	Scanner sc = new Scanner(System.in);
@@ -158,12 +158,18 @@ public Pelicula(Pelicula a) {
     static public  void reservarPelicula() {
 	Scanner sc = new Scanner(System.in);
 	int id;
+	int reserva =0;
 	listarPeliculas();
 	System.out.println("Que pelicula quieres reservas?");
 	id = sc.nextInt();
-	if (listaPeliculas.get(id).disponibilidad == true && listaPeliculas.get(id).cantidad_copias<listaPeliculas.get(id).reservas){
-	    System.out.println("Se ha reservado la pelicula");
-	    listaPeliculas.get(id).incrementarReservas();
+	System.out.println("Numero de reservas: ");
+	reserva = sc.nextInt();
+	if (listaPeliculas.get(id).disponibilidad == true && listaPeliculas.get(id).cantidad_copias+reserva>listaPeliculas.get(id).reservas){
+	    System.out.println("Se ha reservado la pelicula: " + listaPeliculas.get(id).titulo);
+	    listaPeliculas.get(id).reservas=+reserva;
+	}
+	else{
+	    System.out.println("No tenemos tantes copias de la pelicula, disculpe las molestias");
 	}
 	
     }
