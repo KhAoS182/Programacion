@@ -158,7 +158,7 @@ public Pelicula(Pelicula a) {
     static public  void reservarPelicula() {
 	Scanner sc = new Scanner(System.in);
 	int id;
-	int reserva =0;
+	int reserva  =0;
 	listarPeliculas();
 	System.out.println("Que pelicula quieres reservas?");
 	id = sc.nextInt();
