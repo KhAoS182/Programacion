@@ -51,13 +51,17 @@ public Pelicula(Pelicula a) {
 	this.cantidad_copias = a.cantidad_copias;
 	this.reservas = a.reservas;
     }
-
+     public static String capitalize(String s) {
+        if (s.length() == 0) return s;
+        return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+    }
     public String getTitulo() {
 	return titulo;
     }
 
     public void setTitulo(String titulo) {
-	this.titulo = titulo.;
+	capitalize(this.titulo);
+	this.titulo = titulo;
     }
 
     public String getDirector() {
