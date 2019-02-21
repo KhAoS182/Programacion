@@ -57,7 +57,7 @@ public Pelicula(Pelicula a) {
     }
 
     public void setTitulo(String titulo) {
-	this.titulo = titulo;
+	this.titulo = titulo.;
     }
 
     public String getDirector() {
@@ -172,6 +172,31 @@ public Pelicula(Pelicula a) {
 	    System.out.println("No tenemos tantes copias de la pelicula, disculpe las molestias");
 	}
 	
+    }
+    public static void buscarPelicula(){
+	Scanner sc = new Scanner(System.in);
+	System.out.println("Que deseas buscar:");
+	System.out.println("1. Titulo");
+	System.out.println("2. Director");
+	System.out.println("3. Genero");
+	System.out.println("4. Duración");
+	System.out.println("5. Año");
+	int opcion = sc.nextInt();
+	switch (opcion) {
+	    case 1:
+		System.out.println("Introduce titutlo");
+		String titulo = sc.nextLine();
+		for (int i = 0; i<listaPeliculas.size();i++)
+		{
+		    if (listaPeliculas.get(i).titulo==titulo)
+		    {
+			
+		    }
+		}
+		break;
+	    default:
+		throw new AssertionError();
+	}
     }
 
 }

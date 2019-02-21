@@ -49,7 +49,7 @@ public class P04 {
 		    listarPeliculas();
 		    break;
 		case 4:
-		    
+		    Pelicula.buscarPelicula();
 		    break;
 		case 5:
 		    menu=false;
