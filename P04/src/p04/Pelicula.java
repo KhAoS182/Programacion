@@ -53,16 +53,15 @@ public Pelicula(Pelicula a) {
     }
      public static String capitalize(String s) {
         if (s.length() == 0) return s;       
-	return s = s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
-	//return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+	s = s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
+	return s;
     }
     public String getTitulo() {
 	return titulo;
     }
 
     public void setTitulo(String titulo) {
-	capitalize(titulo);
-	this.titulo = titulo;
+	this.titulo = capitalize(titulo);
     }
 
     public String getDirector() {
@@ -189,18 +188,21 @@ public Pelicula(Pelicula a) {
 	int opcion = sc.nextInt();
 	switch (opcion) {
 	    case 1:
-		System.out.println("Introduce titutlo");
+		System.out.println("Introduce titulo");
 		String titulo = sc.nextLine();
+		titulo = sc.nextLine();
 		for (int i = 0; i<listaPeliculas.size();i++)
 		{
-		    if (listaPeliculas.get(i).titulo==titulo)
+		    if (listaPeliculas.get(i).titulo.contains(titulo))
 		    {
+			System.out.println("--------------------------------------");
 			System.out.println("Id: "+i);
-			System.out.println(listaPeliculas.get(i).titulo);
-			System.out.println(listaPeliculas.get(i).titulo);
-			System.out.println(listaPeliculas.get(i).titulo);
-			System.out.println(listaPeliculas.get(i).titulo);
-			System.out.println(listaPeliculas.get(i).titulo);
+			System.out.println("Titulo: "+listaPeliculas.get(i).titulo);
+			System.out.println("Director: "+listaPeliculas.get(i).director);
+			System.out.println("Duración: "+listaPeliculas.get(i).duracion);
+			System.out.println("Género: "+listaPeliculas.get(i).genero);
+			System.out.println("Año: "+listaPeliculas.get(i).titulo);
+			System.out.println("--------------------------------------");
 		    }
 		}
 		break;
