@@ -52,15 +52,16 @@ public Pelicula(Pelicula a) {
 	this.reservas = a.reservas;
     }
      public static String capitalize(String s) {
-        if (s.length() == 0) return s;
-        return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+        if (s.length() == 0) return s;       
+	return s = s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
+	//return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
     }
     public String getTitulo() {
 	return titulo;
     }
 
     public void setTitulo(String titulo) {
-	capitalize(this.titulo);
+	capitalize(titulo);
 	this.titulo = titulo;
     }
 
@@ -194,7 +195,12 @@ public Pelicula(Pelicula a) {
 		{
 		    if (listaPeliculas.get(i).titulo==titulo)
 		    {
-			
+			System.out.println("Id: "+i);
+			System.out.println(listaPeliculas.get(i).titulo);
+			System.out.println(listaPeliculas.get(i).titulo);
+			System.out.println(listaPeliculas.get(i).titulo);
+			System.out.println(listaPeliculas.get(i).titulo);
+			System.out.println(listaPeliculas.get(i).titulo);
 		    }
 		}
 		break;
