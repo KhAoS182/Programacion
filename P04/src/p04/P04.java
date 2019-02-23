@@ -71,7 +71,7 @@ public class P04 {
 	    System.out.println("Duración: " + listaPeliculas.get(i).duracion);
 	    System.out.println("Género: " + listaPeliculas.get(i).genero);
 	    System.out.println("Año: " + listaPeliculas.get(i).año);
-	    System.out.println("Disponibilidad: " + (listaPeliculas.get(i).disponibilidad ? "Disponible" : "No disponible"));
+	    System.out.println("Disponibilidad: " + (listaPeliculas.get(i).disponibilidad ? "Disponible" : "No disponible"));//works well as fuck (valor true, valor false)
 	    System.out.println("Cantidad de copias: " + listaPeliculas.get(i).cantidad_copias);
 	    System.out.println("Reservas: " + listaPeliculas.get(i).reservas);
 	    System.out.println("----------------------------------");

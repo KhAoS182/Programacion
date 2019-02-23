@@ -100,8 +100,12 @@ public Pelicula(Pelicula a) {
 	return disponibilidad;
     }
 
-    public void setDisponibilidad(boolean disponibilidad) {
-	this.disponibilidad = disponibilidad;
+    public void setDisponibilidad(boolean disponibilidad, int copias) {
+	if (copias>0)
+	this.disponibilidad = true;
+	else{
+	    this.disponibilidad = false;
+	}
     }
 
     public int getCantidad_copias() {
@@ -121,11 +125,12 @@ public Pelicula(Pelicula a) {
     }
 
     public void setReservas(int reservas) {
-	if (this.reservas>this.cantidad_copias){
+	if (reservas>this.cantidad_copias){
 	    System.out.println("Mas reservas que copias? so tryhard bro");
+	    this.reservas =  - this.reservas - reservas;
 	}
 	else
-	    this.reservas= reservas;
+	    this.reservas = reservas;
     }
        /* public void incrementarReservas() {// Creo que complica la cosa
 	if (this.reservas>this.cantidad_copias){
@@ -135,7 +140,6 @@ public Pelicula(Pelicula a) {
 	    this.reservas++;
     }*/
      public static void añadirPelicula(ArrayList<Pelicula> pepe) {// para que requiere nombre?
-	 
 	Scanner sc = new Scanner(System.in);
 	Pelicula p1 = new Pelicula();
 	System.out.println("Titulo de la pelicula:");
@@ -147,12 +151,11 @@ public Pelicula(Pelicula a) {
 	System.out.println("Genero:");
 	p1.setGenero(readString());
 	System.out.println("Año:");
-	p1.setAño(sc.nextInt());
-	p1.setDisponibilidad(true);//digo yo que si ingresas un pelicula es porque si hay esa pelicula no?
+	p1.setAño(sc.nextInt());	
 	System.out.println("Cantidad de copias(máximo 3000):");
 	p1.setCantidad_copias(sc.nextInt());
-	System.out.println("Reservas:");
-	p1.setReservas(sc.nextInt());
+	p1.setDisponibilidad(true, p1.cantidad_copias);//digo yo que si ingresas un pelicula es porque si hay esa pelicula no?
+	p1.setReservas(0);
 	sc.nextLine();
 	if (p1.getCantidad_copias()> 3000){
 	    System.out.println("No podemos guardar mas de 3000 copias, no hemos podido ingresar la pelicula");
@@ -167,19 +170,25 @@ public Pelicula(Pelicula a) {
 	listarPeliculas();
 	System.out.println("Que pelicula quieres reservas?");
 	id = sc.nextInt();
-	System.out.println("Numero de reservas: ");
-	reserva = sc.nextInt();
-	if (listaPeliculas.get(id).disponibilidad == true && listaPeliculas.get(id).cantidad_copias+reserva>listaPeliculas.get(id).reservas){
-	    System.out.println("Se ha reservado la pelicula: " + listaPeliculas.get(id).titulo);
-	    listaPeliculas.get(id).reservas=+reserva;
+	if (id < listaPeliculas.size()&& listaPeliculas.get(id).disponibilidad == true) {
+	    System.out.println("Numero de reservas: ");
+	    reserva = sc.nextInt();
+	    if (listaPeliculas.get(id).cantidad_copias >= listaPeliculas.get(id).reservas + reserva) {
+		System.out.println("Se ha reservado la pelicula: " + listaPeliculas.get(id).titulo);
+		listaPeliculas.get(id).reservas += reserva;
+	    } else {
+		System.out.println("No tenemos tantas copias de la pelicula, disculpe las molestias");
+	    }
+	    if(listaPeliculas.get(id).cantidad_copias == listaPeliculas.get(id).reservas){
+		listaPeliculas.get(id).disponibilidad = false;
+	    }
+	} else {
+	    System.out.println("No hay ninguna pelicula con esa id.");
 	}
-	else{
-	    System.out.println("No tenemos tantes copias de la pelicula, disculpe las molestias");
-	}
-	
     }
     public static void buscarPelicula(){
 	Scanner sc = new Scanner(System.in);
+	int iteracion = 0;
 	System.out.println("Que deseas buscar:");
 	System.out.println("1.Id:");
 	System.out.println("2. Titulo");
@@ -191,9 +200,9 @@ public Pelicula(Pelicula a) {
 	sc.nextLine();
 	switch (opcion) {
 	    case 1:
-		System.out.println("Introduce la id:");
+		System.out.println("Introduce la Id de la película:");
 		int id = sc.nextInt();
-		if (id < listaPeliculas.size()){
+		if (id < listaPeliculas.size()&& id>=0){
 		    System.out.println("--------------------------------------");
 		    System.out.println("Id: " + id);
 		    System.out.println("Titulo: " + listaPeliculas.get(id).titulo);
@@ -201,19 +210,19 @@ public Pelicula(Pelicula a) {
 		    System.out.println("Duración: " + listaPeliculas.get(id).duracion);
 		    System.out.println("Género: " + listaPeliculas.get(id).genero);
 		    System.out.println("Año: " + listaPeliculas.get(id).titulo);
+		    System.out.println("Estado: "+ (listaPeliculas.get(id).disponibilidad ? "Disponible" : "No disponible"));
 		    System.out.println("--------------------------------------");
-
 		}
 		else{
 		    System.out.println("No hay ninguna pelicula con esa ID.");
 		}
 		break;
 	    case 2:
-		System.out.println("Introduce titulo");
-		String titulo = sc.nextLine();
+		System.out.println("Introduce titulo:");
+		String btitulo = sc.nextLine();
 		for (int i = 0; i<listaPeliculas.size();i++)
 		{
-		    if (listaPeliculas.get(i).titulo.contains(titulo))
+		    if (listaPeliculas.get(i).titulo.contains(btitulo.toLowerCase()))
 		    {
 			System.out.println("--------------------------------------");
 			System.out.println("Id: "+i);
@@ -221,17 +230,21 @@ public Pelicula(Pelicula a) {
 			System.out.println("Director: "+listaPeliculas.get(i).director);
 			System.out.println("Duración: "+listaPeliculas.get(i).duracion);
 			System.out.println("Género: "+listaPeliculas.get(i).genero);
-			System.out.println("Año: "+listaPeliculas.get(i).titulo);
+			System.out.println("Año: "+listaPeliculas.get(i).año);
+			System.out.println("Estado: "+ (listaPeliculas.get(i).disponibilidad ? "Disponible" : "No disponible"));
 			System.out.println("--------------------------------------");
-		    }
+			iteracion++;
+		    }		    
 		}
+		if (iteracion>0)
+		    System.out.println("No se ha encontrado ninguna pelicula con ese titulo");
 		break;
 	    case 3: 
-		System.out.println("Introduce titulo");
-		titulo = sc.nextLine();
+		System.out.println("Introduce Director:");
+		String bdirector = sc.nextLine();
 		for (int i = 0; i<listaPeliculas.size();i++)
 		{
-		    if (listaPeliculas.get(i).titulo.contains(titulo))
+		    if (listaPeliculas.get(i).director.contains(bdirector))
 		    {
 			System.out.println("--------------------------------------");
 			System.out.println("Id: "+i);
@@ -239,10 +252,76 @@ public Pelicula(Pelicula a) {
 			System.out.println("Director: "+listaPeliculas.get(i).director);
 			System.out.println("Duración: "+listaPeliculas.get(i).duracion);
 			System.out.println("Género: "+listaPeliculas.get(i).genero);
-			System.out.println("Año: "+listaPeliculas.get(i).titulo);
+			System.out.println("Año: "+listaPeliculas.get(i).año);
+			System.out.println("Estado: "+ (listaPeliculas.get(i).disponibilidad ? "Disponible" : "No disponible"));
 			System.out.println("--------------------------------------");
 		    }
 		}
+		if (iteracion>0)
+		    System.out.println("No se ha encontrado ninguna pelicula con ese titulo");
+		break;
+	    case 4:
+		System.out.println("Introduce genero:");
+		String bgenero = sc.nextLine();
+		for (int i = 0; i<listaPeliculas.size();i++)
+		{
+		    if (listaPeliculas.get(i).genero.contains(bgenero))
+		    {
+			System.out.println("--------------------------------------");
+			System.out.println("Id: "+i);
+			System.out.println("Titulo: "+listaPeliculas.get(i).titulo);
+			System.out.println("Director: "+listaPeliculas.get(i).director);
+			System.out.println("Duración: "+listaPeliculas.get(i).duracion);
+			System.out.println("Género: "+listaPeliculas.get(i).genero);
+			System.out.println("Año: "+listaPeliculas.get(i).año);
+			System.out.println("Estado: "+ (listaPeliculas.get(i).disponibilidad ? "Disponible" : "No disponible"));
+			System.out.println("--------------------------------------");
+		    }
+		}
+		if (iteracion>0)
+		    System.out.println("No se ha encontrado ninguna pelicula con ese titulo");
+		break;
+	    case 5:
+		System.out.println("Introduce año:");
+		int baño = sc.nextInt();
+		for (int i = 0; i<listaPeliculas.size();i++)
+		{
+		    if (listaPeliculas.get(i).año==(baño))
+		    {
+			System.out.println("--------------------------------------");
+			System.out.println("Id: "+i);
+			System.out.println("Titulo: "+listaPeliculas.get(i).titulo);
+			System.out.println("Director: "+listaPeliculas.get(i).director);
+			System.out.println("Duración: "+listaPeliculas.get(i).duracion);
+			System.out.println("Género: "+listaPeliculas.get(i).genero);
+			System.out.println("Año: "+listaPeliculas.get(i).año);
+			System.out.println("Estado: "+ (listaPeliculas.get(i).disponibilidad ? "Disponible" : "No disponible"));
+			System.out.println("--------------------------------------");
+		    }
+		}
+		if (iteracion>0)
+		    System.out.println("No se ha encontrado ninguna pelicula con ese titulo");
+		break;
+	    case 6:
+		System.out.println("Introduce año:");
+		int bduracion = sc.nextInt();
+		for (int i = 0; i<listaPeliculas.size();i++)
+		{
+		    if (listaPeliculas.get(i).duracion==(bduracion))
+		    {
+			System.out.println("--------------------------------------");
+			System.out.println("Id: "+i);
+			System.out.println("Titulo: "+listaPeliculas.get(i).titulo);
+			System.out.println("Director: "+listaPeliculas.get(i).director);
+			System.out.println("Duración: "+listaPeliculas.get(i).duracion);
+			System.out.println("Género: "+listaPeliculas.get(i).genero);
+			System.out.println("Año: "+listaPeliculas.get(i).año);
+			System.out.println("Estado: "+ (listaPeliculas.get(i).disponibilidad ? "Disponible" : "No disponible"));
+			System.out.println("--------------------------------------");
+		    }
+		}
+		if (iteracion>0)
+		    System.out.println("No se ha encontrado ninguna pelicula con ese titulo");
 		break;
 	    default:
 		throw new AssertionError();
