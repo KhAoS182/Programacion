@@ -68,27 +68,41 @@ public class Tocado_y_hundido {
 	    System.out.println("");    
 	}
 	int x = ttablero, y= ttablero;
-	int[][] tablero = new int[x][y];
+	String[][] tablero = new String[x][y];
+	for (int i = 0; i < tablero.length; i++) {
+	    for (int j = 0; j < tablero.length; j++) {
+		tablero[i][j]="0 ";
+		
+	    }
+	    
+	}
 	dibujarTablero(tablero);
 	int tbarcos = ttablero-1;
 	int cbarcos = ttablero-2;
 	while (cbarcos >0){
 	sc.nextLine();
 	System.out.println("Donde quieres poner el barco, H o V");
-	
 	String opcion = sc.nextLine();
 	if (opcion.equals("h")|| opcion.equals("H")){
 	    System.out.println("Donde quieres colocar el barco");
 	    int posicion = sc.nextInt();
 	    if (posicion<tablero.length){
 	    for (int i = 0; i < tbarcos; i++) {
-		tablero[posicion-1][i]=1;
-		
+		tablero[posicion-1][i]="X ";
 	    }
 	    tbarcos--;
 	    cbarcos--;
-	    
-	}
+	    }	    
+	}else if(opcion.equals("v")|| opcion.equals("V")){
+	    System.out.println("Donde quieres colocar el barco");
+	    int posicion = sc.nextInt();
+	    if (posicion<tablero.length){
+	    for (int i = 0; i < tbarcos; i++) {
+		tablero[i][posicion-1]="X ";
+	    }
+	    tbarcos--;
+	    cbarcos--;
+	    }	  
 	}
 	else{
 	    System.out.println("Va a ser que nope crack");
@@ -117,7 +131,7 @@ public class Tocado_y_hundido {
 	
     }
     
-    static void dibujarTablero(int[][] tablero){//se que no deberia poner ñ
+    static void dibujarTablero(String[][] tablero){//se que no deberia poner ñ
 	System.out.println();
 	System.out.print("  ");
 	for (int i = 0; i < tablero.length; i++) {
