@@ -95,7 +95,7 @@ public class Tocado_y_hundido {
 	    if (tablero[posicion-1][i+(posicionv-1)].equals("X ")){
 		    System.out.println("Posicion invalida!");
 		    espaciot=false;
-		}
+		}   
 	    }
 	catch(Exception e){//Por ahora.
 	    System.out.println("algo ha salido mal");
