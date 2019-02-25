@@ -80,34 +80,58 @@ public class Tocado_y_hundido {
 	int tbarcos = ttablero-1;
 	int cbarcos = ttablero-2;
 	while (cbarcos >0){
+	boolean espaciot = true;
 	sc.nextLine();
 	System.out.println("Donde quieres poner el barco, H o V");
 	String opcion = sc.nextLine();
 	if (opcion.equals("h")|| opcion.equals("H")){
-	    System.out.println("Donde quieres colocar el barco");
+	    System.out.println("Donde quieres colocar el barco " + cbarcos + " " + tbarcos); //temporal
 	    int posicion = sc.nextInt();
+	    System.out.println("En que posicion vertical quieres ponerlo?");
+	    int posicionv = sc.nextInt();	    
 	    if (posicion<tablero.length){
-	    for (int i = 0; i < tbarcos; i++) {
-		tablero[posicion-1][i]="X ";
+	    for (int i = 0; i < tbarcos && espaciot==true; i++) {
+	try{
+	    if (tablero[posicion-1][i+(posicionv-1)].equals("X ")){
+		    System.out.println("Posicion invalida!");
+		    espaciot=false;
+		}
 	    }
-	    tbarcos--;
-	    cbarcos--;
+	catch(Exception e){//Por ahora.
+	    System.out.println("algo ha salido mal");
+	}
+	    }
+	    for (int i = 0; i < tbarcos && espaciot==true; i++) {
+		    tablero[posicion-1][i+(posicionv-1)]="X ";
+		}
 	    }	    
 	}else if(opcion.equals("v")|| opcion.equals("V")){
-	    System.out.println("Donde quieres colocar el barco");
+	    System.out.println("Donde quieres colocar el barco" + cbarcos + tbarcos);
 	    int posicion = sc.nextInt();
+	    System.out.println("En que posicion horizontal quieres ponerlo?");
+	    int posicionh = sc.nextInt();
 	    if (posicion<tablero.length){
-	    for (int i = 0; i < tbarcos; i++) {
-		tablero[i][posicion-1]="X ";
+	    for (int i = 0; i < tbarcos && espaciot == true; i++) {
+		if (tablero[i+(posicionh-1)][posicion-1].equals("X ")){
+		System.out.println("Psocion invalida!");
+		espaciot = false;
+		}	
 	    }
-	    tbarcos--;
-	    cbarcos--;
-	    }	  
+	    for (int i = 0; i < tbarcos && espaciot == true; i++) {
+		    tablero[i+(posicionh-1)][posicion-1]="X ";
+	    	 
+	    }
 	}
 	else{
 	    System.out.println("Va a ser que nope crack");
 	}
+	if (espaciot==true){
+	    tbarcos--;
+	    cbarcos--;
+	    }
+	}
 	dibujarTablero(tablero);
+	
 	}
 	/*while(cbarcos!=0){
 	System.out.println("Introduce un barco, Posicion horizontal (tamaño:"
