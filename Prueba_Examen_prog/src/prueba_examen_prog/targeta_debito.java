@@ -15,7 +15,16 @@ public class targeta_debito extends targeta{
     public targeta_debito() {
     }
 
+    public targeta_debito(String NIF, String nombre, String apellido, int PIN) {
+	super(NIF, nombre, apellido, PIN);
+    }
+
     public targeta_debito(int saldo_disponible) {
+	this.saldo_disponible = saldo_disponible;
+    }
+
+    public targeta_debito(int saldo_disponible, String NIF, String nombre, String apellido, int PIN) {
+	super(NIF, nombre, apellido, PIN);
 	this.saldo_disponible = saldo_disponible;
     }
 
@@ -26,5 +35,4 @@ public class targeta_debito extends targeta{
     public void setSaldo_disponible(int saldo_disponible) {
 	this.saldo_disponible = saldo_disponible;
     }
-    
 }

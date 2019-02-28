@@ -15,9 +15,19 @@ public class targeta_credit extends targeta {
     public targeta_credit() {
     }
 
-    public targeta_credit(int saldo, int credito) {
-	this.saldo_disponible = saldo;
-	this.credito_disponible = credito;
+    public targeta_credit(String NIF, String nombre, String apellido, int PIN) {
+	super(NIF, nombre, apellido, PIN);
+    }
+
+    public targeta_credit(int saldo_disponible, int credito_disponible) {
+	this.saldo_disponible = saldo_disponible;
+	this.credito_disponible = credito_disponible;
+    }
+
+    public targeta_credit(int saldo_disponible, int credito_disponible, String NIF, String nombre, String apellido, int PIN) {
+	super(NIF, nombre, apellido, PIN);
+	this.saldo_disponible = saldo_disponible;
+	this.credito_disponible = credito_disponible;
     }
 
     public int getSaldo_disponible() {
@@ -35,5 +45,4 @@ public class targeta_credit extends targeta {
     public void setCredito_disponible(int credito_disponible) {
 	this.credito_disponible = credito_disponible;
     }
-    
 }

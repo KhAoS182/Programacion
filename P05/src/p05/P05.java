@@ -15,7 +15,8 @@ public class P05 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-	// TODO code application logic here
+	Empleado e1 = new Empleado("pepe", "garcia", "trias", "34fd", 30, 200.0f);//la f te salva la vida crack
+	e1.mostrarAtributos();
     }
     
 }
