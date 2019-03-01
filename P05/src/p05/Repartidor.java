@@ -35,16 +35,15 @@ public class Repartidor extends Empleado {
 	return horas_trabajadas;
     }
 
-    @Override
     public void setHoras_trabajadas(int horas_trabajadas) {
 	this.horas_trabajadas = horas_trabajadas;
     }
 
-    @Override
+   
     public String getZona() {
 	return zona;
     }
-    @Override
+    
     public void setZona(String zona) {
 	this.zona = zona;
     }
@@ -71,33 +70,6 @@ public class Repartidor extends Empleado {
 	System.out.print("Zona: ");
 	zona = sc.nextLine();
 	horas_trabajadas = 0;
-	
-	
-	
     }
 
-    @Override
-    public int getVentas_realizadas() {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setVentas_realizadas(int i) {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public float getComision() {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setComision(float f) {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int getHoras_trabajadas(int i) {
-	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

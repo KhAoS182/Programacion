@@ -14,14 +14,14 @@ public abstract class Empleado {
     int edad;
     float salario;//f
     
-    public abstract int getVentas_realizadas();
+    /*public abstract int getVentas_realizadas();
     public abstract void setVentas_realizadas(int i);
     public abstract float getComision();
     public abstract void setComision(float f);
     public abstract void setHoras_trabajadas(int i);
     public abstract int getHoras_trabajadas(int i);
     public abstract String getZona();
-    public abstract void setZona(String z);
+    public abstract void setZona(String z);*/
     
     public Empleado() {
     }
@@ -48,7 +48,7 @@ public abstract class Empleado {
     }
 
     public void setNombre(String nombre) {
-	this.nombre = nombre;
+	this.nombre = capitalize(nombre);
     }
 
     public String getApellido1() {
@@ -109,7 +109,10 @@ public abstract class Empleado {
 	System.out.println("Salario: ");
 	salario = sc.nextInt();
 	sc.next();
-	
-	
+    }
+    public String capitalize(String s) {
+        if (s.length() == 0) return s;       
+	s = s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
+	return s;
     }
 }
