@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package p05;
-
+import java.util.Scanner;
+import java.util.ArrayList;
 /**
  *
  * @author Adrian
@@ -12,8 +13,8 @@ package p05;
 public class Empleado {
     String nombre, apellido1, apellido2, nif;
     int edad;
-    float salario;
-
+    float salario;//f
+    
     public Empleado() {
     }
 
@@ -63,7 +64,7 @@ public class Empleado {
     }
 
     public void setNif(String nif) {
-	this.nif = nif;
+	this.nif = nif.toUpperCase();
     }
 
     public int getEdad() {
@@ -83,5 +84,24 @@ public class Empleado {
     }
     public void mostrarAtributos(){
 	System.out.println("Nombre: " +nombre+" " + apellido1+ " " + apellido2 +"\nNIF: "+ nif+ "\nEdad: " + edad+ "\nSalario: " + salario);
+    }
+    public void pedirAlta(){
+	Scanner sc = new Scanner(System.in);
+	System.out.print("Nombre: ");
+	nombre = sc.nextLine();
+	System.out.println("Apellido: ");
+	apellido1 = sc.nextLine();
+	System.out.println("Segundo Apellido: ");
+	apellido2 = sc.nextLine();
+	System.out.println("NIF: ");
+	nif = sc.nextLine();
+	System.out.println("Edad: ");
+	edad = sc.nextInt();
+	sc.next();
+	System.out.println("Salario: ");
+	salario = sc.nextInt();
+	sc.next();
+	
+	
     }
 }
