@@ -5,15 +5,23 @@
  */
 package p05;
 import java.util.Scanner;
-import java.util.ArrayList;
 /**
  *
  * @author Adrian
  */
-public class Empleado {
+public abstract class Empleado {
     String nombre, apellido1, apellido2, nif;
     int edad;
     float salario;//f
+    
+    public abstract int getVentas_realizadas();
+    public abstract void setVentas_realizadas(int i);
+    public abstract float getComision();
+    public abstract void setComision(float f);
+    public abstract void setHoras_trabajadas(int i);
+    public abstract int getHoras_trabajadas(int i);
+    public abstract String getZona();
+    public abstract void setZona(String z);
     
     public Empleado() {
     }

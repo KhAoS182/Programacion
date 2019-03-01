@@ -35,14 +35,16 @@ public class Repartidor extends Empleado {
 	return horas_trabajadas;
     }
 
+    @Override
     public void setHoras_trabajadas(int horas_trabajadas) {
 	this.horas_trabajadas = horas_trabajadas;
     }
 
+    @Override
     public String getZona() {
 	return zona;
     }
-
+    @Override
     public void setZona(String zona) {
 	this.zona = zona;
     }
@@ -54,24 +56,48 @@ public class Repartidor extends Empleado {
 	Scanner sc = new Scanner(System.in);
 	System.out.print("Nombre: ");
 	nombre = sc.nextLine();
-	System.out.println("Apellido: ");
+	System.out.print("Apellido: ");
 	apellido1 = sc.nextLine();
-	System.out.println("Segundo Apellido: ");
+	System.out.print("Segundo Apellido: ");
 	apellido2 = sc.nextLine();
-	System.out.println("NIF: ");
+	System.out.print("NIF: ");
 	nif = sc.nextLine();
-	System.out.println("Edad: ");
+	System.out.print("Edad: ");
 	edad = sc.nextInt();
-	sc.next();
-	System.out.println("Salario: ");
+	sc.nextLine();
+	System.out.print("Salario: ");
 	salario = sc.nextInt();
-	sc.next();
-	System.out.println("Salario: ");
+	sc.nextLine();
+	System.out.print("Zona: ");
 	zona = sc.nextLine();
-	sc.next();
 	horas_trabajadas = 0;
 	
 	
 	
+    }
+
+    @Override
+    public int getVentas_realizadas() {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setVentas_realizadas(int i) {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public float getComision() {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setComision(float f) {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getHoras_trabajadas(int i) {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -36,18 +36,22 @@ public class Comercial extends Empleado {
 	this.comision = a.comision;
     }
 
+    @Override
     public int getVentas_realizadas() {
 	return ventas_realizadas;
     }
-
+    
+    @Override
     public void setVentas_realizadas(int ventas_realizadas) {
 	this.ventas_realizadas = ventas_realizadas;
     }
 
+    @Override
     public float getComision() {
 	return comision;
     }
 
+    @Override
     public void setComision(float comision) {
 	this.comision = comision;
     }
@@ -55,26 +59,48 @@ public class Comercial extends Empleado {
     public void mostrarAtributos (){
 	System.out.println("Nombre: " +nombre+" " + apellido1+ " " + apellido2 +"\nNIF: "+ nif+ "\nEdad: " + edad+ "\nSalario: " + salario + "\nVentas realizadas: " + ventas_realizadas + "\n Comision: "+ comision);
     }
+    @Override
     public void pedirAlta(){
 	Scanner sc = new Scanner(System.in);
 	System.out.print("Nombre: ");
 	nombre = sc.nextLine();
-	System.out.println("Apellido: ");
+	System.out.print("Apellido: ");
 	apellido1 = sc.nextLine();
-	System.out.println("Segundo Apellido: ");
+	System.out.print("Segundo Apellido: ");
 	apellido2 = sc.nextLine();
-	System.out.println("NIF: ");
+	System.out.print("NIF: ");
 	nif = sc.nextLine();
-	System.out.println("Edad: ");
+	System.out.print("Edad: ");
 	edad = sc.nextInt();
-	sc.next();
-	System.out.println("Salario: ");
+	sc.nextLine();
+	System.out.print("Salario: ");
 	salario = sc.nextInt();
-	sc.next();
-	System.out.println("Comision: ");
+	sc.nextLine();
+	System.out.print("Comision: ");
 	comision = sc.nextFloat();
-	sc.next();
+	sc.nextLine();
 	ventas_realizadas = 0;
 	
+	
+    }
+
+    @Override
+    public void setHoras_trabajadas(int i) {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getHoras_trabajadas(int i) {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getZona() {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setZona(String z) {
+	throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
