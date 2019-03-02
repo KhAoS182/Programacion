@@ -58,6 +58,7 @@ public class Tocado_y_hundido {
     static void inicializarJuego(){
 	Scanner sc = new Scanner(System.in);
 	String jugador1 , jugador2;
+	
 	System.out.println("¿Que tamaño quieres que tenga el tablero?");
 	int ttablero= sc.nextInt();
 	while (ttablero<5){
@@ -67,6 +68,9 @@ public class Tocado_y_hundido {
 	    ttablero= sc.nextInt();
 	    System.out.println("");    
 	}
+	int[] posicionbarcos1 = new int[(ttablero-2)*4];//guardar las posiciones de los barcos
+	int[] posicionbarcos2 = new int[(ttablero-2)*4];//0 numero de barco,1 tamaño barco, 2 posicion v,3 posicion h
+	int nbarco = 0;
 	int x = ttablero, y= ttablero;
 	String[][] tablero = new String[x][y];
 	for (int i = 0; i < tablero.length; i++) {
@@ -85,51 +89,49 @@ public class Tocado_y_hundido {
 	System.out.println("Donde quieres poner el barco, H o V");
 	String opcion = sc.nextLine();
 	if (opcion.equals("h")|| opcion.equals("H")){
-	    System.out.println("Donde quieres colocar el barco " + cbarcos + " " + tbarcos); //temporal
+	    System.out.println("Donde quieres colocar el barco?" + "Barcos por poner: " + cbarcos + " Tamaño del barco actual: "+ tbarcos); //temporal
 	    int posicion = sc.nextInt();
 	    System.out.println("En que posicion vertical quieres ponerlo?");
 	    int posicionv = sc.nextInt();	    
-	    if (posicion<tablero.length){
+	    if (posicion<tablero.length && posicionv<tablero.length){
 	    for (int i = 0; i < tbarcos && espaciot==true; i++) {
-	try{
 	    if (tablero[posicion-1][i+(posicionv-1)].equals("X ")){
 		    System.out.println("Posicion invalida!");
 		    espaciot=false;
 		}   
 	    }
-	catch(Exception e){//Por ahora.
-	    System.out.println("algo ha salido mal");
-	}
-	    }
-	    for (int i = 0; i < tbarcos && espaciot==true; i++) {
+	    for (int i = 0; i < tbarcos && espaciot==true; i++){
 		    tablero[posicion-1][i+(posicionv-1)]="X ";
-		}
+	    }
+		agregarBarco(espaciot,tbarcos,posicionbarcos1,nbarco,posicionv, posicion);
+	    
 	    }	    
 	}else if(opcion.equals("v")|| opcion.equals("V")){
-	    System.out.println("Donde quieres colocar el barco" + cbarcos + tbarcos);
+	    System.out.println("Donde quieres colocar el barco? Barcos por poner: " + cbarcos + " Tamaño del barco actual: "+ tbarcos);
 	    int posicion = sc.nextInt();
 	    System.out.println("En que posicion horizontal quieres ponerlo?");
 	    int posicionh = sc.nextInt();
 	    if (posicion<tablero.length){
 	    for (int i = 0; i < tbarcos && espaciot == true; i++) {
 		if (tablero[i+(posicionh-1)][posicion-1].equals("X ")){
-		System.out.println("Psocion invalida!");
+		System.out.println("Posicion invalida!");
 		espaciot = false;
 		}	
 	    }
-	    for (int i = 0; i < tbarcos && espaciot == true; i++) {
+	    for (int i = 0; i < tbarcos && espaciot == true; i++){
 		    tablero[i+(posicionh-1)][posicion-1]="X ";
-	    	 
 	    }
+	    agregarBarco(espaciot,tbarcos,posicionbarcos1,nbarco,posicion, posicionh);//lo guardamos en una array
+	}	
 	}
 	else{
-	    System.out.println("Va a ser que nope crack");
+	    System.out.println("Físicamente es posible, en este juego no tanto");
+	    espaciot=false;
 	}
 	if (espaciot==true){
 	    tbarcos--;
 	    cbarcos--;
 	    }
-	}
 	dibujarTablero(tablero);
 	
 	}
@@ -159,7 +161,7 @@ public class Tocado_y_hundido {
 	System.out.println();
 	System.out.print("  ");
 	for (int i = 0; i < tablero.length; i++) {
-	    System.out.print(i+1);
+	    System.out.print(i+1+" ");
 	}
 	System.out.print(" V\n");
 	for (int i = 0; i < tablero.length; i++) {
@@ -170,6 +172,15 @@ public class Tocado_y_hundido {
 	    System.out.println("");	
     }
 	System.out.println("H\n");
+    }
+    static void agregarBarco (boolean barco_disponible, int tamaño_barco, int[] posiciones_barcos, int numero_barco, int posicion_vertical, int posicion_horizontal){
+	if(barco_disponible==true){
+		posiciones_barcos[numero_barco] = numero_barco +1;
+		posiciones_barcos[numero_barco+1] = tamaño_barco;
+		posiciones_barcos[numero_barco+2] = posicion_vertical;
+		posiciones_barcos[numero_barco+3] = posicion_horizontal;
+		numero_barco += 4;
+	}
     }
 }
 
