@@ -93,7 +93,7 @@ public class Tocado_y_hundido {
 	    int posicion = sc.nextInt();
 	    System.out.println("En que posicion vertical quieres ponerlo?");
 	    int posicionv = sc.nextInt();	    
-	    if (posicion<tablero.length && posicionv<tablero.length){
+	    if (posicion<=tablero.length && posicionv<=tablero.length){
 	    for (int i = 0; i < tbarcos && espaciot==true; i++) {
 	    if (tablero[posicion-1][i+(posicionv-1)].equals("X ")){
 		    System.out.println("Posicion invalida!");
@@ -111,7 +111,7 @@ public class Tocado_y_hundido {
 	    int posicion = sc.nextInt();
 	    System.out.println("En que posicion horizontal quieres ponerlo?");
 	    int posicionh = sc.nextInt();
-	    if (posicion<tablero.length){
+	    if (posicion<=tablero.length && posicionh<=tablero.length){
 	    for (int i = 0; i < tbarcos && espaciot == true; i++) {
 		if (tablero[i+(posicionh-1)][posicion-1].equals("X ")){
 		System.out.println("Posicion invalida!");
