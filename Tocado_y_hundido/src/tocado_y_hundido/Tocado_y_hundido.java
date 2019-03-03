@@ -25,10 +25,6 @@ public class Tocado_y_hundido {
 	inicializarJuego(jugador);
 	jugador++;
 	inicializarJuego(jugador);
-	System.out.println("Tablero jugador 1");
-	dibujarTablero(tablero_jugador1);
-	System.out.println("Tablero jugador 2");
-	dibujarTablero(tablero_jugador2);
 	/*
 	while(menu==true){
 	   System.out.println("   M	   E	   N	   U	");
@@ -142,6 +138,7 @@ public class Tocado_y_hundido {
 	dibujarTablero(tablero);
 	
 	}
+	
 	/*while(cbarcos!=0){
 	System.out.println("Introduce un barco, Posicion horizontal (tamaño:"
 		+ tbarcos);
@@ -161,15 +158,23 @@ public class Tocado_y_hundido {
 	else{
 	    tablero_jugador2 = tablero;
 	    posiciones_barcosj2 = posicionbarcos;
+	    System.out.println("Tablero jugador 1");
+	    dibujarTablero(tablero_jugador1);
+	    System.out.println("Tablero jugador 2");
+	    dibujarTablero(tablero_jugador2);
+	    jugarFlota();
 	}
     }
 	
    
-    static void ponerBarcos(int barcos){
+    static void mostrarMenu(){
     
 }
     static void jugarFlota(){
-	
+	boolean menu = true;
+	while(!menu){
+	    
+	}
     }
     
     static void dibujarTablero(String[][] tablero){//se que no deberia poner ñ
@@ -204,5 +209,6 @@ public class Tocado_y_hundido {
 		numero_barco += 4;
 	}
     }
+  
 }
 
