@@ -16,6 +16,7 @@ public class Tocado_y_hundido {
    static String [][] tablero_jugador2;
    static int [] posiciones_barcosj1;
    static int [] posiciones_barcosj2;
+   static Scanner sc = new Scanner(System.in);
     /**
      * @param args the command line arguments
      */
@@ -25,42 +26,8 @@ public class Tocado_y_hundido {
 	inicializarJuego(jugador);
 	jugador++;
 	inicializarJuego(jugador);
-	/*
-	while(menu==true){
-	   System.out.println("   M	   E	   N	   U	");
-	   System.out.println("==================================");
-	   System.out.println("1. Opcion 1 - Añadir pelicula");
-           System.out.println("2. Opcion 2 - Reservar pelicula");
-           System.out.println("3. Opcion 3 - Lista de peliculas");
-           System.out.println("4. Opcion 4 - Buscar peliculas");            
-           System.out.println("5. Salir");
-	   System.out.println("==================================");  
-           System.out.println("Escribe una de las opciones");
-	   opcion= sc.nextInt();
-	    switch (opcion) {
-		case 1:	
-		    
-		    break;
-		case 2:
-		    
-		    break;
-		case 3:
-		    
-		    break;
-		case 4:
-		    
-		    break;
-		case 5:
-		    menu=false;
-		    break;
-		default:
-		    System.out.println("Te has equivocado colega");
-		    //throw new AssertionError("error brutal");
-		    break;
-	    }
+	
 	}
-*/
-    }
     static void inicializarJuego(int jugador){
 	Scanner sc = new Scanner(System.in);	
 	System.out.println("¿Que tamaño quieres que tenga el tablero?");
@@ -78,7 +45,7 @@ public class Tocado_y_hundido {
 	String[][] tablero = new String[x][y];
 	for (int i = 0; i < tablero.length; i++) {
 	    for (int j = 0; j < tablero.length; j++) {
-		tablero[i][j]="0 ";
+		tablero[i][j]="  ";
 		
 	    }
 	    
@@ -98,13 +65,13 @@ public class Tocado_y_hundido {
 	    int posicionv = sc.nextInt();	    
 	    if (posicion<=tablero.length && posicionv<=tablero.length){
 	    for (int i = 0; i < tbarcos && espaciot==true; i++) {
-	    if (tablero[posicion-1][i+(posicionv-1)].equals("X ")){
+	    if (tablero[posicion-1][i+(posicionv-1)].equals("# ")){
 		    System.out.println("Posicion invalida!");
 		    espaciot=false;//se encarga de verificar que no 'pisa' ningun barco
 		}   
 	    }
 	    for (int i = 0; i < tbarcos && espaciot==true; i++){
-		    tablero[posicion-1][i+(posicionv-1)]="X ";
+		    tablero[posicion-1][i+(posicionv-1)]="# ";
 	    }
 		agregarBarco(espaciot,tbarcos,posicionbarcos,nbarco,posicionv, posicion);
 	    
@@ -116,13 +83,13 @@ public class Tocado_y_hundido {
 	    int posicionh = sc.nextInt();
 	    if (posicion<=tablero.length && posicionh<=tablero.length){
 	    for (int i = 0; i < tbarcos && espaciot == true; i++) {
-		if (tablero[i+(posicionh-1)][posicion-1].equals("X ")){
+		if (tablero[i+(posicionh-1)][posicion-1].equals("# ")){
 		System.out.println("Posicion invalida!");
 		espaciot = false;
 		}	
 	    }
 	    for (int i = 0; i < tbarcos && espaciot == true; i++){
-		    tablero[i+(posicionh-1)][posicion-1]="X ";
+		    tablero[i+(posicionh-1)][posicion-1]="# ";
 	    }
 	    agregarBarco(espaciot,tbarcos,posicionbarcos,nbarco,posicion, posicionh);//lo guardamos en una array
 	}	
@@ -162,13 +129,38 @@ public class Tocado_y_hundido {
 	    dibujarTablero(tablero_jugador1);
 	    System.out.println("Tablero jugador 2");
 	    dibujarTablero(tablero_jugador2);
-	    jugarFlota();
+	   // jugarFlota();
 	}
     }
 	
    
     static void mostrarMenu(){
-    
+    System.out.println("----------Hundir la flota----------\n"
+	    +	       "1) Mostrar el tablero del contrincante\n"
+	    +	       "2) Mostrar mi tablero\n"
+	    +	       "3) Disparar cañones\n"
+	    +	       "4) Volver a jugar??");
+    int opcion = sc.nextInt();
+    boolean menu = false;
+    while (!menu){
+    switch (opcion) {
+	    case 1:
+		dibujarTablero(tablero_jugador2);
+		break;
+	    case 2:
+		dibujarTablero(tablero_jugador1);
+		break;
+	    case 3:
+		introducirTirada();
+		menu = false;
+		break;
+	    case 4:
+		menu = false;//???
+		break;
+	    default:
+		throw new AssertionError();
+	}
+    }
 }
     static void jugarFlota(){
 	boolean menu = true;
