@@ -14,6 +14,8 @@ import java.util.Scanner;
 public class Tocado_y_hundido {
    static String [][] tablero_jugador1;
    static String [][] tablero_jugador2;
+   static String [][] tablero_contrincante1;
+   static String [][] tablero_contrincante2;
    static int [] posiciones_barcosj1;
    static int [] posiciones_barcosj2;
    static Scanner sc = new Scanner(System.in);
@@ -39,13 +41,15 @@ public class Tocado_y_hundido {
 	    ttablero= sc.nextInt();
 	    System.out.println("");    
 	}
-	int[] posicionbarcos = new int[(ttablero-2)*4];//guardar las posiciones de los barcos 0 numero de barco,1 tamaño barco, 2 posicion v,3 posicion h
+	int[] posicionbarcos = new int[(ttablero-2)*5];//guardar las posiciones de los barcos 0 numero de barco,1 tamaño barco, 2 posicion v,3 posicion h , vidas
 	int nbarco = 0;
 	int x = ttablero, y= ttablero;
 	String[][] tablero = new String[x][y];
+	String[][] tablero_contrincante = new String[x][y];
 	for (int i = 0; i < tablero.length; i++) {
 	    for (int j = 0; j < tablero.length; j++) {
 		tablero[i][j]="  ";
+		tablero_contrincante[i][j]="  ";
 		
 	    }
 	    
@@ -56,7 +60,7 @@ public class Tocado_y_hundido {
 	while (cbarcos >0){
 	boolean espaciot = true;
 	sc.nextLine();
-	System.out.println("Donde quieres poner el barco, H o V");
+	System.out.println("Como quieres poner el barco, H o V");
 	String opcion = sc.nextLine();
 	if (opcion.equals("h")|| opcion.equals("H")){
 	    System.out.println("Donde quieres colocar el barco?" + "Barcos por poner: " + cbarcos + " Tamaño del barco actual: "+ tbarcos); //temporal
@@ -77,7 +81,7 @@ public class Tocado_y_hundido {
 	    
 	    }	    
 	}else if(opcion.equals("v")|| opcion.equals("V")){
-	    System.out.println("Donde quieres colocar el barco? Barcos por poner: " + cbarcos + " Tamaño del barco actual: "+ tbarcos);
+	    System.out.println("Como quieres colocar el barco? Barcos por poner: " + cbarcos + " Tamaño del barco actual: "+ tbarcos);
 	    int posicion = sc.nextInt();
 	    System.out.println("En que posicion horizontal quieres ponerlo?");
 	    int posicionh = sc.nextInt();
@@ -105,68 +109,74 @@ public class Tocado_y_hundido {
 	dibujarTablero(tablero);
 	
 	}
-	
-	/*while(cbarcos!=0){
-	System.out.println("Introduce un barco, Posicion horizontal (tamaño:"
-		+ tbarcos);
-	int opcionh = sc.nextInt();
-	System.out.println("Introduce un barco, Posicion vertical (tamaño:"
-		+ tbarcos);
-	int opcionv = sc.nextInt();
-	for (int i = tbarcos;i<1;i--)
-	    tablero[opcionh][opcionv-i] = 1;
-	}
-	cbarcos--;
-	dibujarTablero(tablero);*/
 	if (jugador <=0){
 	    tablero_jugador1 = tablero;
 	    posiciones_barcosj1 = posicionbarcos;
+	    tablero_contrincante1 = tablero_contrincante;
 	}
 	else{
 	    tablero_jugador2 = tablero;
 	    posiciones_barcosj2 = posicionbarcos;
+	    tablero_contrincante2 = tablero_contrincante;
 	    System.out.println("Tablero jugador 1");
 	    dibujarTablero(tablero_jugador1);
 	    System.out.println("Tablero jugador 2");
-	    dibujarTablero(tablero_jugador2);
-	   // jugarFlota();
+	    dibujarTablero(tablero_jugador2); 
+	    jugarFlota(ttablero-2);
 	}
+	
     }
 	
    
-    static void mostrarMenu(){
+    static void mostrarMenu(int jugador){
+	System.out.println("Jugador:" + jugador);
     System.out.println("----------Hundir la flota----------\n"
 	    +	       "1) Mostrar el tablero del contrincante\n"
 	    +	       "2) Mostrar mi tablero\n"
 	    +	       "3) Disparar cañones\n"
 	    +	       "4) Volver a jugar??");
-    int opcion = sc.nextInt();
-    boolean menu = false;
-    while (!menu){
-    switch (opcion) {
-	    case 1:
-		dibujarTablero(tablero_jugador2);
-		break;
-	    case 2:
-		dibujarTablero(tablero_jugador1);
-		break;
-	    case 3:
-		introducirTirada();
-		menu = false;
-		break;
-	    case 4:
-		menu = false;//???
-		break;
-	    default:
-		throw new AssertionError();
-	}
-    }
+    
 }
-    static void jugarFlota(){
-	boolean menu = true;
-	while(!menu){
-	    
-	}
+    static void jugarFlota(int cantidad_barcos){
+	int barcos_jugador1 = cantidad_barcos;
+	int barcos_jugador2 = cantidad_barcos;
+	int jugador = 0;
+	while (barcos_jugador1!=0 || barcos_jugador2!=0){
+	    jugador++;
+	    mostrarMenu(jugador);
+	    int opcion = sc.nextInt();
+	    boolean menu = false;
+	    while (!menu){
+		switch (opcion) {
+		    case 1:
+			if (jugador==1)
+			    dibujarTablero(tablero_contrincante2);
+			else
+			    dibujarTablero(tablero_contrincante1);
+			break;
+		    case 2:
+			if (jugador ==1)
+			dibujarTablero(tablero_jugador1);
+			else
+			dibujarTablero(tablero_jugador2);   
+			break;
+		    case 3:
+			if (jugador==1)
+			introducirTirada(tablero_jugador2, tablero_contrincante1);
+			else
+			 introducirTirada(tablero_jugador1, tablero_contrincante2);  
+			menu = false;
+			break;
+		    case 4:
+			menu = false;//???
+			break;
+		    default:
+			throw new AssertionError();
+		}
+		if (jugador==2)
+		    jugador=0;
+	}	
+    }
     }
     
     static void dibujarTablero(String[][] tablero){//se que no deberia poner ñ
@@ -196,11 +206,25 @@ public class Tocado_y_hundido {
 	if(barco_disponible==true){
 		posiciones_barcos[numero_barco] = numero_barco +1;
 		posiciones_barcos[numero_barco+1] = tamaño_barco;
-		posiciones_barcos[numero_barco+2] = posicion_vertical;
+		posiciones_barcos[numero_barco+2] = posicion_vertical;//creo que esta al reves 
 		posiciones_barcos[numero_barco+3] = posicion_horizontal;
-		numero_barco += 4;
+		posiciones_barcos[numero_barco+4] = tamaño_barco;//vidas
+		numero_barco += 5;
 	}
     }
-  
+    static void introducirTirada(String [][] tablero_jugador, String [][] tablero_contricante){
+	System.out.println("Introduce posiciones h y v");
+	int x= sc.nextInt();
+	int y= sc.nextInt();
+	if (y<=tablero_jugador.length && x <=tablero_jugador.length){
+	    if (tablero_jugador[x+1][y+1].contentEquals("# ")){
+		System.out.println("tocado!");
+		tablero_contricante[x+1][y+1] = ("X ");
+	    }
+	    else{
+		tablero_contricante[x+1][y+1] = ("0 ");
+	    }
+	}
+    }
 }
 
