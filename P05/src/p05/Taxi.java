@@ -43,13 +43,14 @@ public class Taxi extends Vehiculo {
     public void setEstado(boolean estado) {
 	this.estado = estado;
     }
-    public void mostrarVehiculo(){
-	System.out.println("Autobús " + id);
-	System.out.println("Plazas :"+ matricula );
-	System.out.println("Plazas :"+ modelo);
-	System.out.println("Plazas :"+ potencia);
-	System.out.println("Plazas :"+ Licencia);
-	System.out.println("Paradas :"+ num_Taxista_Licencia);
+    public void mostrarAtributos(){
+	System.out.println("Taxi " + id);
+	System.out.println("Matricula :"+ matricula);
+	System.out.println("Modelo :"+ modelo);
+	System.out.println("Potencia :"+ potencia);
+	System.out.println("Licencia :"+ Licencia);
+	System.out.println("Numero de taxista :"+ num_Taxista_Licencia);
+	System.out.println("Estado: "+ estado);
 	
     }
 }

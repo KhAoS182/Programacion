@@ -40,12 +40,12 @@ public class Autobus extends Vehiculo {
     public void setParadas(int[] paradas) {
 	this.paradas = paradas;
     }
-    public void mostrarVehiculo(){
+    public void mostrarAtributos(){
 	System.out.println("Autobús " + id);
-	System.out.println("Plazas :"+ matricula );
-	System.out.println("Plazas :"+ modelo);
-	System.out.println("Plazas :"+ potencia);
+	System.out.println("Matricula :"+ matricula );
+	System.out.println("Modelo :"+ modelo);
+	System.out.println("Potencia :"+ potencia);
 	System.out.println("Plazas :"+ plazas);
-	System.out.println("Paradas :"+ paradas);
+	System.out.println("Paradas : "+ paradas);
     }
 }

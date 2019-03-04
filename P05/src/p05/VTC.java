@@ -44,4 +44,14 @@ public class VTC extends Vehiculo{
     public void setCiudad(String ciudad) {
 	this.ciudad = ciudad;
     }
+     public void mostrarAtributos(){
+	System.out.println("VTC " + id);
+	System.out.println("Matricula :"+ matricula);
+	System.out.println("Modelo :"+ modelo);
+	System.out.println("Potencia :"+ potencia);
+	System.out.println("Máximo de horas trabajadas :"+ maximo_horas_trabajadas);
+	System.out.println("Radio de km :"+ radiokm);
+	System.out.println("Ciudad: "+ ciudad);
+	
+    }
 }
