@@ -149,15 +149,14 @@ public class Tocado_y_hundido {
 	    +	       "1) Mostrar el tablero del contrincante\n"
 	    +	       "2) Mostrar mi tablero\n"
 	    +	       "3) Disparar cañones\n"
-	    +	       "4) Volver a jugar??");
+	    +	       "4) Pasar turno");
     
 }
     static void jugarFlota(int cantidad_barcos){
 	int barcos_jugador1 = cantidad_barcos;
 	int barcos_jugador2 = cantidad_barcos;
-	int jugador = 0;
-	while (barcos_jugador1!=0 || barcos_jugador2!=0){
-	    jugador++;   	    
+	int jugador = 1;
+	while (barcos_jugador1!=0 || barcos_jugador2!=0){  	    
 	    boolean menu = true;
 	    while (menu==true){
 		mostrarMenu(jugador);
@@ -177,23 +176,23 @@ public class Tocado_y_hundido {
 			break;
 		    case 3:
 			if (jugador==1){
-			introducirTirada(tablero_jugador2, tablero_contrincante1,tablero_jugador1);
+			introducirTirada(tablero_jugador2, tablero_contrincante2,tablero_jugador2);
 			menu = false;
 			}
 			else
-			 introducirTirada(tablero_jugador1, tablero_contrincante2,tablero_jugador2);  
+			 introducirTirada(tablero_jugador1, tablero_contrincante1,tablero_jugador1);  
 			menu = false;
 			break;
 		    case 4:
 			menu = false;//???
 			break;
 		    default:
-			throw new AssertionError();
+			System.out.println("Vuelve a intentarlo.");
 		}
 		
 		 	
 	}
-	    if (jugador==2)jugador=0;
+	jugador = 1 - (jugador - 1) + 1;
     }
     }
     
@@ -230,7 +229,7 @@ public class Tocado_y_hundido {
 		numero_barco += 5;
 	}
     }
-    static void introducirTirada(String [][] tablero_jugador, String [][] tablero_contricante, String [][] tablero_jugador2){
+    static void introducirTirada(String [][] tablero_jugador, String [][] tablero_contricante, String [][] tablero_j2){
 	System.out.println("\nIntroduce posiciones h y v");
 	int x= sc.nextInt();
 	int y= sc.nextInt();
@@ -239,11 +238,14 @@ public class Tocado_y_hundido {
 		
 		System.out.println("tocado!");
 		tablero_contricante[x-1][y-1] = ("X ");
-		tablero_jugador2[x-1][y-1] = ("X ");
+		tablero_j2[x-1][y-1] = ("0 ");
+		tablero_jugador2 = tablero_j2;
 	    }
 	    else{
 		tablero_contricante[x-1][y-1] = ("0 ");
-		tablero_jugador2[x-1][y-1] = ("X ");
+		tablero_j2[x-1][y-1] = ("X ");
+		tablero_jugador2 = tablero_j2;
+		
 		System.out.println("No hemos tocado ningun barco!");
 	    }
 	}
