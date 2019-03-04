@@ -155,7 +155,7 @@ public class Tocado_y_hundido {
 	int jugador = 1;
 	while (barcosj1 == true && barcosj2 == true) {
 	    boolean menu = true;
-	    while (menu == true) {
+	    while (menu == true && barcosj1 == true && barcosj2 == true) {
 		mostrarMenu(jugador, barcosj1, barcosj2);
 		int opcion = sc.nextInt();
 		switch (opcion) {
@@ -176,9 +176,10 @@ public class Tocado_y_hundido {
 		    case 3:
 			if (jugador == 1) {
 			    introducirTirada(tablero_jugador2, tablero_contrincante2, tablero_jugador2);
-			    menu = false;
+			    
 			} else {
 			    introducirTirada(tablero_jugador1, tablero_contrincante1, tablero_jugador1);
+			    
 			}
 			menu = false;
 			break;
@@ -264,7 +265,7 @@ public class Tocado_y_hundido {
 	    }
 
 	}
-	if (casillasbarcosj1 <= 0) {
+	if (casillasbarcosj1 == 0) {
 	    barcosj1 = false;
 	}
 	for (int i = 0; i < tablero_jugador2.length; i++) {
@@ -275,7 +276,7 @@ public class Tocado_y_hundido {
 	    }
 
 	}
-	if (casillasbarcosj2 <= 0) {
+	if (casillasbarcosj2 == 0) {
 	    barcosj2 = false;
 	}
     }
