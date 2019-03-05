@@ -9,8 +9,8 @@ package prueba_examen_prog;
  *
  * @author Adrian
  */
-public class targeta {
-    String NIF, nombre, apellido;
+public abstract class targeta {
+    private String NIF, nombre, apellido;
     int PIN;
 
     public targeta() {
@@ -21,6 +21,12 @@ public class targeta {
 	this.nombre = nombre;
 	this.apellido = apellido;
 	this.PIN = PIN;
+    }
+     public targeta(targeta t) {
+	this.NIF = t.NIF;
+	this.nombre = t.nombre;
+	this.apellido = t.apellido;
+	this.PIN = t.PIN;
     }
 
     public String getNIF() {
@@ -54,5 +60,10 @@ public class targeta {
     public void setPIN(int PIN) {
 	this.PIN = PIN;
     }
-    
+    protected void mostrarTargeta(){
+	System.out.println("Nombre: " + this.nombre + " " + this.apellido);
+	System.out.println("NIF: " + this.NIF);
+    }
+    abstract int getSaldoTotal();//hay que probarlo
+    abstract void setSaldoTotal(int importe);
 }

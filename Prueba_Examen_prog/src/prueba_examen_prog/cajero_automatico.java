@@ -5,14 +5,16 @@
  */
 package prueba_examen_prog;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Adrian
  */
 public class cajero_automatico {
-    int id_cajero_ult, id_cajero;
+    int id_cajero_ult, id_cajero, total;
     static int[][] billetes;
-    String [] targeta = new String [100];
+    ArrayList<targeta> lista_targeta = new ArrayList<>();
 
     public cajero_automatico() {
     }
@@ -45,21 +47,14 @@ public class cajero_automatico {
     public void setBilletes(int[][] billetes) {
 	this.billetes = billetes;
     }
-
-    public String[] getTargeta() {
-	return targeta;
-    }
-
-    public void setTargeta(String[] targeta) {
-	this.targeta = targeta;
-    }
-    public static void mostrar_cajero (){
-	for (int x = 0; x < (billetes.length/2)-1; x++) {
-	    for (int y = 0; y < billetes[x].length; y++) {
-		System.out.println(billetes[x][y] + " " + billetes[billetes.length-x][y]);
-	    }
-}
-	    
-	}
+    public void mostrar_cajero (){
+	System.out.println("Cajero: " + this.id_cajero);
+        System.out.println("Carga de billetes:");
+        for (int i = 0; i < this.billetes.length; i++) {
+            System.out.println(this.billetes[i][1] + " billetes de " + this.billetes[i][0] + "€");
+        }
+        System.out.println("TOTAL: " + this.total);
+        System.out.println("=================================");
  
+}
 }

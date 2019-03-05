@@ -10,7 +10,7 @@ package prueba_examen_prog;
  * @author Adrian
  */
 public class targeta_credit extends targeta {
-    int saldo_disponible, credito_disponible;
+    int saldo, credito;
 
     public targeta_credit() {
     }
@@ -20,29 +20,52 @@ public class targeta_credit extends targeta {
     }
 
     public targeta_credit(int saldo_disponible, int credito_disponible) {
-	this.saldo_disponible = saldo_disponible;
-	this.credito_disponible = credito_disponible;
+	this.saldo = saldo_disponible;
+	this.credito = credito_disponible;
     }
 
     public targeta_credit(int saldo_disponible, int credito_disponible, String NIF, String nombre, String apellido, int PIN) {
 	super(NIF, nombre, apellido, PIN);
-	this.saldo_disponible = saldo_disponible;
-	this.credito_disponible = credito_disponible;
+	this.saldo = saldo_disponible;
+	this.credito = credito_disponible;
     }
 
-    public int getSaldo_disponible() {
-	return saldo_disponible;
+    public int getSaldo() {
+	return saldo;
     }
 
-    public void setSaldo_disponible(int saldo_disponible) {
-	this.saldo_disponible = saldo_disponible;
+    public void setSaldo(int saldo) {
+	this.saldo = saldo;
     }
 
-    public int getCredito_disponible() {
-	return credito_disponible;
+    public int getCredito() {
+	return credito;
     }
 
-    public void setCredito_disponible(int credito_disponible) {
-	this.credito_disponible = credito_disponible;
+    public void setCredito(int credito) {
+	this.credito = credito;
+    }
+    @Override
+    protected void mostrarTargeta(){
+	super.mostrarTargeta();
+	System.out.println("Targeta de credito:");
+	System.out.println("Saldo: " + this.saldo);
+	System.out.println("Credito: " + this.credito);
+	System.out.println();
+    }
+    @Override
+    public int getSaldoTotal() {
+        return this.getSaldo() + this.getCredito();
+    }
+
+    @Override
+    public void setSaldoTotal(int importe) {
+        if (this.getCredito() - importe >= 0) {
+            this.setCredito(this.getCredito()-importe);
+        } else {
+            importe -= this.getCredito();
+            this.setCredito(0);
+            this.setSaldo(this.getSaldo()-importe);
+        }
     }
 }
