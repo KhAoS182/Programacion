@@ -5,6 +5,9 @@
  */
 package p05;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 /**
  *
  * @author Adrian
@@ -12,6 +15,7 @@ package p05;
 public abstract class Vehiculo {
     int id, potencia;
     String matricula, modelo;
+    protected static int ultimo_id = 1;
 
     public Vehiculo(int id, int potencia, String matricula, String modelo) {
 	this.id = id;
@@ -54,4 +58,31 @@ public abstract class Vehiculo {
     public void setModelo(String modelo) {
 	this.modelo = modelo;
     }
+    public void mostrarAtributos(){
+	System.out.println(id);
+	System.out.println("Matricula :"+ matricula );
+	System.out.println("Modelo :"+ modelo);
+	System.out.println("Potencia :"+ potencia);
+    }
+    public void pedirAlta() {
+        Scanner sc = new Scanner(System.in);
+        this.id = ultimo_id++;
+        System.out.println("Introduce la matrícula: ");
+        this.setMatricula(sc.next());
+        System.out.println("Introduce el modelo: ");
+        this.setModelo(sc.next());
+        System.out.println("Introduce la potencia: ");
+        this.setPotencia(sc.nextInt());
+    }
+    public static void buscarID(ArrayList<Vehiculo> lista){
+	Scanner sc = new Scanner(System.in);
+    System.out.println("Dime la id del vehiculo");
+    int id = sc.nextInt();
+    if (id>=0 && id<lista.size()){
+	lista.get(id).mostrarAtributos();
+    }
+    else{
+	System.out.println("No existe ningun vehiculo con esa id");
+    }
+}
 }

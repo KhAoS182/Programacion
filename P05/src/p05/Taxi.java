@@ -5,27 +5,40 @@
  */
 package p05;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Adrian
  */
 public class Taxi extends Vehiculo {
-    int Licencia, num_Taxista_Licencia;
+    int licencia, num_Taxista_Licencia;
     boolean estado;
-
-    public Taxi(int id, int potencia, String matricula, String modelo) {
-	super(id, potencia, matricula, modelo);
-    }
 
     public Taxi() {
     }
 
-    public int getLicencia() {
-	return Licencia;
+    public Taxi(int licencia, int num_Taxista_Licencia, boolean estado, int id, int potencia, String matricula, String modelo) {
+	super(id, potencia, matricula, modelo);
+	this.licencia = licencia;
+	this.num_Taxista_Licencia = num_Taxista_Licencia;
+	this.estado = estado;
     }
 
-    public void setLicencia(int Licencia) {
-	this.Licencia = Licencia;
+    public Taxi(int licencia, int num_Taxista_Licencia, boolean estado) {
+	this.licencia = licencia;
+	this.num_Taxista_Licencia = num_Taxista_Licencia;
+	this.estado = estado;
+    }
+
+    
+
+    public int getLicencia() {
+	return licencia;
+    }
+
+    public void setLicencia(int licencia) {
+	this.licencia = licencia;
     }
 
     public int getNum_Taxista_Licencia() {
@@ -43,14 +56,21 @@ public class Taxi extends Vehiculo {
     public void setEstado(boolean estado) {
 	this.estado = estado;
     }
+    @Override
     public void mostrarAtributos(){
-	System.out.println("Taxi " + id);
-	System.out.println("Matricula :"+ matricula);
-	System.out.println("Modelo :"+ modelo);
-	System.out.println("Potencia :"+ potencia);
-	System.out.println("Licencia :"+ Licencia);
+	System.out.print ("Taxi ");
+	super.mostrarAtributos();
 	System.out.println("Numero de taxista :"+ num_Taxista_Licencia);
 	System.out.println("Estado: "+ estado);
 	
+    }
+    @Override
+    public void pedirAlta(){
+	Scanner sc = new Scanner(System.in);
+	super.pedirAlta();
+	System.out.println("nº de Licencia: ");
+	this.setNum_Taxista_Licencia(sc.nextInt());
+	System.out.println("Estado: Disponible ");
+	this.setEstado(true);
     }
 }

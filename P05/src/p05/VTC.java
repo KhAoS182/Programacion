@@ -14,12 +14,23 @@ public class VTC extends Vehiculo{
     int radiokm;
     String ciudad;
 
-    public VTC(int id, int potencia, String matricula, String modelo) {
-	super(id, potencia, matricula, modelo);
-    }
-
     public VTC() {
     }
+
+    public VTC(int maximo_horas_trabajadas, int radiokm, String ciudad, int id, int potencia, String matricula, String modelo) {
+	super(id, potencia, matricula, modelo);
+	this.maximo_horas_trabajadas = maximo_horas_trabajadas;
+	this.radiokm = radiokm;
+	this.ciudad = ciudad;
+    }
+
+    public VTC(int maximo_horas_trabajadas, int radiokm, String ciudad) {
+	this.maximo_horas_trabajadas = maximo_horas_trabajadas;
+	this.radiokm = radiokm;
+	this.ciudad = ciudad;
+    }
+
+
 
     public int getMaximo_horas_trabajadas() {
 	return maximo_horas_trabajadas;
@@ -44,11 +55,10 @@ public class VTC extends Vehiculo{
     public void setCiudad(String ciudad) {
 	this.ciudad = ciudad;
     }
+    @Override
      public void mostrarAtributos(){
-	System.out.println("VTC " + id);
-	System.out.println("Matricula :"+ matricula);
-	System.out.println("Modelo :"+ modelo);
-	System.out.println("Potencia :"+ potencia);
+	 System.out.print("VTC ");
+	super.mostrarAtributos();
 	System.out.println("Máximo de horas trabajadas :"+ maximo_horas_trabajadas);
 	System.out.println("Radio de km :"+ radiokm);
 	System.out.println("Ciudad: "+ ciudad);

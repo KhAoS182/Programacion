@@ -96,7 +96,7 @@ public abstract class Empleado {
     public void pedirAlta(){
 	Scanner sc = new Scanner(System.in);
 	System.out.print("Nombre: ");
-	nombre = sc.nextLine();
+	setNombre(sc.nextLine());
 	System.out.println("Apellido: ");
 	apellido1 = sc.nextLine();
 	System.out.println("Segundo Apellido: ");
