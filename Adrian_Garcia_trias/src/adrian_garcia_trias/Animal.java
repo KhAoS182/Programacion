@@ -82,4 +82,5 @@ public abstract class Animal {
        return x;
     }
     abstract void mostrarContador();
+    public abstract int  ordenarAvesVuelo();
 }

@@ -67,9 +67,8 @@ public class Tocado_y_hundido {
 		System.out.println("Como quieres poner el barco, H o V");
 		String opcion = sc.nextLine();
 		if (opcion.equals("h") || opcion.equals("H")) {
-		    System.out.println("Donde quieres colocar el barco?" + "Barcos por poner: " + cbarcos + " Tamaño del barco actual: " + tbarcos); //temporal
+		    System.out.println("Donde quieres colocar el barco?" + "Barcos por poner: " + cbarcos + " Tamaño del barco actual: " + tbarcos + "Posicion h, v"); //temporal
 		    int posicion = sc.nextInt();
-		    System.out.println("En que posicion vertical quieres ponerlo?");
 		    int posicionv = sc.nextInt();
 
 		    if (posicion <= tablero.length && posicionv <= tablero.length) {
@@ -89,9 +88,8 @@ public class Tocado_y_hundido {
 			espaciot = false;
 		    }
 		} else if (opcion.equals("v") || opcion.equals("V")) {
-		    System.out.println("Como quieres colocar el barco? Barcos por poner: " + cbarcos + " Tamaño del barco actual: " + tbarcos);
+		    System.out.println("Como quieres colocar el barco? Barcos por poner: " + cbarcos + " Tamaño del barco actual: " + tbarcos + "Posicion h, v");
 		    int posicion = sc.nextInt();
-		    System.out.println("En que posicion horizontal quieres ponerlo?");
 		    int posicionh = sc.nextInt();
 		    if (posicion <= tablero.length && posicionh <= tablero.length) {
 			for (int i = 0; i < tbarcos && espaciot == true; i++) {
@@ -141,6 +139,10 @@ public class Tocado_y_hundido {
 
     static void mostrarMenu(int jugador, boolean barcosj1, boolean barcosj2) {
 	verificarganador(barcosj1, barcosj2);
+	if(barcosj1==false || barcosj2==false){
+	    return;
+	}
+	else{
 	System.out.println("\nJugador:" + jugador);
 	System.out.println("----------Hundir la flota----------\n"
 		+ "1) Mostrar el tablero del contrincante\n"
@@ -149,7 +151,7 @@ public class Tocado_y_hundido {
 		+ "4) Pasar turno");
 
     }
-
+    }
     static void jugarFlota(int cantidad_barcos) {
 	boolean barcosj1 = true, barcosj2 = true;
 	int jugador = 1;
@@ -195,7 +197,7 @@ public class Tocado_y_hundido {
 	}
 	if (barcosj1 == false) {
 	    System.out.println("Ha ganado el jugador 2!");
-	} else {
+	} else if(barcosj1 == false){
 	    System.out.println("Ha ganado el jugador 1!");
 	}
     }
@@ -257,8 +259,8 @@ public class Tocado_y_hundido {
 
     static void verificarganador(boolean barcosj1, boolean barcosj2) {
 	int casillasbarcosj1 = 0, casillasbarcosj2 = 0;
-	for (int i = 0; i < tablero_jugador1.length; i++) {
-	    for (int j = 0; j < tablero_jugador1[i].length; j++) {
+	for (int i = 0; i < tablero_jugador1.length && casillasbarcosj1==0; i++) {
+	    for (int j = 0; j < tablero_jugador1[i].length && casillasbarcosj1==0; j++) {
 		if (tablero_jugador1[i][j].equals("# ")) {
 		    casillasbarcosj1++;
 		}
@@ -268,8 +270,8 @@ public class Tocado_y_hundido {
 	if (casillasbarcosj1 == 0) {
 	    barcosj1 = false;
 	}
-	for (int i = 0; i < tablero_jugador2.length; i++) {
-	    for (int j = 0; j < tablero_jugador2[i].length; j++) {
+	for (int i = 0; i < tablero_jugador2.length && casillasbarcosj2==0; i++) {
+	    for (int j = 0; j < tablero_jugador2[i].length && casillasbarcosj2==0; j++) {
 		if (tablero_jugador2[i][j].equals("# ")) {
 		    casillasbarcosj2++;
 		}

@@ -93,4 +93,10 @@ public class Ave extends Animal {
 	return x;
 	
     }
+
+    @Override
+    public int ordenarAvesVuelo() {
+	int x = this.longitud_vuelo;
+	return x;
+    }
 }
