@@ -19,6 +19,7 @@ public class Tocado_y_hundido {
     static String[][] tablero_contrincante2;
     static int[] posiciones_barcosj1;
     static int[] posiciones_barcosj2;
+    static boolean jugador1 = true, jugador2 = true;
     static Scanner sc = new Scanner(System.in);
 
     /**
@@ -137,10 +138,10 @@ public class Tocado_y_hundido {
 	}
     }
 
-    static void mostrarMenu(int jugador, boolean barcosj1, boolean barcosj2) {
-	verificarganador(barcosj1, barcosj2);
-	if(barcosj1==false || barcosj2==false){
-	    return;
+    static void mostrarMenu(int jugador) {
+	verificarganador();
+	if(jugador1==false || jugador2==false){
+	   
 	}
 	else{
 	System.out.println("\nJugador:" + jugador);
@@ -158,7 +159,7 @@ public class Tocado_y_hundido {
 	while (barcosj1 == true && barcosj2 == true) {
 	    boolean menu = true;
 	    while (menu == true && barcosj1 == true && barcosj2 == true) {
-		mostrarMenu(jugador, barcosj1, barcosj2);
+		mostrarMenu(jugador);
 		int opcion = sc.nextInt();
 		switch (opcion) {
 		    case 1:
@@ -246,18 +247,16 @@ public class Tocado_y_hundido {
 		System.out.println("tocado!");
 		tablero_contricante[x - 1][y - 1] = ("X ");
 		tablero_j2[x - 1][y - 1] = ("X ");
-		tablero_jugador2 = tablero_j2;
 	    } else {
 		tablero_contricante[x - 1][y - 1] = ("0 ");
 		tablero_j2[x - 1][y - 1] = ("0 ");
-		tablero_jugador2 = tablero_j2;
 
 		System.out.println("No hemos tocado ningun barco!");
 	    }
 	}
     }
 
-    static void verificarganador(boolean barcosj1, boolean barcosj2) {
+    static void verificarganador() {
 	int casillasbarcosj1 = 0, casillasbarcosj2 = 0;
 	for (int i = 0; i < tablero_jugador1.length && casillasbarcosj1==0; i++) {
 	    for (int j = 0; j < tablero_jugador1[i].length && casillasbarcosj1==0; j++) {
@@ -268,7 +267,7 @@ public class Tocado_y_hundido {
 
 	}
 	if (casillasbarcosj1 == 0) {
-	    barcosj1 = false;
+	    jugador1 = false;
 	}
 	for (int i = 0; i < tablero_jugador2.length && casillasbarcosj2==0; i++) {
 	    for (int j = 0; j < tablero_jugador2[i].length && casillasbarcosj2==0; j++) {
@@ -279,7 +278,7 @@ public class Tocado_y_hundido {
 
 	}
 	if (casillasbarcosj2 == 0) {
-	    barcosj2 = false;
+	   jugador2 = false;
 	}
     }
 }
