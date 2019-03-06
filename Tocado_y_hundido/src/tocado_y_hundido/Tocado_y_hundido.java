@@ -139,7 +139,6 @@ public class Tocado_y_hundido {
     }
 
     static void mostrarMenu(int jugador) {
-	verificarganador();
 	if(jugador1==false || jugador2==false){
 	   
 	}
@@ -154,11 +153,10 @@ public class Tocado_y_hundido {
     }
     }
     static void jugarFlota(int cantidad_barcos) {
-	boolean barcosj1 = true, barcosj2 = true;
 	int jugador = 1;
-	while (barcosj1 == true && barcosj2 == true) {
+	while (jugador1 == true && jugador2 == true) {
 	    boolean menu = true;
-	    while (menu == true && barcosj1 == true && barcosj2 == true) {
+	    while (menu == true && jugador1 == true && jugador2 == true) {
 		mostrarMenu(jugador);
 		int opcion = sc.nextInt();
 		switch (opcion) {
@@ -196,9 +194,9 @@ public class Tocado_y_hundido {
 	    }
 	    jugador = 1 - (jugador - 1) + 1;
 	}
-	if (barcosj1 == false) {
+	if (jugador1 == false) {
 	    System.out.println("Ha ganado el jugador 2!");
-	} else if(barcosj1 == false){
+	} else if(jugador2 == false){
 	    System.out.println("Ha ganado el jugador 1!");
 	}
     }
@@ -254,6 +252,7 @@ public class Tocado_y_hundido {
 		System.out.println("No hemos tocado ningun barco!");
 	    }
 	}
+	verificarganador();
     }
 
     static void verificarganador() {
