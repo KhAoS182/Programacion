@@ -12,30 +12,24 @@ import java.util.Scanner;
  * @author Adrian
  */
 public class Tocado_y_hundido_optimizado  {
-
-    static String[][] tablero_jugador1;
-    static String[][] tablero_jugador2;
-    static String[][] tablero_contrincante1;
-    static String[][] tablero_contrincante2;
-    static int[] posiciones_barcosj1;
-    static int[] posiciones_barcosj2;
+    static String[][] tablero_jugador1,tablero_jugador2 ;
+    static String[][] tablero_contrincante1,tablero_contrincante2;
+    static int[] posiciones_barcosj1,posiciones_barcosj2 ;//pendiente de utilizar
     static boolean jugador1 = true, jugador2 = true;
     static Scanner sc = new Scanner(System.in);
+    static int jugador = 0;
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-	int jugador = 0;
 	System.out.println("----------Hundir la flota----------");
-	inicializarJuego(jugador);
-	jugador++;
-	inicializarJuego(jugador);
+	inicializarJuego();
 
     }
 
-    static void inicializarJuego(int jugador) {
-	Scanner sc = new Scanner(System.in);
+    static void inicializarJuego() {
+	jugador++;
 	System.out.println("¿Que tamaño quieres que tenga el tablero?");
 	int ttablero = sc.nextInt();
 	while (ttablero < 5) {
@@ -45,6 +39,7 @@ public class Tocado_y_hundido_optimizado  {
 	    ttablero = sc.nextInt();
 	    System.out.println("");
 	}
+
 	int[] posicionbarcos = new int[(ttablero - 2) * 5];//guardar las posiciones de los barcos 0 numero de barco,1 tamaño barco, 2 posicion v,3 posicion h , vidas
 	int nbarco = 0;
 	int x = ttablero, y = ttablero;
@@ -54,10 +49,8 @@ public class Tocado_y_hundido_optimizado  {
 	    for (int j = 0; j < tablero.length; j++) {
 		tablero[i][j] = "  ";
 		tablero_contrincante[i][j] = "  ";
-
 	    }
-
-	}
+	    }
 	dibujarTablero(tablero);
 	int tbarcos = ttablero - 1;
 	int cbarcos = ttablero - 2;
@@ -80,7 +73,7 @@ public class Tocado_y_hundido_optimizado  {
 				espaciot = false;//se encarga de verificar que no 'pisa' ningun barco
 			    }
 			}
-
+			
 			for (int i = 0; i < tbarcos && espaciot == true; i++) {
 			    tablero[posicion - 1][i + (posicionv - 1)] = "# ";
 			}
@@ -125,6 +118,7 @@ public class Tocado_y_hundido_optimizado  {
 	    tablero_jugador1 = tablero;
 	    posiciones_barcosj1 = posicionbarcos;
 	    tablero_contrincante1 = tablero_contrincante;
+	    inicializarJuego();
 	} else {
 	    tablero_jugador2 = tablero;
 	    posiciones_barcosj2 = posicionbarcos;
