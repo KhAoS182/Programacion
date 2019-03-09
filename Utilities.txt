@@ -13,3 +13,7 @@ public static String readString()//
 	Scanner sc = new Scanner(System.in);
 	return sc.nextLine();
     }
+
+Crear regiones en netbeans:
+// <editor-fold desc="Region">
+// <e/ditor-fold>

@@ -5,6 +5,7 @@
  */
 package tocado_y_hundido;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -22,14 +23,14 @@ public class Tocado_y_hundido_optimizado  {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args){
 	System.out.println("----------Hundir la flota----------");
 	inicializarJuego();
 
     }
 
     static void inicializarJuego() {
-	jugador++;
+	// <editor-fold desc="Iniciar juego">
 	System.out.println("¿Que tamaño quieres que tenga el tablero?");
 	int ttablero = sc.nextInt();
 	while (ttablero < 5) {
@@ -39,7 +40,8 @@ public class Tocado_y_hundido_optimizado  {
 	    ttablero = sc.nextInt();
 	    System.out.println("");
 	}
-
+	while(jugador<2){
+	jugador++;
 	int[] posicionbarcos = new int[(ttablero - 2) * 5];//guardar las posiciones de los barcos 0 numero de barco,1 tamaño barco, 2 posicion v,3 posicion h , vidas
 	int nbarco = 0;
 	int x = ttablero, y = ttablero;
@@ -114,11 +116,11 @@ public class Tocado_y_hundido_optimizado  {
 	    }
 
 	}
-	if (jugador <= 0) {
+	if (jugador <= 1) {
 	    tablero_jugador1 = tablero;
 	    posiciones_barcosj1 = posicionbarcos;
 	    tablero_contrincante1 = tablero_contrincante;
-	    inicializarJuego();
+	    System.out.println("-------Jugador 2-------");
 	} else {
 	    tablero_jugador2 = tablero;
 	    posiciones_barcosj2 = posicionbarcos;
@@ -130,27 +132,29 @@ public class Tocado_y_hundido_optimizado  {
 	    jugarFlota(ttablero - 2);
 
 	}
+	}
     }
 
     static void mostrarMenu(int jugador) {
-	if(jugador1==false || jugador2==false){
-	   
+	if(jugador1!=false && jugador2!=false){
+	    System.out.println("\nJugador:" + jugador);
+	    System.out.println("----------Hundir la flota----------\n"
+		    + "1) Mostrar el tablero del contrincante\n"
+		    + "2) Mostrar mi tablero\n"
+		    + "3) Disparar cañones\n"
+		    + "4) Pasar turno");	    
 	}
-	else{
-	System.out.println("\nJugador:" + jugador);
-	System.out.println("----------Hundir la flota----------\n"
-		+ "1) Mostrar el tablero del contrincante\n"
-		+ "2) Mostrar mi tablero\n"
-		+ "3) Disparar cañones\n"
-		+ "4) Pasar turno");
-
-    }
     }
     static void jugarFlota(int cantidad_barcos) {
 	int jugador = 1;
 	while (jugador1 == true && jugador2 == true) {
 	    boolean menu = true;
 	    while (menu == true && jugador1 == true && jugador2 == true) {
+		try {
+		    cls();// no funciona dont know why
+		} catch (IOException ex) {
+		    
+		}
 		mostrarMenu(jugador);
 		int opcion = sc.nextInt();
 		switch (opcion) {
@@ -273,5 +277,17 @@ public class Tocado_y_hundido_optimizado  {
 	if (casillasbarcosj2 == 0) {
 	   jugador2 = false;
 	}
+    }
+    static void cls() throws IOException{
+	String os = System.getProperty("os.name");
+
+    if (os.contains("Windows"))
+    {
+        Runtime.getRuntime().exec("cls");
+    }
+    else
+    {
+        Runtime.getRuntime().exec("clear");
+    }
     }
 }

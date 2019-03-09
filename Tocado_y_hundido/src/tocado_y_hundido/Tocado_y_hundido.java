@@ -31,7 +31,6 @@ public class Tocado_y_hundido {
 	inicializarJuego(jugador);
 
     }
-
     static void inicializarJuego(int jugador) {
 	Scanner sc = new Scanner(System.in);
 	System.out.println("¿Que tamaño quieres que tenga el tablero?");
