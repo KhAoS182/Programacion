@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Adrian //vertical X //horizontal Y
+ * @author Adrian 
  */
 public class Tocado_y_hundido_optimizado {
 
@@ -46,8 +46,6 @@ public class Tocado_y_hundido_optimizado {
 
 	while (jugador < 2) {
 	    jugador++;
-	    int[] posicionbarcos = new int[(ttablero - 2) * 5];//guardar las posiciones de los barcos 0 numero de barco,1 tamaño barco, 2 posicion v,3 posicion h ,4 vidas
-	    int nbarco = 0;
 	    String[][] tablero = new String[ttablero][ttablero];
 	    String[][] tablero_contrincante = new String[ttablero][ttablero];
 	    for (int i = 0; i < tablero.length; i++) {
@@ -331,7 +329,7 @@ public class Tocado_y_hundido_optimizado {
 	}
     }
 
-    static void cls() throws IOException {
+    static void cls() throws IOException {//no funciona
 	String os = System.getProperty("os.name");
 
 	if (os.contains("Windows")) {
