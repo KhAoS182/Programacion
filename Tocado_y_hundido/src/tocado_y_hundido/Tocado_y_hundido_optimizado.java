@@ -11,7 +11,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author Adrian 
+ * @author Adrian
  */
 public class Tocado_y_hundido_optimizado {
 
@@ -22,10 +22,7 @@ public class Tocado_y_hundido_optimizado {
     static boolean jugador1 = true, jugador2 = true;
     static Scanner sc = new Scanner(System.in);
     static int jugador = 0;
-
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
 	System.out.println("----------Hundir la flota----------");
 	inicializarJuego();
@@ -33,7 +30,6 @@ public class Tocado_y_hundido_optimizado {
     }
 
     static void inicializarJuego() {
-	// <editor-fold desc="Iniciar juego">
 	System.out.println("¿Que tamaño quieres que tenga el tablero?");
 	int ttablero = sc.nextInt();
 	while (ttablero < 5) {
@@ -43,7 +39,6 @@ public class Tocado_y_hundido_optimizado {
 	    ttablero = sc.nextInt();
 	    System.out.println("");
 	}
-
 	while (jugador < 2) {
 	    jugador++;
 	    String[][] tablero = new String[ttablero][ttablero];
@@ -60,64 +55,59 @@ public class Tocado_y_hundido_optimizado {
 	    while (cbarcos > 0) {
 		sc.nextLine();
 		boolean espaciot = true;
-		try{
-		System.out.println("Como quieres poner el barco, H o V");
-		String opcion = sc.nextLine();
-		if (opcion.equals("h") || opcion.equals("H")) {
-		    System.out.println("Donde quieres colocar el barco? Posicion H, V");
-		    System.out.println("Barcos por poner : " + cbarcos + " Tamaño del barco actual:  " + tbarcos);
-		    int posicionh = sc.nextInt();
-		    int posicionv = sc.nextInt();
-
-		    if (posicionh <= tablero.length && posicionv <= tablero.length) {
-
-			for (int i = 0; i < tbarcos && espaciot == true; i++) {
-			    if (tablero[posicionh - 1][i + (posicionv - 1)].equals("# ")) {
-				System.out.println("Posicion invalida!");
-				espaciot = false;//se encarga de verificar que no 'pisa' ningun barco
+		try {
+		    System.out.println("Como quieres poner el barco, H o V");
+		    String opcion = sc.nextLine();
+		    if (opcion.equals("h") || opcion.equals("H")) {
+			System.out.println("Donde quieres colocar el barco? Posicion H, V");
+			System.out.println("Barcos por poner : " + cbarcos + " Tamaño del barco actual:  " + tbarcos);
+			int posicionh = sc.nextInt();
+			int posicionv = sc.nextInt();
+			if (posicionh <= tablero.length && posicionv <= tablero.length) {
+			    for (int i = 0; i < tbarcos && espaciot == true; i++) {
+				if (tablero[posicionh - 1][i + (posicionv - 1)].equals("# ")) {
+				    System.out.println("Posicion invalida!");
+				    espaciot = false;//se encarga de verificar que no 'pisa' ningun barco
+				}
 			    }
+			    for (int i = 0; i < tbarcos && espaciot == true; i++) {
+				tablero[posicionh - 1][i + (posicionv - 1)] = "# ";
+			    }
+			    agregarBarco("h", posicionh, posicionv, tbarcos, cbarcos);
+			} else {
+			    espaciot = false;
 			}
-
-			for (int i = 0; i < tbarcos && espaciot == true; i++) {
-			    tablero[posicionh - 1][i + (posicionv - 1)] = "# ";
+		    } else if (opcion.equals("v") || opcion.equals("V")) {
+			System.out.println("Donde quieres colocar el barco? Posicion H, V");
+			System.out.println("Barcos por poner : " + cbarcos + " Tamaño del barco actual:  " + tbarcos);
+			int posicionh = sc.nextInt();
+			int posicionv = sc.nextInt();
+			if (posicionv <= tablero.length && posicionh <= tablero.length) {
+			    for (int i = 0; i < tbarcos && espaciot == true; i++) {
+				if (tablero[i + (posicionh - 1)][posicionv - 1].equals("# ")) {
+				    System.out.println("Posicion invalida!");
+				    espaciot = false;
+				}
+			    }
+			    for (int i = 0; i < tbarcos && espaciot == true; i++) {
+				tablero[i + (posicionh - 1)][posicionv - 1] = "# ";
+			    }
+			    agregarBarco("v", posicionh, posicionv, tbarcos, cbarcos);//lo guardamos en una array de barcos
+			} else {
+			    espaciot = false;
 			}
-			agregarBarco("h",posicionh,posicionv,tbarcos,cbarcos);
 		    } else {
+			System.out.println("Algo que tenga sentido ty.");
 			espaciot = false;
 		    }
-		} else if (opcion.equals("v") || opcion.equals("V")) {
-		    System.out.println("Donde quieres colocar el barco? Posicion H, V");
-		    System.out.println("Barcos por poner : " + cbarcos + " Tamaño del barco actual:  " + tbarcos);
-		    int posicionh = sc.nextInt();
-		    int posicionv = sc.nextInt();
-		    if (posicionv <= tablero.length && posicionh <= tablero.length) {
-			for (int i = 0; i < tbarcos && espaciot == true; i++) {
-			    if (tablero[i + (posicionh - 1)][posicionv - 1].equals("# ")) {
-				System.out.println("Posicion invalida!");
-				espaciot = false;
-			    }
-			}
-
-			for (int i = 0; i < tbarcos && espaciot == true; i++) {
-			    tablero[i + (posicionh - 1)][posicionv - 1] = "# ";
-			}
-			agregarBarco("v", posicionh, posicionv, tbarcos, cbarcos);//lo guardamos en una array
-		    } else {
-			espaciot = false;
+		    if (espaciot == true) {
+			tbarcos--;
+			cbarcos--;
 		    }
-		} else {
-		    System.out.println("Algo que tenga sentido ty.");
-		    espaciot = false;
+		    dibujarTablero(tablero);
+		} catch (Exception e) {
+		    System.out.println("Esta fuera del tablero!");
 		}
-		if (espaciot == true) {
-		    tbarcos--;
-		    cbarcos--;
-		}
-		dibujarTablero(tablero);
-		}
-		catch(Exception e){
-	    System.out.println("Esta fuera del tablero!");
-	}
 	    }
 	    if (jugador <= 1) {
 		tablero_jugador1 = tablero;
@@ -127,11 +117,8 @@ public class Tocado_y_hundido_optimizado {
 		tablero_jugador2 = tablero;
 		tablero_contrincante2 = tablero_contrincante;
 		jugarFlota(ttablero - 2);
-
 	    }
 	}
-	
-	
     }
 
     static void mostrarMenu(int jugador) {
@@ -153,7 +140,6 @@ public class Tocado_y_hundido_optimizado {
 		try {
 		    cls();// no funciona dont know why
 		} catch (IOException ex) {
-
 		}
 		mostrarMenu(jugador);
 		int opcion = sc.nextInt();
@@ -188,7 +174,6 @@ public class Tocado_y_hundido_optimizado {
 		    default:
 			System.out.println("Vuelve a intentarlo.");
 		}
-
 	    }
 	    jugador = 1 - (jugador - 1) + 1;
 	}
@@ -240,7 +225,6 @@ public class Tocado_y_hundido_optimizado {
 	    b1.tamaño = tamaño;
 	    posicionesbarcosj2.add(b1);
 	}
-
     }
 
     static void introducirTirada(String[][] tablero_jugador, String[][] tablero_contricante, String[][] tablero_j2, ArrayList<barcos> barcos_jugador/*posiccion 4*/) {
@@ -249,7 +233,6 @@ public class Tocado_y_hundido_optimizado {
 	int y = sc.nextInt();
 	if (y <= tablero_jugador.length && x <= tablero_jugador.length) {
 	    if (tablero_jugador[x - 1][y - 1].contentEquals("# ")) {
-
 		tablero_contricante[x - 1][y - 1] = ("X ");
 		tablero_j2[x - 1][y - 1] = ("X ");
 		System.out.print("Tocado ");
@@ -259,24 +242,21 @@ public class Tocado_y_hundido_optimizado {
 		for (int i = 0; i < barcos_jugador.size() && tocado == false && barcos_jugador.get(i).hundido == false; i++) {
 		    if (barcos_jugador.get(i).hundido == false && barcos_jugador.get(i).posicion.equals("h")) {
 			for (int j = 0; j < barcos_jugador.get(i).tamaño; j++) {
-			    if (tablero_jugador[barcos_jugador.get(i).posicion_horizontal-1][(barcos_jugador.get(i).posicion_vertical+j)-1].contentEquals("X ")) {
+			    if (tablero_jugador[barcos_jugador.get(i).posicion_horizontal - 1][(barcos_jugador.get(i).posicion_vertical + j) - 1].contentEquals("X ")) {
 				vida_barco++;
 			    }
 			    if (vida_barco == barcos_jugador.get(i).tamaño) {
 				tocado = true;
 				barcos_jugador.get(i).hundido = true;
 				hundido = true;
-
 			    }
-
 			}
 			if (hundido == true) {
 			    System.out.println("y hundido!");
 			}
-		    }
-		    else if(barcos_jugador.get(i).hundido == false && barcos_jugador.get(i).posicion.equals("v")) {
+		    } else if (barcos_jugador.get(i).hundido == false && barcos_jugador.get(i).posicion.equals("v")) {
 			for (int j = 0; j < barcos_jugador.get(i).tamaño; j++) {
-			    if (tablero_jugador[(barcos_jugador.get(i).posicion_horizontal+j)-1][barcos_jugador.get(i).posicion_vertical-1].contentEquals("X ")) {
+			    if (tablero_jugador[(barcos_jugador.get(i).posicion_horizontal + j) - 1][barcos_jugador.get(i).posicion_vertical - 1].contentEquals("X ")) {
 				vida_barco++;
 			    }
 			    if (vida_barco == barcos_jugador.get(i).tamaño) {
@@ -284,7 +264,6 @@ public class Tocado_y_hundido_optimizado {
 				barcos_jugador.get(i).hundido = true;
 				hundido = true;
 			    }
-
 			}
 			if (hundido == true) {
 			    System.out.println("y hundido");
@@ -292,7 +271,6 @@ public class Tocado_y_hundido_optimizado {
 		    }
 		    System.out.println("!");
 		}
-
 	    } else {
 		tablero_contricante[x - 1][y - 1] = ("0 ");
 		tablero_j2[x - 1][y - 1] = ("0 ");
@@ -303,7 +281,7 @@ public class Tocado_y_hundido_optimizado {
 	verificarganador();
     }
 
-    static void verificarganador() {
+    static void verificarganador() {//Pendiente de utilizar la array de barcos para verificar que se ha acabado la partida
 	int casillasbarcosj1 = 0, casillasbarcosj2 = 0;
 	for (int i = 0; i < tablero_jugador1.length && casillasbarcosj1 == 0; i++) {
 	    for (int j = 0; j < tablero_jugador1[i].length && casillasbarcosj1 == 0; j++) {
@@ -311,7 +289,6 @@ public class Tocado_y_hundido_optimizado {
 		    casillasbarcosj1++;
 		}
 	    }
-
 	}
 	if (casillasbarcosj1 == 0) {
 	    jugador1 = false;
@@ -322,13 +299,12 @@ public class Tocado_y_hundido_optimizado {
 		    casillasbarcosj2++;
 		}
 	    }
-
 	}
 	if (casillasbarcosj2 == 0) {
 	    jugador2 = false;
 	}
     }
-
+    
     static void cls() throws IOException {//no funciona
 	String os = System.getProperty("os.name");
 
@@ -338,9 +314,8 @@ public class Tocado_y_hundido_optimizado {
 	    Runtime.getRuntime().exec("clear");
 	}
     }
-
+    
     static class barcos {
-
 	public String posicion;
 	public int posicion_horizontal;
 	public int posicion_vertical;
