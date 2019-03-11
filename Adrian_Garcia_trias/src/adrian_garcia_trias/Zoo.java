@@ -117,7 +117,10 @@ public class Zoo {
 
 			    }
 			}
+			for (int i = 0; i < listaAnimales.size(); i++) {
+			    listaAnimales.get(i).mostrarAnimal();
 
+			}
 		    } else if (oaves == 2) {//pruebas 
 			int numAve = 0;
 			ArrayList<Animal> listaAveTemporal = new ArrayList<>();
