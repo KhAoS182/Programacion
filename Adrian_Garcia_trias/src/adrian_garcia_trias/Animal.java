@@ -12,9 +12,9 @@ import java.util.Scanner;
  * @author Adrian
  */
 public abstract class Animal {
-    int peso;//mis dudas de si utilizo una variable int como id para contador
-    String nombre;
-    int id = 0;
+    private int peso;//mis dudas de si utilizo una variable int como id para contador
+    private String nombre;
+    private int id = 0;
 
     public Animal() {
     }
