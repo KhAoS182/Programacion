@@ -12,8 +12,8 @@ import java.util.Scanner;
  * @author Adrian
  */
 public class Autobus extends Vehiculo {
-    int plazas;
-    int  paradas;//se supone?
+    private int plazas;
+    private int  paradas;//se supone?
 
     public Autobus() {
     }
@@ -48,10 +48,11 @@ public class Autobus extends Vehiculo {
     }
     @Override
     public void mostrarAtributos(){
-	System.out.print ("Autobus ");
+	System.out.print ("-----Autobus----");
 	super.mostrarAtributos();
 	System.out.println("Plazas :"+ plazas);
 	System.out.println("Paradas : "+ paradas);
+	System.out.println();
     }
     @Override
     public void pedirAlta(){

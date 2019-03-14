@@ -102,6 +102,8 @@ public class Zoo {
 				int y = 0;
 				if (listaAnimales.get(i) instanceof Ave) {//como puedo acceder a la longitud de la ave??				   
 				    listaAnimales.get(i).ordenarAvesVuelo(x);// ya estabsa en el final del examen pero he consegui obtener longitud de vuelo pero ya no me da tiempo
+				    Ave a = (Ave)listaAnimales.get(i);
+				    int longitud = a.longitud_vuelo;
 				    if (i + 1 < listaAnimales.size()) {
 					listaAnimales.get(i + 1).ordenarAvesVuelo(y);
 				    }

@@ -13,7 +13,10 @@ import java.util.Scanner;
  * @author Adrian
  */
 public class Ave extends Animal {
-   public int aves, alas, longitud_vuelo;
+
+    int aves;
+    int alas;
+    protected int longitud_vuelo;
 
     public Ave() {
     }

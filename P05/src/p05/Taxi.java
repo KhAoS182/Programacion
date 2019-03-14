@@ -12,8 +12,8 @@ import java.util.Scanner;
  * @author Adrian
  */
 public class Taxi extends Vehiculo {
-    int licencia, num_Taxista_Licencia;
-    boolean estado;
+    private int licencia, num_Taxista_Licencia;
+    private boolean estado;
 
     public Taxi() {
     }
@@ -58,11 +58,11 @@ public class Taxi extends Vehiculo {
     }
     @Override
     public void mostrarAtributos(){
-	System.out.print ("Taxi ");
+	System.out.print ("------Taxi-----");
 	super.mostrarAtributos();
 	System.out.println("Numero de taxista :"+ num_Taxista_Licencia);
 	System.out.println("Estado: "+ estado);
-	
+	System.out.println();
     }
     @Override
     public void pedirAlta(){

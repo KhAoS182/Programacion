@@ -10,9 +10,9 @@ package p05;
  * @author Adrian
  */
 public class VTC extends Vehiculo{
-    int maximo_horas_trabajadas;
-    int radiokm;
-    String ciudad;
+    private int maximo_horas_trabajadas;
+    private int radiokm;
+    private String ciudad;
 
     public VTC() {
     }
@@ -57,7 +57,7 @@ public class VTC extends Vehiculo{
     }
     @Override
      public void mostrarAtributos(){
-	 System.out.print("VTC ");
+	System.out.print ("-------VTC------");
 	super.mostrarAtributos();
 	System.out.println("Máximo de horas trabajadas :"+ maximo_horas_trabajadas);
 	System.out.println("Radio de km :"+ radiokm);
