@@ -15,6 +15,7 @@ public static String readString()//
     }
 
 Crear regiones en netbeans:
+
 // <editor-fold desc="Region">
 // <e/ditor-fold>
 
@@ -22,3 +23,7 @@ Casting...
 
 Ave a = (Ave)listaAnimales.get(i);
 int longitud = a.longitud_vuelo;
+
+boolean resultado
+
+(estado ? "Disponible" : "Ocupado")

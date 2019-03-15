@@ -7,7 +7,6 @@ package p05;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-
 /**
  *
  * @author Adrian
@@ -89,7 +88,8 @@ public class P05P2 {
 			case 4://salir
 			    break;
 			default:
-			    System.out.println("Introduce una opción valida!");;
+			    System.out.println("Introduce una opción valida!");
+
 		    }
 		    break;
 		case 5:
@@ -106,14 +106,14 @@ public class P05P2 {
 			case 4:
 			    break;
 			default:
-			    
+			    System.out.println("Introduce una opción valida!");
 		    }
 		    break;
 		case 6:
-
+		    BuscarTaxiLibre();
 		    break;
 		case 7:
-
+		    establecerDisponibilidadTaxi();
 		    break;
 		case 8:
 		    for (int i = 0; i < lista.size(); i++) {
@@ -139,174 +139,159 @@ public class P05P2 {
 	System.out.println("4) Salir.");
 	return sc.nextInt();
     }
-    private static void buscarIdVehiculo(Vehiculo v1){//La idea es sacar una array con cada tipo de vehiculo para cada metodo de buscar id.
-	
+
+    private static int[] buscarIdVehiculo(String vehiculo) {//La idea es sacar una array con cada tipo de vehiculo para cada metodo de buscar id.
+	int vehiculos = 0;
+	for (int i = 0; i < listaVehiculos.size(); i++) {
+	    if (listaVehiculos.get(i).getClass().getName().contains(vehiculo)) {
+		vehiculos++;
+	    }
+	}
+	int[] vehiculosIds = new int[vehiculos];
+	int j = 0;
+	for (int i = 0; i < listaVehiculos.size(); i++) {
+	    if (listaVehiculos.get(i).getClass().getName().contains(vehiculo)) {
+		vehiculosIds[j] = i;
+		j++;
+	    }
+	}
+	return vehiculosIds;
     }
+
     private static void buscarIdTaxi() {//Nos dice las id's de taxis. Podriamos utilizar una lista de taxis quizas.
 	Scanner sc = new Scanner(System.in);
-	int taxis = 0;
-	for (int i = 0; i < listaVehiculos.size(); i++) {
-	    if (listaVehiculos.get(i) instanceof Taxi) {
-		taxis++;
-	    }
-	}
-	int[] taxiIds = new int[taxis];
-	int j =0;
-	for (int i = 0; i < listaVehiculos.size(); i++) {
-	    if (listaVehiculos.get(i) instanceof Taxi) {
-		taxiIds[j]= i;
-			j++;
-	    }
-	    
-	}
+	int[] taxiIds = buscarIdVehiculo("Taxi");
+
 	boolean idvalida = false, salir = false;
-	while(idvalida == false && salir==false){
-	System.out.print("Dime la id del taxi ('s') para salir");
-	System.out.print(" (");
-	for (int i = 0; i < taxiIds.length; i++) {
-	    if(i+1<taxiIds.length)
-	    System.out.print(taxiIds[i]+",");
-	    else
-	    System.out.print(taxiIds[i]+")");
-	}
-	System.out.println();
-	int taxi = 0;
-	String opcion = "z";
-	try{
-	taxi = sc.nextInt();
-	}
-	catch (Exception e){
-	  opcion =sc.next().toLowerCase();
-	  if(opcion.equals("s"))
-	      break;
-	  idvalida = true;//solo imprimira taxi o error en la id en ingresar una id.
-	}
-	for (int i = 0; i < taxiIds.length && idvalida==false; i++) {
-	    if(taxiIds[i] == taxi){
-		listaVehiculos.get(taxi).mostrarAtributos();
-		idvalida = true;
+	while (idvalida == false && salir == false) {
+	    System.out.print("Dime la id del taxi ('s') para salir");
+	    System.out.print(" (");
+	    for (int i = 0; i < taxiIds.length; i++) {
+		if (i + 1 < taxiIds.length) {
+		    System.out.print(taxiIds[i] + ",");
+		} else {
+		    System.out.print(taxiIds[i] + ")");
+		}
+	    }
+	    System.out.println();
+	    int taxi = 0;
+	    String opcion = "z";
+	    try {
+		taxi = sc.nextInt();
+	    } catch (Exception e) {
+		opcion = sc.next().toLowerCase();
+		if (opcion.equals("s")) {
+		    break;
+		}
+		idvalida = true;//solo imprimira taxi o error en la id en ingresar una id.
+	    }
+	    for (int i = 0; i < taxiIds.length && idvalida == false; i++) {
+		if (taxiIds[i] == taxi) {
+		    listaVehiculos.get(taxi).mostrarAtributos();
+		    idvalida = true;
+		}
+	    }
+	    if (idvalida == false) {
+		System.out.println("No hay ningun taxi con esa id! Introduce una id válida");
+	    }
+	    System.out.println("Deseas salir?");
+	    if (opcion.equals("s")) {
+		salir = true;
+	    } else {
+		idvalida = false;
 	    }
 	}
-	if(idvalida==false){
-	    System.out.println("No hay ningun taxi con esa id! Introduce una id válida");
-	}
-	    System.out.println("Deseas salir?");
-	    if(opcion.equals("s"))
-		salir = true;
-	    else
-		idvalida = false;
-	    }	    
     }
-   private static void buscarIdAutobus(){
+
+    private static void buscarIdAutobus() {
 	Scanner sc = new Scanner(System.in);
-	int autobuses = 0;
-	for (int i = 0; i < listaVehiculos.size(); i++) {
-	    if (listaVehiculos.get(i) instanceof Autobus) {
-		autobuses++;
-	    }
-	}
-	int[] autobusesIds = new int[autobuses];
-	int j =0;
-	for (int i = 0; i < listaVehiculos.size(); i++) {
-	    if (listaVehiculos.get(i) instanceof Autobus) {
-		autobusesIds[j]= i;
-			j++;
-	    }
-	    
-	}
+	int[] autobusesIds = buscarIdVehiculo("Autobus");
 	boolean idvalida = false, salir = false;
-	while(idvalida == false && salir==false){
-	System.out.print("Dime la id del autobús ('s') para salir");
-	System.out.print(" (");
-	for (int i = 0; i < autobusesIds.length; i++) {
-	    if(i+1<autobusesIds.length)
-	    System.out.print(autobusesIds[i]+",");
-	    else
-	    System.out.print(autobusesIds[i]+")");
-	}
-	System.out.println();
-	int autobus = 0;
-	String opcion = "z";
-	try{
-	autobus = sc.nextInt();
-	}
-	catch (Exception e){
-	  opcion =sc.next().toLowerCase();
-	  if(opcion.equals("s"))
-	      break;
-	  idvalida = true;//solo imprimira taxi o error en la id en ingresar una id.
-	}
-	for (int i = 0; i < autobusesIds.length && idvalida==false; i++) {
-	    if(autobusesIds[i] == autobus){
-		listaVehiculos.get(autobus).mostrarAtributos();
-		idvalida = true;
+	while (idvalida == false && salir == false) {
+	    System.out.print("Dime la id del autobús ('s') para salir");
+	    System.out.print(" (");
+	    for (int i = 0; i < autobusesIds.length; i++) {
+		if (i + 1 < autobusesIds.length) {
+		    System.out.print(autobusesIds[i] + ",");
+		} else {
+		    System.out.print(autobusesIds[i] + ")");
+		}
 	    }
-	}
-	if(idvalida==false){
-	    System.out.println("No hay ningun Autobus con esa id! Introduce una id válida");
-	}
+	    System.out.println();
+	    int autobus = 0;
+	    String opcion = "z";
+	    try {
+		autobus = sc.nextInt();
+	    } catch (Exception e) {
+		opcion = sc.next().toLowerCase();
+		if (opcion.equals("s")) {
+		    break;
+		}
+		idvalida = true;//solo imprimira taxi o error en la id en ingresar una id.
+	    }
+	    for (int i = 0; i < autobusesIds.length && idvalida == false; i++) {
+		if (autobusesIds[i] == autobus) {
+		    listaVehiculos.get(autobus).mostrarAtributos();
+		    idvalida = true;
+		}
+	    }
+	    if (idvalida == false) {
+		System.out.println("No hay ningun Autobus con esa id! Introduce una id válida");
+	    }
 	    System.out.println("Deseas salir?");
-	    if(opcion.equals("s"))
+	    if (opcion.equals("s")) {
 		salir = true;
-	    else
+	    } else {
 		idvalida = false;
 	    }
+	}
     }
-   private static void buscarIdVTC(){
-       Scanner sc = new Scanner(System.in);
-	int VTCs = 0;
-	for (int i = 0; i < listaVehiculos.size(); i++) {
-	    if (listaVehiculos.get(i) instanceof VTC) {
-		VTCs++;
-	    }
-	}
-	int[] VTCsIds = new int[VTCs];
-	int j =0;
-	for (int i = 0; i < listaVehiculos.size(); i++) {
-	    if (listaVehiculos.get(i) instanceof VTC) {
-		VTCsIds[j]= i;
-			j++;
-	    }
-	    
-	}
+
+    private static void buscarIdVTC() {
+	Scanner sc = new Scanner(System.in);
+	int[] VTCsIds = buscarIdVehiculo("VTC");
 	boolean idvalida = false, salir = false;
-	while(idvalida == false && salir==false){
-	System.out.print("Dime la id del VTC ('s') para salir");
-	System.out.print(" (");
-	for (int i = 0; i < VTCsIds.length; i++) {
-	    if(i+1<VTCsIds.length)
-	    System.out.print(VTCsIds[i]+",");
-	    else
-	    System.out.print(VTCsIds[i]+")");
-	}
-	System.out.println();
-	int VTC = 0;
-	String opcion = "z";
-	try{
-	VTC = sc.nextInt();
-	}
-	catch (Exception e){
-	  opcion =sc.next().toLowerCase();
-	  if(opcion.equals("s"))
-	      break;
-	  idvalida = true;//solo imprimira taxi o error en la id en ingresar una id.
-	}
-	for (int i = 0; i < VTCsIds.length && idvalida==false; i++) {
-	    if(VTCsIds[i] == VTC){
-		listaVehiculos.get(VTC).mostrarAtributos();
-		idvalida = true;
+	while (idvalida == false && salir == false) {
+	    System.out.print("Dime la id del VTC ('s') para salir");
+	    System.out.print(" (");
+	    for (int i = 0; i < VTCsIds.length; i++) {
+		if (i + 1 < VTCsIds.length) {
+		    System.out.print(VTCsIds[i] + ",");
+		} else {
+		    System.out.print(VTCsIds[i] + ")");
+		}
 	    }
-	}
-	if(idvalida==false){
-	    System.out.println("No hay ningun VTC con esa id! Introduce una id válida");
-	}
+	    System.out.println();
+	    int VTC = 0;
+	    String opcion = "z";
+	    try {
+		VTC = sc.nextInt();
+	    } catch (Exception e) {
+		opcion = sc.next().toLowerCase();
+		if (opcion.equals("s")) {
+		    break;
+		}
+		idvalida = true;//solo imprimira taxi o error en la id en ingresar una id.
+	    }
+	    for (int i = 0; i < VTCsIds.length && idvalida == false; i++) {
+		if (VTCsIds[i] == VTC) {
+		    listaVehiculos.get(VTC).mostrarAtributos();
+		    idvalida = true;
+		}
+	    }
+	    if (idvalida == false) {
+		System.out.println("No hay ningun VTC con esa id! Introduce una id válida");
+	    }
 	    System.out.println("Deseas salir?");
-	    if(opcion.equals("s"))
+	    if (opcion.equals("s")) {
 		salir = true;
-	    else
+	    } else {
 		idvalida = false;
 	    }
-    }private static void buscarMatriculaTaxi(){
+	}
+    }
+
+    private static void buscarMatriculaTaxi() {
 	Scanner sc = new Scanner(System.in);
 	int taxis = 0;
 	for (int i = 0; i < listaVehiculos.size(); i++) {
@@ -315,44 +300,48 @@ public class P05P2 {
 	    }
 	}
 	String[] taxiMatriculas = new String[taxis];
-	int j =0;
+	int j = 0;
 	for (int i = 0; i < listaVehiculos.size(); i++) {
 	    if (listaVehiculos.get(i) instanceof Taxi) {
-		taxiMatriculas[j]= listaVehiculos.get(i).getMatricula();
-			j++;
+		taxiMatriculas[j] = listaVehiculos.get(i).getMatricula();
+		j++;
 	    }
-	    
+
 	}
 	boolean idvalida = false, salir = false;
-	while(idvalida == false && salir==false){
-	System.out.print("Dime la id del taxi ('s') para salir");
-	System.out.print(" (");
-	for (int i = 0; i < taxiMatriculas.length; i++) {
-	    if(i+1<taxiMatriculas.length)
-	    System.out.print(taxiMatriculas[i]+",");
-	    else
-	    System.out.print(taxiMatriculas[i]+")");
-	}
-	System.out.println();
-	String taxi = sc.nextLine();
-	if(taxi.equals("s"))
-	      break;
-	for (int i = 0; i < taxiMatriculas.length && idvalida==false; i++) {
-	    if(taxiMatriculas[i].equals(taxi)){
-		listaVehiculos.get(i).mostrarAtributos();
-		idvalida = true;
+	while (idvalida == false && salir == false) {
+	    System.out.print("Dime la id del taxi ('s') para salir");
+	    System.out.print(" (");
+	    for (int i = 0; i < taxiMatriculas.length; i++) {
+		if (i + 1 < taxiMatriculas.length) {
+		    System.out.print(taxiMatriculas[i] + ",");
+		} else {
+		    System.out.print(taxiMatriculas[i] + ")");
+		}
 	    }
-	}
-	if(idvalida==false){
-	    System.out.println("No hay ningun taxi con esa id! Introduce una id válida (s) para salir.");
-	}
-	    if(taxi.equals("s"))
+	    System.out.println();
+	    String taxi = sc.nextLine();
+	    if (taxi.equals("s")) {
+		break;
+	    }
+	    for (int i = 0; i < taxiMatriculas.length && idvalida == false; i++) {
+		if (taxiMatriculas[i].equals(taxi)) {
+		    listaVehiculos.get(i).mostrarAtributos();
+		    idvalida = true;
+		}
+	    }
+	    if (idvalida == false) {
+		System.out.println("No hay ningun taxi con esa id! Introduce una id válida (s) para salir.");
+	    }
+	    if (taxi.equals("s")) {
 		salir = true;
-	    else
+	    } else {
 		idvalida = false;
 	    }
+	}
     }
-    private static void buscarMatriculaAutobus(){
+
+    private static void buscarMatriculaAutobus() {
 	Scanner sc = new Scanner(System.in);
 	int Autobuses = 0;
 	for (int i = 0; i < listaVehiculos.size(); i++) {
@@ -361,44 +350,48 @@ public class P05P2 {
 	    }
 	}
 	String[] AutobusMatriculas = new String[Autobuses];
-	int j =0;
+	int j = 0;
 	for (int i = 0; i < listaVehiculos.size(); i++) {
 	    if (listaVehiculos.get(i) instanceof Autobus) {
-		AutobusMatriculas[j]= listaVehiculos.get(i).getMatricula();
-			j++;
+		AutobusMatriculas[j] = listaVehiculos.get(i).getMatricula();
+		j++;
 	    }
-	    
+
 	}
 	boolean idvalida = false, salir = false;
-	while(idvalida == false && salir==false){
-	System.out.print("Dime la id del Autobus ('s') para salir");
-	System.out.print(" (");
-	for (int i = 0; i < AutobusMatriculas.length; i++) {
-	    if(i+1<AutobusMatriculas.length)
-	    System.out.print(AutobusMatriculas[i]+",");
-	    else
-	    System.out.print(AutobusMatriculas[i]+")");
-	}
-	System.out.println();
-	String Autobus = sc.nextLine();
-	if(Autobus.equals("s"))
-	      break;
-	for (int i = 0; i < AutobusMatriculas.length && idvalida==false; i++) {
-	    if(AutobusMatriculas[i].equals(Autobus)){
-		listaVehiculos.get(i).mostrarAtributos();
-		idvalida = true;
+	while (idvalida == false && salir == false) {
+	    System.out.print("Dime la id del Autobus ('s') para salir");
+	    System.out.print(" (");
+	    for (int i = 0; i < AutobusMatriculas.length; i++) {
+		if (i + 1 < AutobusMatriculas.length) {
+		    System.out.print(AutobusMatriculas[i] + ",");
+		} else {
+		    System.out.print(AutobusMatriculas[i] + ")");
+		}
 	    }
-	}
-	if(idvalida==false){
-	    System.out.println("No hay ningun taxi con esa id! Introduce una id válida (s) para salir.");
-	}
-	    if(Autobus.equals("s"))
+	    System.out.println();
+	    String Autobus = sc.nextLine();
+	    if (Autobus.equals("s")) {
+		break;
+	    }
+	    for (int i = 0; i < AutobusMatriculas.length && idvalida == false; i++) {
+		if (AutobusMatriculas[i].equals(Autobus)) {
+		    listaVehiculos.get(i).mostrarAtributos();
+		    idvalida = true;
+		}
+	    }
+	    if (idvalida == false) {
+		System.out.println("No hay ningun taxi con esa id! Introduce una id válida (s) para salir.");
+	    }
+	    if (Autobus.equals("s")) {
 		salir = true;
-	    else
+	    } else {
 		idvalida = false;
 	    }
+	}
     }
-    private static void buscarMatriculaVTC(){
+
+    private static void buscarMatriculaVTC() {
 	Scanner sc = new Scanner(System.in);
 	int VTCs = 0;
 	for (int i = 0; i < listaVehiculos.size(); i++) {
@@ -407,40 +400,95 @@ public class P05P2 {
 	    }
 	}
 	String[] VTCMatriculas = new String[VTCs];
-	int j =0;
+	int j = 0;
 	for (int i = 0; i < listaVehiculos.size(); i++) {
 	    if (listaVehiculos.get(i) instanceof VTC) {
-		VTCMatriculas[j]= listaVehiculos.get(i).getMatricula();
-			j++;
+		VTCMatriculas[j] = listaVehiculos.get(i).getMatricula();
+		j++;
 	    }
 	}
 	boolean idvalida = false, salir = false;
-	while(idvalida == false && salir==false){
-	System.out.print("Dime la id del Autobus ('s') para salir");
-	System.out.print(" (");
-	for (int i = 0; i < VTCMatriculas.length; i++) {
-	    if(i+1<VTCMatriculas.length)
-	    System.out.print(VTCMatriculas[i]+",");
-	    else
-	    System.out.print(VTCMatriculas[i]+")");
-	}
-	System.out.println();
-	String VTC = sc.nextLine();
-	if(VTC.equals("s"))
-	      break;
-	for (int i = 0; i < VTCMatriculas.length && idvalida==false; i++) {
-	    if(VTCMatriculas[i].equals(VTC)){
-		listaVehiculos.get(i).mostrarAtributos();
-		idvalida = true;
+	while (idvalida == false && salir == false) {
+	    System.out.print("Dime la id del Autobus ('s') para salir");
+	    System.out.print(" (");
+	    for (int i = 0; i < VTCMatriculas.length; i++) {
+		if (i + 1 < VTCMatriculas.length) {
+		    System.out.print(VTCMatriculas[i] + ",");
+		} else {
+		    System.out.print(VTCMatriculas[i] + ")");
+		}
 	    }
-	}
-	if(idvalida==false){
-	    System.out.println("No hay ningun taxi con esa id! Introduce una id válida (s) para salir.");
-	}
-	    if(VTC.equals("s"))
+	    System.out.println();
+	    String VTC = sc.nextLine();
+	    if (VTC.equals("s")) {
+		break;
+	    }
+	    for (int i = 0; i < VTCMatriculas.length && idvalida == false; i++) {
+		if (VTCMatriculas[i].equals(VTC)) {
+		    listaVehiculos.get(i).mostrarAtributos();
+		    idvalida = true;
+		}
+	    }
+	    if (idvalida == false) {
+		System.out.println("No hay ningun taxi con esa id! Introduce una id válida (s) para salir.");
+	    }
+	    if (VTC.equals("s")) {
 		salir = true;
-	    else
+	    } else {
 		idvalida = false;
 	    }
+	}
+    }
+
+    private static void BuscarTaxiLibre() {
+	boolean disponibilidad = false;
+	for (int i = 0; i < listaVehiculos.size(); i++) {
+	    if (listaVehiculos.get(i) instanceof Taxi) {
+		Taxi t1 = (Taxi) listaVehiculos.get(i);
+		if (t1.isEstado() == true) {
+		    t1.setEstado(false);
+		    System.out.println("Se ha reservado un taxi" + "(" + i + ")");
+		    disponibilidad = true;
+		    break;
+		}
+	    }
+	}
+	if (!disponibilidad) {
+	    System.out.println("No hemos encontrado ningun taxi!");
+	}
+    }
+
+    private static void establecerDisponibilidadTaxi() {
+	Scanner sc = new Scanner(System.in);
+	int [] TaxiIds = buscarIdVehiculo("Taxi");
+	int[] TaxisIdsOcupados = new int[TaxiIds.length];
+	int tDisponibles = 0;
+	for (int i = 0; i < TaxiIds.length; i++) {
+	    Taxi t1 = (Taxi)listaVehiculos.get(TaxiIds[i]);
+	    if(!t1.isEstado()){
+		TaxisIdsOcupados[tDisponibles] =TaxiIds[i];
+		tDisponibles++;
+	    }
+	    
+	}
+	System.out.print("Que taxi esta disponible? (");
+	for (int i = 0; i < TaxisIdsOcupados.length; i++) {
+	    if(i+1 <TaxisIdsOcupados.length){
+		System.out.print(TaxisIdsOcupados[i]+",");
+	    }
+	    else{
+		System.out.println(TaxisIdsOcupados[i]+")");
+	    }    
+	}
+	int taxiid = sc.nextInt();
+	for (int i = 0; i < TaxisIdsOcupados.length; i++) {
+	    if(taxiid==TaxisIdsOcupados[i]){
+		Taxi t1 = (Taxi)listaVehiculos.get(taxiid);
+		t1.setEstado(true);
+		System.out.println("El taxi(" + taxiid + ")Esta disponible");
+		break;
+	    }
+	    
+	}
     }
 }

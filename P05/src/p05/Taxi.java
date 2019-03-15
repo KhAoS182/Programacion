@@ -61,7 +61,7 @@ public class Taxi extends Vehiculo {
 	System.out.print ("------Taxi-----");
 	super.mostrarAtributos();
 	System.out.println("Numero de taxista :"+ num_Taxista_Licencia);
-	System.out.println("Estado: "+ estado);
+	System.out.println("Estado: "+ (estado ? "Disponible" : "Ocupado"));
 	System.out.println();
     }
     @Override
