@@ -5,6 +5,8 @@
  */
 package p05;
 
+import java.util.Scanner;
+
 /**
  *
  * @author Adrian
@@ -17,8 +19,8 @@ public class VTC extends Vehiculo{
     public VTC() {
     }
 
-    public VTC(int maximo_horas_trabajadas, int radiokm, String ciudad, int id, int potencia, String matricula, String modelo) {
-	super(id, potencia, matricula, modelo);
+    public VTC(int maximo_horas_trabajadas, int radiokm, String ciudad, int potencia, String matricula, String modelo) {
+	super(potencia, matricula, modelo);
 	this.maximo_horas_trabajadas = maximo_horas_trabajadas;
 	this.radiokm = radiokm;
 	this.ciudad = ciudad;
@@ -37,6 +39,10 @@ public class VTC extends Vehiculo{
     }
 
     public void setMaximo_horas_trabajadas(int maximo_horas_trabajadas) {
+	while(maximo_horas_trabajadas>24 || maximo_horas_trabajadas<0){
+	    System.out.println("Debe tener un mínimo de 0 y un maximo de 24");
+	    maximo_horas_trabajadas = sc.nextInt();
+	}
 	this.maximo_horas_trabajadas = maximo_horas_trabajadas;
     }
 
@@ -45,6 +51,10 @@ public class VTC extends Vehiculo{
     }
 
     public void setRadiokm(int radiokm) {
+	while(radiokm>50 || radiokm<0){
+	    System.out.println("El radio mínimo es de 0, y el máximo es de 50");
+	    radiokm = sc.nextInt();
+	}
 	this.radiokm = radiokm;
     }
 
@@ -53,15 +63,27 @@ public class VTC extends Vehiculo{
     }
 
     public void setCiudad(String ciudad) {
-	this.ciudad = ciudad;
+	this.ciudad = capitalize(ciudad);
     }
     @Override
      public void mostrarAtributos(){
 	System.out.print ("-------VTC------");
 	super.mostrarAtributos();
-	System.out.println("Máximo de horas trabajadas :"+ maximo_horas_trabajadas);
+	System.out.println("Máximo de horas trabajadas: "+ maximo_horas_trabajadas);
 	System.out.println("Radio de km :"+ radiokm);
 	System.out.println("Ciudad: "+ ciudad);
+	System.out.println();
 	
+    }
+    @Override
+        public void pedirAlta(){
+	Scanner sc = new Scanner(System.in);
+	super.pedirAlta();
+	System.out.println("Ciudad: ");
+	this.setCiudad(sc.nextLine());
+	System.out.println("Introduce numº de horas: ");
+	this.setMaximo_horas_trabajadas(sc.nextInt());
+	System.out.println("Introduce radio de acción (km)");
+	this.setRadiokm(sc.nextInt());
     }
 }

@@ -18,8 +18,8 @@ public class Autobus extends Vehiculo {
     public Autobus() {
     }
 
-    public Autobus(int plazas, int paradas, int id, int potencia, String matricula, String modelo) {
-	super(id, potencia, matricula, modelo);
+    public Autobus(int plazas, int paradas, int potencia, String matricula, String modelo) {
+	super(potencia, matricula, modelo);
 	this.plazas = plazas;
 	this.paradas = paradas;
     }
@@ -44,14 +44,21 @@ public class Autobus extends Vehiculo {
     }
 
     public void setParadas(int paradas) {
+	while(paradas<3 || paradas>20){
+	    if(paradas<3)
+	    System.out.println("Lo sentimos, los autobuses deben tener un mínimo de 3 paradas.");
+	    else
+		System.out.println("Los autobuses no pueden tener mas de 20 paradas.");
+	    paradas = sc.nextInt();
+	}
 	this.paradas = paradas;
     }
     @Override
     public void mostrarAtributos(){
 	System.out.print ("-----Autobus----");
 	super.mostrarAtributos();
-	System.out.println("Plazas :"+ plazas);
-	System.out.println("Paradas : "+ paradas);
+	System.out.println("Plazas: "+ plazas);
+	System.out.println("Paradas: "+ paradas);
 	System.out.println();
     }
     @Override

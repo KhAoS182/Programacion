@@ -12,7 +12,6 @@ import java.util.Scanner;
  * @author Adrian
  */
 public class P05P2 {
-
     static ArrayList<Vehiculo> listaVehiculos = new ArrayList<>();
 
     /**
@@ -21,18 +20,18 @@ public class P05P2 {
     public static void main(String[] args) {
 
 	//para pruebas
-	listaVehiculos.add(new Taxi(22, 32, true, 0, 120, "4342533z", "nissan"));
-	listaVehiculos.add(new VTC(22, 32, "Palma", 1, 120, "43233l", "nissan"));
-	listaVehiculos.add(new Autobus(50, 25, 2, 120, "434239p", "nissan"));
-	listaVehiculos.add(new Taxi(22, 32, true, 3, 120, "41233ñ", "nissan"));
-	listaVehiculos.add(new VTC(22, 32, "Palma", 4, 120, "33j", "nissan"));
-	listaVehiculos.add(new Autobus(50, 25, 5, 120, "233k", "nissan"));
-	listaVehiculos.add(new Taxi(22, 32, true, 6, 120, "43433i", "nissan"));
-	listaVehiculos.add(new VTC(22, 32, "Palma", 7, 120, "493h", "nissan"));
-	listaVehiculos.add(new Autobus(50, 25, 8, 120, "43903a", "nissan"));
-	listaVehiculos.add(new Taxi(22, 32, true, 9, 120, "408633c", "nissan"));
-	listaVehiculos.add(new VTC(22, 32, "Palma", 10, 120, "67443d", "nissan"));
-	listaVehiculos.add(new Autobus(50, 25, 11, 120, "4356f", "nissan"));
+	listaVehiculos.add(new Taxi(10, true, 90, "4342533z", "nissan"));
+	listaVehiculos.add(new VTC(15,10, "Palma", 120, "43233l", "nissan"));
+	listaVehiculos.add(new Autobus(50, 250, 120, "434239p", "nissan"));
+	listaVehiculos.add(new Taxi(22, true, 110, "4342533z", "nissan"));
+	listaVehiculos.add(new VTC(15,10, "Palma", 120, "43233l", "nissan"));
+	listaVehiculos.add(new Autobus(50, 250, 120, "434239p", "nissan"));
+	listaVehiculos.add(new Taxi(22, true, 110, "4342533z", "nissan"));
+	listaVehiculos.add(new VTC(15,10, "Palma", 120, "43233l", "nissan"));
+	listaVehiculos.add(new Autobus(50, 250, 120, "434239p", "nissan"));
+	listaVehiculos.add(new Taxi(22, true, 110, "4342533z", "nissan"));
+	listaVehiculos.add(new VTC(15,10, "Palma", 120, "43233l", "nissan"));
+	listaVehiculos.add(new Autobus(50, 250, 120, "434239p", "nissan"));
 
 	menu(listaVehiculos);
 
@@ -460,35 +459,45 @@ public class P05P2 {
 
     private static void establecerDisponibilidadTaxi() {
 	Scanner sc = new Scanner(System.in);
+	boolean disponibilidad = false;
 	int [] TaxiIds = buscarIdVehiculo("Taxi");
-	int[] TaxisIdsOcupados = new int[TaxiIds.length];
-	int tDisponibles = 0;
+	int tOcupados = 0;
 	for (int i = 0; i < TaxiIds.length; i++) {
 	    Taxi t1 = (Taxi)listaVehiculos.get(TaxiIds[i]);
 	    if(!t1.isEstado()){
-		TaxisIdsOcupados[tDisponibles] =TaxiIds[i];
-		tDisponibles++;
-	    }
-	    
+		tOcupados++;
+	    }    
+	}
+	int[] TaxisOcupados = new int [tOcupados];
+	int tocupado = 0;
+	for (int i = 0; i < TaxiIds.length; i++) {
+	    	Taxi t1 = (Taxi)listaVehiculos.get(TaxiIds[i]);
+	    if(!t1.isEstado()){
+		TaxisOcupados[tocupado] = TaxiIds[i];
+		tocupado++;
+	    }     
 	}
 	System.out.print("Que taxi esta disponible? (");
-	for (int i = 0; i < TaxisIdsOcupados.length; i++) {
-	    if(i+1 <TaxisIdsOcupados.length){
-		System.out.print(TaxisIdsOcupados[i]+",");
+	for (int i = 0; i < TaxisOcupados.length; i++) {
+	    if(i+1 <TaxisOcupados.length){
+		System.out.print(TaxisOcupados[i]+",");
 	    }
 	    else{
-		System.out.println(TaxisIdsOcupados[i]+")");
+		System.out.println(TaxisOcupados[i]+")");
 	    }    
 	}
 	int taxiid = sc.nextInt();
-	for (int i = 0; i < TaxisIdsOcupados.length; i++) {
-	    if(taxiid==TaxisIdsOcupados[i]){
+	for (int i = 0; i < TaxisOcupados.length; i++) {
+	    if(taxiid==TaxisOcupados[i]){
 		Taxi t1 = (Taxi)listaVehiculos.get(taxiid);
 		t1.setEstado(true);
 		System.out.println("El taxi(" + taxiid + ")Esta disponible");
+		disponibilidad = true;
 		break;
-	    }
-	    
+	    }	    
+	}
+	if(!disponibilidad){
+	    System.out.println("No hay ningun taxi ocupado con esa id");
 	}
     }
 }

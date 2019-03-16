@@ -12,41 +12,48 @@ import java.util.Scanner;
  * @author Adrian
  */
 public class Taxi extends Vehiculo {
-    private int licencia, num_Taxista_Licencia;
+    static Scanner sc = new Scanner(System.in);
+    private int licencia, nTaxistas;
     private boolean estado;
+    private static int ult_licencia=1000;
 
     public Taxi() {
     }
 
-    public Taxi(int licencia, int num_Taxista_Licencia, boolean estado, int id, int potencia, String matricula, String modelo) {
-	super(id, potencia, matricula, modelo);
-	this.licencia = licencia;
-	this.num_Taxista_Licencia = num_Taxista_Licencia;
+    public Taxi(int nTaxistas,boolean estado,int potencia, String matricula, String modelo) {
+	super(potencia, matricula, modelo);
+	this.licencia = ult_licencia++;
 	this.estado = estado;
+	this.nTaxistas = nTaxistas;
     }
 
-    public Taxi(int licencia, int num_Taxista_Licencia, boolean estado) {
-	this.licencia = licencia;
-	this.num_Taxista_Licencia = num_Taxista_Licencia;
+    public Taxi(boolean estado, int nTaxistas) {
+	this.licencia = ult_licencia++;
 	this.estado = estado;
+	this.nTaxistas = nTaxistas;
     }
 
-    
+    public Taxi(Taxi t){
+	super(t);
+	this.licencia = t.ult_licencia++;
+	this.estado = t.estado;
+	this.nTaxistas = t.nTaxistas;
+    }
 
     public int getLicencia() {
 	return licencia;
     }
 
-    public void setLicencia(int licencia) {
-	this.licencia = licencia;
+    public void setLicencia() {
+	this.licencia = ult_licencia++;
     }
 
-    public int getNum_Taxista_Licencia() {
-	return num_Taxista_Licencia;
+    public int getnTaxistas() {
+	return nTaxistas;
     }
 
-    public void setNum_Taxista_Licencia(int num_Taxista_Licencia) {
-	this.num_Taxista_Licencia = num_Taxista_Licencia;
+    public void setnTaxistas(int nTaxistas) {
+	this.nTaxistas = nTaxistas;
     }
 
     public boolean isEstado() {
@@ -60,16 +67,17 @@ public class Taxi extends Vehiculo {
     public void mostrarAtributos(){
 	System.out.print ("------Taxi-----");
 	super.mostrarAtributos();
-	System.out.println("Numero de taxista :"+ num_Taxista_Licencia);
-	System.out.println("Estado: "+ (estado ? "Disponible" : "Ocupado"));
+	System.out.println("Numero de taxista: "+ this.nTaxistas);
+	System.out.println("Estado: "+ (this.estado ? "Disponible" : "Ocupado"));
+	System.out.println("Número de licéncia: " + this.licencia);
 	System.out.println();
     }
     @Override
     public void pedirAlta(){
-	Scanner sc = new Scanner(System.in);
 	super.pedirAlta();
-	System.out.println("nº de Licencia: ");
-	this.setNum_Taxista_Licencia(sc.nextInt());
+	this.setLicencia();//Licencia automatica..
+	System.out.println("Nª de taxista: ");//? que se pide exactamente???
+	this.setnTaxistas(sc.nextInt());
 	System.out.println("Estado: Disponible ");
 	this.setEstado(true);
     }
