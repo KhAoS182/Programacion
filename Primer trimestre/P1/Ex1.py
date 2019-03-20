@@ -1,0 +1,6 @@
+print("Calcular el area del triangulo")
+h= int(input('altura del triangulo: '))
+print (h)
+b= int(input('Base del triangulo: '))
+print (b)
+print ((h*b)/2)

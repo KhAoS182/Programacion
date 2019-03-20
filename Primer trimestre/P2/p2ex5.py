@@ -1,0 +1,7 @@
+print ("Nota 1:")
+a = float(input())
+print ("Nota 2:")
+b = float(input())
+print ("Nota 3:")
+c = float(input())
+print ((a+b+c)/3)
