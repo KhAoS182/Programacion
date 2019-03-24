@@ -9,9 +9,12 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 /**
@@ -21,7 +24,7 @@ import java.util.Scanner;
 public class P07 {
 
     static Scanner sc = new Scanner(System.in);
-    static String datos[] = {"Año: ", "Director: ", "Duracion: ", "Sinopsis: ", "Reparto:", "Sesión: "};
+    static String datos[] = {"Año: ", "Director: ", "Duracion: ", "Sinopsis: ", "Reparto: ", "Sesión: "};
     static int ndatos = 0;
 
     /**
@@ -33,13 +36,16 @@ public class P07 {
 	while (salir) {
 	    switch (menu()) {
 		case 1:
-		    cargarficherobtb();
-		    salir = false;
+		    cargarficherobtb(sc.next(), sc.next());
+
 		    break;
 		case 2:
 		    cargarficherocac();
 		    break;
 		case 3:
+		    break;
+		case 4:
+		    salir = false;
 		    break;
 		default:
 		    System.out.println("Introduce una opción valida....");
@@ -53,6 +59,7 @@ public class P07 {
 	System.out.println("2) Caracter a caracter");
 	System.out.println("3) Línia a línia");
 	System.out.println("--------------------------");
+	System.out.println("Indica la ruta del archivo a leer y su salida....");
 	int x = sc.nextInt();
 	sc.nextLine();// :)
 	return x;
@@ -64,94 +71,116 @@ public class P07 {
 	System.out.println("----------------------------------------------");
     }
 
-    public static void cargarficherobtb() {
+    public static void cargarficherobtb(String rutain, String rutaout) throws FileNotFoundException {
+	String saltolinia = "\n";
+	String formatpelicula = "----------";
+	String formatpelicula2 = "\n\n----------";
+	byte[] saltolineabytes = saltolinia.getBytes(StandardCharsets.UTF_8);// Lo pasamos a bytes
+	byte[] formatpeliculabytes = formatpelicula.getBytes(StandardCharsets.UTF_8);
+	byte[] formatpeliculabytes2 = formatpelicula2.getBytes(StandardCharsets.UTF_8);
 	int i;
-	FileInputStream fin;
-	BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-	/*if (args.length != 1) {
-	    System.out.println("Uso: MostrarArchivo.");
-	}*/
+	FileInputStream fin = new FileInputStream(rutain);
+	FileOutputStream fout = new FileOutputStream(rutaout);
+	//Primero, asegúrese de que ambos archivos hayan sido especificados.
+	//Copiar un Archivo
 	try {
-	    //Abrir el archivo
-	    System.out.println("Indica la ruta del archivo....."); // .\.\ejemplo.txt funciona & .\ejemplo.txt funciona & ejemplo.txt tambien??? pum cervell
-	    fin = new FileInputStream(sc.nextLine());
-	    // fin = new FileInputStream("C:\\Users\\Adrian\\Desktop\\Fp\\Grado Superior\\Programación\\Programacion Git-hub\\Tercer trimestre\\P07\\ejemplo.txt");
-	} catch (FileNotFoundException exc) {
-	    System.out.println("Archivo no encontrado");
-	    return;
-	}
-	menuCartelera();
-	try {
-	    //Leer bytes hasta que se encuentre el EOF
-	    //EOF es un concepto para determinar el final de un archivo
-	    System.out.print("----------");
-	    do {//byte a byte (caracter a caracter)
+	    //Intentar abrir los archivos
+	    menuCartelera();
+	    fout.write(formatpeliculabytes);
+	    System.out.print(formatpelicula);
+	    do {
 		i = fin.read();
-		char x = (char) i;
 		if (i != -1) {
+		    char x = (char) i;
 		    if (x == '#') {
 			if (ndatos == 0) {
-			    System.out.println("----------");
-
+			    System.out.println(formatpelicula);
+			    fout.write(formatpeliculabytes);
 			}
 			System.out.print("\n" + datos[ndatos]);
+			byte[] datosbytes = datos[ndatos].getBytes();
+			fout.write(saltolineabytes);
+			fout.write(datosbytes);
 			ndatos++;
 
 		    } else if (x == '{') {
-			System.out.print("\n\n----------");
+			System.out.print(formatpelicula2);
+			fout.write(formatpeliculabytes2);
 			ndatos = 0;
 		    } else {
 			System.out.print((char) i);
+
+			fout.write(i);
 		    }
 		}
-	    } while (i != -1); //Cuando i es igual a -1, se ha alcanzado el final del archivo
+	    } while (i != -1);
+	    System.out.println();
 	} catch (IOException exc) {
-	    System.out.println("Error al leer el archivo");
-	}
-	try {
-	    fin.close();
-	    
-//Cerrar el archivo
-	} catch (IOException exc) {
-	    System.out.println("Error cerrando el archivo.");
+	    System.out.println("Error de E/S: " + exc);
+	} finally {
+	    try {
+		if (fin != null) {
+		    fin.close();
+		}
+	    } catch (IOException exc) {
+		System.out.println("Error al cerrar el archivo de entrada.");
+	    }
+	    try {
+		if (fout != null) {
+		    fout.close();
+		}
+	    } catch (IOException exc) {
+		System.out.println("Error al cerrar el archivo de salida.");
+	    }
 	}
     }
 
     public static void cargarficherocac() throws IOException {
+	String saltolinia = "\n";
+	String formatpelicula = "----------";
+	String formatpelicula2 = "\n\n----------";
 	// Define el archivo a usar
 	System.out.println("Introduce la ruta del archivo....");
-	File archivoEntrada = new File(sc.nextLine());
+	File archivoEntrada = new File(sc.next());
+	File archivoSalida = new File(sc.next());
+	//instanciamos un writer
+	FileWriter writer = new FileWriter(archivoSalida);
 	// Declara una variable que contendrá el caracter a leer
 	try ( // Instancia un FileReader que se encargara de leer del archivo
 		FileReader lector = new FileReader(archivoEntrada)) {
 	    // Declara una variable que contendrá el caracter a leer
 	    int unCaracter;
 	    System.out.print("----------");
+	    writer.write(formatpelicula);
 	    // Lee el archivo e informa
 	    while ((unCaracter = lector.read()) != -1) {
 		char x = (char) unCaracter;
 		if (x == '#') {
-			if (ndatos == 0) {
-			    System.out.println("----------");
-
-			}
-			System.out.print("\n" + datos[ndatos]);
-			ndatos++;
-
-		    } else if (x == '{') {
-			System.out.print("\n\n----------");
-			ndatos = 0;
+		    if (ndatos == 0) {
+			System.out.println("----------");
+			writer.write(formatpelicula);
 		    }
-		    else{
-		System.out.print((char) unCaracter);
-		    }
+		    System.out.print("\n" + datos[ndatos]);
+		    writer.write(saltolinia);
+		    writer.write(datos[ndatos]);
+		    ndatos++;
+
+		} else if (x == '{') {
+		    System.out.print("\n\n----------");
+		    writer.write(formatpelicula2);
+		    ndatos = 0;
+		} else {
+		    System.out.print((char) unCaracter);
+		    writer.write((char) unCaracter);
+		}
 	    }
 	    // Cierra el archivo
 	    lector.close();
+	    writer.close();
+	    ndatos = 0;
 	    System.out.println();
+	} catch (IOException e) {
+	    System.out.println("Ha ocurrido algun error...");
 	}
-	catch(IOException e){
-	    System.out.println("Ha ocurrido algun error...");  
     }
-}
 }
