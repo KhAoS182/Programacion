@@ -119,6 +119,9 @@ public class P07 {
 		}
 	    } while (i != -1);
 	    System.out.println();
+	    catch(IOFilenotFound e){
+		    
+		    }
 	} catch (IOException exc) {
 	    System.out.println("Error de E/S: " + exc);
 	} finally {
