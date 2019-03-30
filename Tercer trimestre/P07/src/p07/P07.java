@@ -16,6 +16,10 @@ import java.io.InputStreamReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -27,11 +31,16 @@ public class P07 {
     static Scanner sc = new Scanner(System.in);
     static String datos[] = {"Año: ", "Director: ", "Duracion: ", "Sinopsis: ", "Reparto: ", "Sesión: "};
     static int ndatos = 0;
+    static LocalDate date = LocalDate.now();
+    static LocalTime time = LocalTime.now();
+    static String fecha = date.toString() + " " + time.toString();
+    static String log = "error.txt";
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
+
 	System.out.println("¿Como quieres leer el fichero?");
 	boolean salir = true;
 	while (salir) {
@@ -83,11 +92,13 @@ public class P07 {
 	byte[] formatpeliculabytes = formatpelicula.getBytes(StandardCharsets.UTF_8);
 	byte[] formatpeliculabytes2 = formatpelicula2.getBytes(StandardCharsets.UTF_8);
 	int i;
-	FileInputStream fin = new FileInputStream(rutain);
-	FileOutputStream fout = new FileOutputStream(rutaout, true);
+	FileInputStream fin = null;
+	FileOutputStream fout = null;
 	//Primero, asegúrese de que ambos archivos hayan sido especificados.
 	//Copiar un Archivo
 	try {
+	    fin = new FileInputStream(rutain);
+	    fout = new FileOutputStream(rutaout, true);
 	    //Intentar abrir los archivos
 	    menuCartelera();
 	    fout.write(formatpeliculabytes);
@@ -119,9 +130,8 @@ public class P07 {
 		}
 	    } while (i != -1);
 	    System.out.println();
-	    catch(IOFilenotFound e){
-		    
-		    }
+	} catch (FileNotFoundException notf) {
+	    System.out.println(fecha + notf.getMessage());
 	} catch (IOException exc) {
 	    System.out.println("Error de E/S: " + exc);
 	} finally {
@@ -148,7 +158,8 @@ public class P07 {
 	String formatpelicula = "----------";
 	String formatpelicula2 = "\n\n----------";
 	// Define el archivo a usar
-	File archivoEntrada = new File(sc.next()); File archivoSalida = new File(sc.next());	
+	File archivoEntrada = new File(sc.next());
+	File archivoSalida = new File(sc.next());
 	//instanciamos un writer
 	FileWriter writer = new FileWriter(archivoSalida);
 	// Declara una variable que contendrá el caracter a leer
@@ -217,47 +228,55 @@ public class P07 {
 		eof = true;
 	    }
 	}
-	    System.out.print(formatpelicula);
-	    try{
-		writer.write(formatpelicula);
+	System.out.print(formatpelicula);
+	try {
+	    writer.write(formatpelicula);
 	    for (int i = 0; i < broken_text.length; i++) {
 		for (int j = 0; j < broken_text[i].length(); j++) {
-			// Declara una variable que contendrá el caracter a leer
-			// Lee el archivo e informa
-			char x = broken_text[i].charAt(j);
-			if (x == '#') {
-			    if (ndatos == 0) {
-				System.out.println("----------");
-				writer.write(formatpelicula);
-			    }
-			    System.out.print("\n" + datos[ndatos]);
-			    writer.write(saltolinia);
-			    writer.write(datos[ndatos]);
-			    ndatos++;
+		    // Declara una variable que contendrá el caracter a leer
+		    // Lee el archivo e informa
+		    char x = broken_text[i].charAt(j);
+		    if (x == '#') {
+			if (ndatos == 0) {
+			    System.out.println("----------");
+			    writer.write(formatpelicula);
+			}
+			System.out.print("\n" + datos[ndatos]);
+			writer.write(saltolinia);
+			writer.write(datos[ndatos]);
+			ndatos++;
 
-			} else if (x == '{') {
-			    System.out.print("\n\n----------");
-			    writer.write(formatpelicula2);
-			    ndatos = 0;
+		    } else if (x == '{') {
+			System.out.print("\n\n----------");
+			writer.write(formatpelicula2);
+			ndatos = 0;
+		    } else {
+			if (j == 0 && i != 0) {
+			    System.out.print(" " + x);
+			    writer.write(" " + x);
 			} else {
-			    if (j == 0 && i!=0 ) {
-				System.out.print(" " + x);
-				writer.write(" " + x);
-			    } else {
-				System.out.print(x);
-				writer.write(x);
-			    }
-			}	    
+			    System.out.print(x);
+			    writer.write(x);
+			}
+		    }
 		}
 	    }
-		    } catch (Exception e) {
+	} catch (Exception e) {
 
-		}
+	}
 
-	 // Cierra el FileReader
+	// Cierra el FileReader
 	System.out.println();
-    reader.close();
-    writer.close();
-	    }
+	reader.close();
+	writer.close();
     }
+    public static void imprimirlog() throws IOException{
+	File archivo = new File(log);
+	if(!archivo.exists()){
+	}
+	BufferedReader readerlog = new BufferedReader(new FileReader(log));
+	BufferedWriter writerlog = new BufferedWriter(new FileWriter(log,true));
 	
+    }
+}
+
