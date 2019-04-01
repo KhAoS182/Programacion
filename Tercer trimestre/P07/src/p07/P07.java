@@ -12,11 +12,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -33,11 +31,7 @@ public class P07 {
     static Scanner sc = new Scanner(System.in);
     static String datos[] = {"Año: ", "Director: ", "Duracion: ", "Sinopsis: ", "Reparto: ", "Sesión: "};
     static int ndatos = 0;
-    static SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/YYYY");
-    // static Date fecha1 = format1.parse(date);
-    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY/MM/dd");
     static Date mydate = new Date();
-    static LocalDate date;
     static LocalTime time = LocalTime.now();
     static String log = "log.log";//me gusta mas
 
@@ -146,36 +140,14 @@ public class P07 {
 	} finally {
 	    try {
 		if (fin != null) {
-		    //skere code
-		  /*  int clineas = 0;
-		    String Linea;
-		    boolean eof = false;
-		    while (!eof) {
-			// Lee una linea entera
-			Linea = loggerreader.readLine();//una vez leída la línea la podemos partir con el método split, suele ser muy útil
-			// Imprime la linea en pantalla
-			if (Linea != null) {
-			    clineas++;
-			} // Si llego al final del archivo, termina la ejecución
-			else {
-			    eof = true;
-			}
-			String Lineas[] = new String[clineas];		
+		    String fecha = new SimpleDateFormat("YYYY/MM/dd").format(mydate);
+		    File log = new File("log.log");
+		    if (!log.exists()) {//nowokrks
+			loggerwriter.write((fecha + " " + time + " Se ha formateado el texto correctamente con BTB"));
+		    } else {
+			loggerwriter.write(("\n"+fecha + " " + time + " Se ha formateado el texto correctamente con BTB"));
 		    }
-		    int lineas = 0;
-		    while (lineas!=clineas) {
-			// Lee una linea entera
-			Linea = loggerreader.readLine();//una vez leída la línea la podemos partir con el método split, suele ser muy útil
-			// Imprime la linea en pantalla
-			if (Linea != null) {
-			    clineas++;
-			} // Si llego al final del archivo, termina la ejecución
-			else {
-			    eof = true;
-			}
-		    }*/
-		    new SimpleDateFormat("dd/MM/YYYY").format(mydate);
-		    loggerwriter.write(( "\n"+ mydate + " Se ha formateado el texto con BTB"));
+
 		    fin.close();
 		    loggerwriter.close();
 		    loggerreader.close();

@@ -13,7 +13,7 @@ import java.util.Scanner;
  * @author Rafael
  */
 
-public class Libro_EX1 {//Libro prueba
+public class Libro {//Libro prueba
 
     private String titulo;
     private String autor;
@@ -22,21 +22,21 @@ public class Libro_EX1 {//Libro prueba
     private int num_ejem_tot;
     static private int num_ejem_pres_glob;
     static private int num_ejem_tot_glob;
-    public Libro_EX1() {
+    public Libro() {
     }
 
-    public Libro_EX1(String titulo, String autor, int isbn, int num_ejem_pres, 
+    public Libro(String titulo, String autor, int isbn, int num_ejem_pres, 
             int num_ejem_tot) {
         this.titulo = titulo;
         this.autor = autor;
         this.isbn_nuevo = isbn;
         this.num_ejem_pres = num_ejem_pres;
         this.num_ejem_tot = num_ejem_tot;
-        Libro_EX1.num_ejem_pres_glob += num_ejem_pres;
-        Libro_EX1.num_ejem_tot_glob += this.num_ejem_tot;
+        Libro.num_ejem_pres_glob += num_ejem_pres;
+        Libro.num_ejem_tot_glob += this.num_ejem_tot;
     }
 
-    public Libro_EX1(Libro_EX1 a) {
+    public Libro(Libro a) {
         this.titulo = a.titulo;
         this.autor = a.autor;
         this.isbn_nuevo = a.isbn_nuevo;
@@ -48,12 +48,12 @@ public class Libro_EX1 {//Libro prueba
          */
         this.num_ejem_pres = 0;
         this.num_ejem_tot = a.num_ejem_tot;
-        /*        Libro_EX1.num_ejem_pres_glob+=num_ejem_pres; */
-        Libro_EX1.num_ejem_tot_glob += this.num_ejem_tot;
+        /*        Libro.num_ejem_pres_glob+=num_ejem_pres; */
+        Libro.num_ejem_tot_glob += this.num_ejem_tot;
     }
 
 
-    public int getNum_ejem_pres(Libro_EX1 libro) {
+    public int getNum_ejem_pres(Libro libro) {
         return libro.num_ejem_pres;
     }
 
@@ -94,7 +94,7 @@ public class Libro_EX1 {//Libro prueba
     }
 
     public static void setNum_ejem_pres_glob(int num_ejem_pres_glob) {
-        Libro_EX1.num_ejem_pres_glob = num_ejem_pres_glob;
+        Libro.num_ejem_pres_glob = num_ejem_pres_glob;
     }
 
     public static int getNum_ejem_tot_glob() {
@@ -102,20 +102,20 @@ public class Libro_EX1 {//Libro prueba
     }
 
     public static void setNum_ejem_tot_glob(int num_ejem_tot_glob) {
-        Libro_EX1.num_ejem_tot_glob = num_ejem_tot_glob;
+        Libro.num_ejem_tot_glob = num_ejem_tot_glob;
     }
 
     public boolean prestar_Libro() {
         if (this.num_ejem_tot > this.num_ejem_pres) {
             this.num_ejem_pres++;
-            Libro_EX1.num_ejem_pres_glob++;
+            Libro.num_ejem_pres_glob++;
             return true;
         } else {
             return false;
         }
     }
 
-    static public void pedir_prestar_Libro(ArrayList<Libro_EX1> p) {
+    static public void pedir_prestar_Libro(ArrayList<Libro> p) {
         Scanner lector = new Scanner(System.in);
         System.out.println("¿Qué libro deseas prestar? Introduce el ISBN");
         int a = lector.nextInt();
@@ -144,14 +144,14 @@ public class Libro_EX1 {//Libro prueba
     public boolean devolver_Libro() {
         if (this.num_ejem_pres > 0) {
             this.num_ejem_pres--;
-            Libro_EX1.num_ejem_pres_glob--;
+            Libro.num_ejem_pres_glob--;
             return true;
         } else {
             return false;
         }
     }
 
-    static public void pedir_devolver_Libro(ArrayList<Libro_EX1> p) {
+    static public void pedir_devolver_Libro(ArrayList<Libro> p) {
         Scanner lector = new Scanner(System.in);
         System.out.println("¿Qué libro deseas devolver? Introduce el ISBN");
         int a = lector.nextInt();
@@ -185,7 +185,7 @@ public class Libro_EX1 {//Libro prueba
         System.out.println("======================");
     }
 
-    static public void localizar_Libro(ArrayList<Libro_EX1> p, boolean nuevoparam) {
+    static public void localizar_Libro(ArrayList<Libro> p, boolean nuevoparam) {
         Scanner lector = new Scanner(System.in);
         boolean encontrado = false;
         System.out.println("======================");
@@ -210,9 +210,9 @@ public class Libro_EX1 {//Libro prueba
         }
     }
 
-    static public Libro_EX1 crear_Libro() {
+    static public Libro crear_Libro() {
         Scanner lector = new Scanner(System.in);
-        Libro_EX1 milibro = new Libro_EX1();
+        Libro milibro = new Libro();
         System.out.println("======================");
         System.out.println("CREAR LIBRO... ");
         System.out.println("----------------------");
