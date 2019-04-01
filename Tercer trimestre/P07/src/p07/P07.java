@@ -17,10 +17,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.Scanner;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
@@ -31,10 +33,13 @@ public class P07 {
     static Scanner sc = new Scanner(System.in);
     static String datos[] = {"Año: ", "Director: ", "Duracion: ", "Sinopsis: ", "Reparto: ", "Sesión: "};
     static int ndatos = 0;
-    static LocalDate date = LocalDate.now();
+    static SimpleDateFormat format1 = new SimpleDateFormat("dd/MM/YYYY");
+    // static Date fecha1 = format1.parse(date);
+    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY/MM/dd");
+    static Date mydate = new Date();
+    static LocalDate date;
     static LocalTime time = LocalTime.now();
-    static String fecha = date.toString() + " " + time.toString();
-    static String log = "error.txt";
+    static String log = "log.log";//me gusta mas
 
     /**
      * @param args the command line arguments
@@ -94,11 +99,15 @@ public class P07 {
 	int i;
 	FileInputStream fin = null;
 	FileOutputStream fout = null;
+	BufferedWriter loggerwriter = null;
+	BufferedReader loggerreader = null;
 	//Primero, asegúrese de que ambos archivos hayan sido especificados.
 	//Copiar un Archivo
 	try {
 	    fin = new FileInputStream(rutain);
 	    fout = new FileOutputStream(rutaout, true);
+	    loggerwriter = new BufferedWriter(new FileWriter(log, true));
+	    loggerreader = new BufferedReader(new FileReader(log));
 	    //Intentar abrir los archivos
 	    menuCartelera();
 	    fout.write(formatpeliculabytes);
@@ -131,13 +140,45 @@ public class P07 {
 	    } while (i != -1);
 	    System.out.println();
 	} catch (FileNotFoundException notf) {
-	    System.out.println(fecha + notf.getMessage());
+	    System.out.println(notf.getMessage());
 	} catch (IOException exc) {
 	    System.out.println("Error de E/S: " + exc);
 	} finally {
 	    try {
 		if (fin != null) {
+		    //skere code
+		  /*  int clineas = 0;
+		    String Linea;
+		    boolean eof = false;
+		    while (!eof) {
+			// Lee una linea entera
+			Linea = loggerreader.readLine();//una vez leída la línea la podemos partir con el método split, suele ser muy útil
+			// Imprime la linea en pantalla
+			if (Linea != null) {
+			    clineas++;
+			} // Si llego al final del archivo, termina la ejecución
+			else {
+			    eof = true;
+			}
+			String Lineas[] = new String[clineas];		
+		    }
+		    int lineas = 0;
+		    while (lineas!=clineas) {
+			// Lee una linea entera
+			Linea = loggerreader.readLine();//una vez leída la línea la podemos partir con el método split, suele ser muy útil
+			// Imprime la linea en pantalla
+			if (Linea != null) {
+			    clineas++;
+			} // Si llego al final del archivo, termina la ejecución
+			else {
+			    eof = true;
+			}
+		    }*/
+		    new SimpleDateFormat("dd/MM/YYYY").format(mydate);
+		    loggerwriter.write(( "\n"+ mydate + " Se ha formateado el texto con BTB"));
 		    fin.close();
+		    loggerwriter.close();
+		    loggerreader.close();
 		}
 	    } catch (IOException exc) {
 		System.out.println("Error al cerrar el archivo de entrada.");
@@ -270,13 +311,13 @@ public class P07 {
 	reader.close();
 	writer.close();
     }
-    public static void imprimirlog() throws IOException{
+
+    public static void imprimirlog() throws IOException {
 	File archivo = new File(log);
-	if(!archivo.exists()){
+	if (!archivo.exists()) {
 	}
 	BufferedReader readerlog = new BufferedReader(new FileReader(log));
-	BufferedWriter writerlog = new BufferedWriter(new FileWriter(log,true));
-	
+	BufferedWriter writerlog = new BufferedWriter(new FileWriter(log, true));
+
     }
 }
-

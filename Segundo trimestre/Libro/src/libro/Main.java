@@ -17,7 +17,7 @@ public class Main {
        Scanner sn = new Scanner(System.in);
        boolean salir = false;
        int opcion; //Guardaremos la opcion del usuario
-       ArrayList<Libro> lista_libros = new ArrayList<>();
+       ArrayList<Libro_EX1> lista_libros = new ArrayList<>();
         
        while(!salir){
             
@@ -34,22 +34,22 @@ public class Main {
                case 1:
                    System.out.println("Has seleccionado la opcion 1 - Crear "
                            + "libro");
-                   lista_libros.add(Libro.crear_Libro());
+                   lista_libros.add(Libro_EX1.crear_Libro());
                    break;
                case 2:
                    System.out.println("Has seleccionado la opcion 2 - Prestar "
                            + "libro");
-                   Libro.pedir_prestar_Libro(lista_libros);
+                   Libro_EX1.pedir_prestar_Libro(lista_libros);
                    break;
                 case 3:
                    System.out.println("Has seleccionado la opcion 3 - Devolver "
                            + "libro");
-                   Libro.pedir_devolver_Libro(lista_libros);
+                   Libro_EX1.pedir_devolver_Libro(lista_libros);
                    break;
                 case 4:
                    System.out.println("Has seleccionado la opcion 4 - Localizar "
                            + "libro");
-                   Libro.localizar_Libro(lista_libros, false);
+                   Libro_EX1.localizar_Libro(lista_libros, false);
                    break;                     
                 case 5:
                    salir=true;
