@@ -1,2 +1,52 @@
-
-2019/04/01 06:03:00.828 Se ha formateado el texto correctamente con BTB
+2019/04/02 19:1:45 No hemos encontrado el fichero
+2019/04/031:42:54 No hemos encontrado el fichero
+2019/04/031:43:2 Se ha formateado el texto correctamente con BTB
+2019/04/03 00:00 Se ha formateado el texto correctamente con BTB
+java.util.GregorianCalendar[time=1554249898004,areFieldsSet=true,areAllFieldsSet=true,lenient=true,zone=sun.util.calendar.ZoneInfo[id="Europe/Paris",offset=3600000,dstSavings=3600000,useDaylight=true,transitions=184,lastRule=java.util.SimpleTimeZone[id=Europe/Paris,offset=3600000,dstSavings=3600000,useDaylight=true,startYear=0,startMode=2,startMonth=2,startDay=-1,startDayOfWeek=1,startTime=3600000,startTimeMode=2,endMode=2,endMonth=9,endDay=-1,endDayOfWeek=1,endTime=3600000,endTimeMode=2]],firstDayOfWeek=2,minimalDaysInFirstWeek=4,ERA=1,YEAR=2019,MONTH=3,WEEK_OF_YEAR=14,WEEK_OF_MONTH=1,DAY_OF_MONTH=3,DAY_OF_YEAR=93,DAY_OF_WEEK=4,DAY_OF_WEEK_IN_MONTH=1,AM_PM=0,HOUR=2,HOUR_OF_DAY=2,MINUTE=4,SECOND=58,MILLISECOND=4,ZONE_OFFSET=3600000,DST_OFFSET=3600000] 2:4:58 Se ha formateado el texto correctamente con BTB
+2019/04/03 02:11:15 Se ha formateado el texto correctamente con BTB
+2019/04/03 02:11:15 No hemos encontrado el fichero
+2019/04/03 02:19:59 No hemos encontrado el fichero
+2019/04/03 02:22:47 No hemos encontrado el fichero
+2019/04/03 02:23:51 No hemos encontrado el fichero
+2019/04/03 02:23:51 No hemos encontrado el fichero
+2019/04/03 02:30:21 No hemos encontrado el fichero
+2019/04/03 02:30:21 No hemos encontrado el fichero
+2019/04/03 02:31:35 No hemos encontrado el fichero
+2019/04/03 02:32:02 No hemos encontrado el fichero
+2019/04/03 02:34:10 No hemos encontrado el fichero
+2019/04/03 02:35:26 No se ha encontrado el fichero
+2019/04/03 02:35:26 No se ha encontrado el fichero
+2019/04/03 02:35:26 No se ha encontrado el fichero
+2019/04/03 02:47:51 No se ha encontrado el fichero
+2019/04/03 02:47:51 No se ha encontrado el fichero
+2019/04/03 03:01:32No se ha encontrado el fichero  sadsad (El sistema no puede encontrar el archivo especificado)
+2019/04/03 03:03:59 No se ha encontrado el fichero. El usuario ha introducido:ko (El sistema no puede encontrar el archivo especificado)
+2019/04/03 03:03:59 No se ha encontrado el fichero. El usuario ha introducido:sads (El sistema no puede encontrar el archivo especificado)
+2019/04/03 03:03:59 No se ha encontrado el fichero. El usuario ha introducido:asdas (El sistema no puede encontrar el archivo especificado)
+2019/04/03 03:18:07 No se han introducido datos válidos(java.util.InputMismatchException)
+2019/04/03 03:18:15 No se han introducido datos válidos(java.util.InputMismatchException)
+2019/04/03 03:36:00 No se ha encontrado el fichero. El usuario ha introducido:ko (El sistema no puede encontrar el archivo especificado)
+2019/04/03 03:36:08 No se han introducido datos válidos(java.util.InputMismatchException)
+2019/04/03 03:52:07 No se ha encontrado el fichero. El usuario ha introducido: pipo (El sistema no puede encontrar el archivo especificado)
+2019/04/03 03:52:18 No se han introducido datos válidos(java.util.InputMismatchException)
+2019/04/03 03:52:21 No se han introducido datos válidos(java.util.InputMismatchException)
+2019/04/03 03:52:26 No se han introducido datos válidos(java.util.InputMismatchException)
+2019/04/03 03:52:31 No se han introducido datos válidos(java.util.InputMismatchException)
+2019/04/03 03:54:32 No se ha encontrado el fichero. El usuario ha introducido: \dfd\sd.xd (El sistema no puede encontrar la ruta especificada)
+2019/04/03 03:54:32 Se ha formateado el texto correctamente con BTB
+2019/04/03 03:58:27 No se ha encontrado el fichero. El usuario ha introducido: \dfd\dd.txt (El sistema no puede encontrar la ruta especificada)
+2019/04/03 04:01:34 Se ha formateado el texto correctamente con BTB
+2019/04/03 04:06:01 No se ha encontrado el fichero. El usuario ha introducido: \ssd\ok.txt (El sistema no puede encontrar la ruta especificada)
+2019/04/03 04:07:13 No se ha encontrado el fichero. El usuario ha introducido: \df.txt (El sistema no puede encontrar el archivo especificado)
+2019/04/03 04:08:52 No se ha encontrado el fichero. El usuario ha introducido: &$ (El sistema no puede encontrar el archivo especificado)
+2019/04/03 04:09:07 No se ha encontrado el fichero. El usuario ha introducido: !e (El sistema no puede encontrar el archivo especificado)
+2019/04/03 04:09:37 No se ha encontrado el fichero. El usuario ha introducido: \!"�$%%%&\(()==?��' (El nombre de archivo, el nombre de directorio o la sintaxis de la etiqueta del volumen no son correctos)
+2019/04/03 04:10:41 No se ha encontrado el fichero. El usuario ha introducido: -1 (El sistema no puede encontrar el archivo especificado)
+2019/04/03 04:15:18 No se ha encontrado el fichero. El usuario ha introducido: sad (El sistema no puede encontrar el archivo especificado)(java.io.FileNotFoundException: sad (El sistema no puede encontrar el archivo especificado))
+2019/04/03 04:15:45 No se ha encontrado el fichero. El usuario ha introducido: asd (El sistema no puede encontrar el archivo especificado)(java.io.FileNotFoundException: asd (El sistema no puede encontrar el archivo especificado))
+2019/04/03 04:17:03 No se ha encontrado el fichero. El usuario ha introducido: (java.io.FileNotFoundException: sadsa (El sistema no puede encontrar el archivo especificado))
+2019/04/03 04:18:37 No se ha encontrado el fichero. (java.io.FileNotFoundException: eokd (El sistema no puede encontrar el archivo especificado))
+2019/04/03 04:21:20 Error: (java.io.FileNotFoundException: ASD (El sistema no puede encontrar el archivo especificado))
+2019/04/03 04:23:23 No se han introducido datos válidos(java.util.InputMismatchException)
+2019/04/03 04:23:43 Error: java.io.FileNotFoundException: eokd (El sistema no puede encontrar el archivo especificado)
+2019/04/03 04:24:01 Error: java.io.FileNotFoundException: \d\1\s\lol.txt (El sistema no puede encontrar la ruta especificada)
