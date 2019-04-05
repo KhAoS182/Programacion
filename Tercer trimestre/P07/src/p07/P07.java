@@ -304,3 +304,7 @@ public class P07 {
 	return fechaCompleta;
     }
 }
+class excepcionprueba extends IOException{
+    
+
+}
