@@ -58,8 +58,11 @@ public class P07 {
 			cargarficherolal();
 			break;
 		    case 4:
-			salir = false;
+			leerObjeto(menuobjetos());
 			break;
+		    case 5:
+		    salir = true;
+		    break;
 		    default:
 			System.out.println("Introduce una opción valida....");
 			imprimirlog("No se han introducido datos válidos");
@@ -78,13 +81,25 @@ public class P07 {
 	System.out.println("1) Byte to Byte");
 	System.out.println("2) Caracter a caracter");
 	System.out.println("3) Línia a línia");
-	System.out.println("4) Salir");
+	System.out.println("4) Tratamiento de objetos");
+	System.out.println("5) Salir");
 	System.out.println("--------------------------");
 	int x = sc.nextInt();
 	sc.nextLine();// :)
 	return x;
     }
-
+    public static int menuobjetos() {
+	System.out.println("--------------------------");
+	System.out.println("1) Lectura línea a línea y escritura con objetos.");
+	System.out.println("2) Lectura de objetos y escritura de objetos");
+	System.out.println("3) Lectura de objetos y escritura por consola. ");
+	System.out.println("4) Lectura por consola y escritura de objetos. (añadirá objetos al final del fichero existente) ");
+	System.out.println("5) Volver al menú principal. ");
+	System.out.println("--------------------------");
+	int x = sc.nextInt();
+	sc.nextLine();// :)
+	return x;
+    }
     public static void menuCartelera() {
 	System.out.println("----------------------------------------------");
 	System.out.println("	     Cartelera cinefbmoll");
@@ -302,6 +317,12 @@ public class P07 {
 	String hora = new SimpleDateFormat("HH:mm:ss").format(mydate);
 	String fechaCompleta = fecha + " " + hora;
 	return fechaCompleta;
+    }
+    public static void leerObjeto(int opcion){
+	System.out.println("Indica la ruta del archivo a leer y su salida....");
+	File archivoEntrada = new File(sc.next());
+	File archivoSalida = new File(sc.next());
+	
     }
 }
 class excepcionprueba extends IOException{
