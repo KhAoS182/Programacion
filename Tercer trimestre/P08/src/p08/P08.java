@@ -71,7 +71,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
     }
 
     public static Connection obtenerConexion() throws SQLException { //SET GLOBAL time_zone = '+3:00';
-	String url = "jdbc:mysql://localhost:3306/bars";
+	String url = "jdbc:mysql://localhost:3306/prog_bars?useLegacyDatetimeCode=false";// Work's for me....
 	return DriverManager.getConnection(url, "prog", "123");
 
     }
@@ -101,6 +101,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	ResultSetMetaData rsmd = rs.getMetaData();
 	int columnas = rsmd.getColumnCount();
 	for (int i = 1; i < filas && rs.next() == true; i++) {
+	    System.out.print("+");
 	    for (int j = 1; j < columnas; j++) {
 		String campo = rs.getString(j);
 		System.out.print(campo + " ");
@@ -110,11 +111,14 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
     }
 
     private static void mostrarTablas(Statement st) throws SQLException {
+	int tamaño = 12;
 	ResultSet rs = st.executeQuery("show tables");
 	//ResultSetMetaData rsmd = rs.getMetaData();
-	while (rs.next()){
-	    System.out.println(rs.getString(1)); //ojo el rs.next() avanza de 1 en ya que se lo hemos puesto.
+	System.out.println("+---Bars---+");
+	while (rs.next()){    
+	    System.out.println("|"+rs.getString(1)); //ojo el rs.next() avanza de 1 en ya que se lo hemos puesto.
 	    
 	}
+	System.out.println("+----------+");
     }
 }
