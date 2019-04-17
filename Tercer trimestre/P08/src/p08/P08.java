@@ -28,6 +28,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
      */
     public static void main(String[] args) {
 	boolean salir = false;
+
 	try {
 	    Statement st = obtenerConexion().createStatement();
 	    st.executeQuery("START transaction");// por ahora
@@ -53,11 +54,13 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 			 */
 			break;
 		    case 5:
-			salir = true;
 			st.executeQuery("ROLLBACK");
 			break;
 		    case 6:
 			st.executeQuery("COMMIT");
+			break;
+		    case 7:
+			salir = true;
 			break;
 		    default:
 			throw new AssertionError();
@@ -67,6 +70,13 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	} catch (SQLException ex) {
 	    Logger.getLogger(P08.class.getName()).log(Level.SEVERE, null, ex);
 	    System.out.println("Error en la conexion de la base de datos");
+	} finally {
+	    try {
+		obtenerConexion().close();
+	    } catch (SQLException ex) {
+		Logger.getLogger(P08.class.getName()).log(Level.SEVERE, null, ex);
+		System.out.println("No hemos podido cerrar el proceso de conexión");
+	    }
 	}
     }
 
@@ -82,7 +92,9 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	System.out.println("2) Actualizar una tabla");
 	System.out.println("3) Insertar un campo");
 	System.out.println("4) Ver una tabla");
-	System.out.println("5) Salir");
+	System.out.println("5) ROLLBACK");
+	System.out.println("6) COMMIT");
+	System.out.println("7) Salir");
 	System.out.println("--------------------------");
 	int x = sc.nextInt();
 	sc.nextLine();// :)
@@ -100,24 +112,30 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	ResultSet rs = st.executeQuery("Select * From " + tabla);
 	ResultSetMetaData rsmd = rs.getMetaData();
 	int columnas = rsmd.getColumnCount();
-	for (int i = 1; i < filas && rs.next() == true; i++) {
+	for (int i = 1; i - 1 < filas && rs.next() == true; i++) {
 	    System.out.print("+");
-	    for (int j = 1; j < columnas; j++) {
+	    for (int j = 1; j - 1 < columnas; j++) {
 		String campo = rs.getString(j);
-		System.out.print(campo + " ");
+		if (j > columnas - 1) {
+		    
+		    System.out.print(campo);
+		} else {
+		    System.out.print(campo + " | ");
+		}
 	    }
 	    System.out.println();
 	}
+	rs.close();
     }
 
     private static void mostrarTablas(Statement st) throws SQLException {
-	int tamaño = 12;
+	int tamaño = 12;//pendiente
 	ResultSet rs = st.executeQuery("show tables");
 	//ResultSetMetaData rsmd = rs.getMetaData();
 	System.out.println("+---Bars---+");
-	while (rs.next()){    
-	    System.out.println("|"+rs.getString(1)); //ojo el rs.next() avanza de 1 en ya que se lo hemos puesto.
-	    
+	while (rs.next()) {
+	    System.out.println("|" + rs.getString(1)); //ojo el rs.next() avanza de 1 en ya que se lo hemos puesto.
+
 	}
 	System.out.println("+----------+");
     }
