@@ -5,12 +5,7 @@
  */
 package p08;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,28 +25,21 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	boolean salir = false;
 
 	try {
-	    Statement st = obtenerConexion().createStatement();
+	    Statement st = obtenerConexion().createStatement();// ejemplo de autocloseable?
 	    st.executeQuery("START transaction");// por ahora
 	    while (!salir) {
 		switch (menu()) {
 		    case 1:
-			st.executeUpdate("INSERT INTO bar VALUES ('polla', 'pito')");
+			//st.executeUpdate("INSERT INTO bar VALUES ('polla', 'pito')");
+			consulta();
 			break;
 		    case 2:
 			break;
 		    case 3:
 			break;
 		    case 4:
-			System.out.println("Que tabla deseas ver:");
 			mostrarTablas(st);
 			verTabla(st);
-			/*while (rs.next()) {
-			String name = rs.getString(1);// Columna
-			String address = rs.getString(2);
-			     System.out.print(name + " "+ address+ "\n");
-			     
-			 }
-			 */
 			break;
 		    case 5:
 			st.executeQuery("ROLLBACK");
@@ -66,17 +54,11 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 			throw new AssertionError();
 		}
 	    }
-	    st.close();
 	} catch (SQLException ex) {
 	    Logger.getLogger(P08.class.getName()).log(Level.SEVERE, null, ex);
 	    System.out.println("Error en la conexion de la base de datos");
 	} finally {
-	    try {
-		obtenerConexion().close();
-	    } catch (SQLException ex) {
-		Logger.getLogger(P08.class.getName()).log(Level.SEVERE, null, ex);
-		System.out.println("No hemos podido cerrar el proceso de conexión");
-	    }
+		//obtenerConexion().close(); //No es necesario ??¿¿
 	}
     }
 
@@ -102,7 +84,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
     }
 
     public static void verTabla(Statement st) throws SQLException {
-	System.out.println("Que tablas deseas ver");
+	System.out.println("Que tablas deseas ver:");
 	String tabla = sc.nextLine();
 	int filas = 0;
 	ResultSet cfilas = st.executeQuery("Select count(*) from " + tabla);
@@ -116,8 +98,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	    System.out.print("+");
 	    for (int j = 1; j - 1 < columnas; j++) {
 		String campo = rs.getString(j);
-		if (j > columnas - 1) {
-		    
+		if (j > columnas - 1) {		    
 		    System.out.print(campo);
 		} else {
 		    System.out.print(campo + " | ");
@@ -125,7 +106,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	    }
 	    System.out.println();
 	}
-	rs.close();
+	//rs.close(); no es necesario ??¿¿
     }
 
     private static void mostrarTablas(Statement st) throws SQLException {
@@ -138,5 +119,8 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 
 	}
 	System.out.println("+----------+");
+    }
+    public static void consulta(){
+	
     }
 }
