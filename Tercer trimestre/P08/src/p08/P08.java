@@ -9,7 +9,6 @@ import java.sql.*;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  *
  * @author Adrian
@@ -123,4 +122,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
     public static void consulta(){
 	
     }
+}
+public class writter extends Scanner{
+    
 }
