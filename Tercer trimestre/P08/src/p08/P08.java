@@ -123,6 +123,3 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	
     }
 }
-public class writter extends Scanner{
-    
-}
