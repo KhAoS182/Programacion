@@ -14,20 +14,17 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.InvalidPathException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Date;
 import java.util.Scanner;
-import java.time.format.DateTimeFormatter;
 import java.util.InputMismatchException;
 
 /**
- *
+ * Práctica de Streams
  * @author Adrian
+ * @version 1.01
+ * 
  */
 public class P07 {
 
@@ -37,6 +34,8 @@ public class P07 {
 
     /**
      * @param args the command line arguments
+     * @throws java.io.IOException
+     *
      */
     public static void main(String[] args) throws IOException {
 
@@ -61,8 +60,8 @@ public class P07 {
 			leerObjeto(menuobjetos());
 			break;
 		    case 5:
-		    salir = true;
-		    break;
+			salir = true;
+			break;
 		    default:
 			System.out.println("Introduce una opción valida....");
 			imprimirlog("No se han introducido datos válidos");
@@ -76,6 +75,12 @@ public class P07 {
 
     }
 
+    /**
+     *	<b>Menú principal.</b>
+     * Imprime el menú principal
+     * @return guiri i guiri seras
+     *
+     */
     public static int menu() {
 	System.out.println("--------------------------");
 	System.out.println("1) Byte to Byte");
@@ -88,6 +93,11 @@ public class P07 {
 	sc.nextLine();// :)
 	return x;
     }
+
+    /**
+     * <b>Imprime el menú de objetos.</b>
+     * @return Imprime el menu de lectura de objteos, y nos devuelve la opción del usuario, y lo trata en el main.
+     */
     public static int menuobjetos() {
 	System.out.println("--------------------------");
 	System.out.println("1) Lectura línea a línea y escritura con objetos.");
@@ -100,13 +110,25 @@ public class P07 {
 	sc.nextLine();// :)
 	return x;
     }
+/**
+ * 
+ * <b>Un pequeño menú.</b>
+ * Imprime un menú unicamente visual.
+ */
     public static void menuCartelera() {
 	System.out.println("----------------------------------------------");
 	System.out.println("	     Cartelera cinefbmoll");
 	System.out.println("----------------------------------------------");
     }
 
+    /**
+     * Este metodo carga un fichero <b>byte a byte</b>.
+     * @throws FileNotFoundException <b>Cuando el fichero de entrada no se ha encontrado.</b>
+     * @throws InvalidPathException  <b>Sí es una ruta válida.</b>
+     * @throws IOException <b>Sí no es ninguna de las anteriores.</b>
+     */
     public static void cargarficherobtb() throws FileNotFoundException, InvalidPathException, IOException {
+
 	ndatos = 0;
 	String saltolinea = "\n", formatpelicula = "----------", formatpelicula2 = "\n\n----------";
 	int i;
@@ -160,7 +182,7 @@ public class P07 {
 	    imprimirlog("Error: " + invp);
 	} catch (IOException exc) {
 	    System.out.println("Error de E/S: " + exc);
-	    imprimirlog("Error de E/S: " + exc );
+	    imprimirlog("Error de E/S: " + exc);
 	} catch (Exception e) {//supongo que aqui iria runtime error
 	    System.out.println("Error del usuario");
 	    imprimirlog("Error: " + e);
@@ -171,7 +193,7 @@ public class P07 {
 		}
 	    } catch (IOException exc) {
 		System.out.println("Error al cerrar el archivo de entrada.");
-		imprimirlog("Error:"+ exc);
+		imprimirlog("Error:" + exc);
 	    }
 	    try {
 		if (fout != null) {
@@ -179,11 +201,16 @@ public class P07 {
 		}
 	    } catch (IOException exc) {
 		System.out.println("Error al cerrar el archivo de salida.");
-		imprimirlog("Error:"+ exc);
+		imprimirlog("Error:" + exc);
 	    }
 	}
     }
 
+    /**
+     * Este metodo carga un fichero <b>carácter a carácter</b>.
+     * @throws IOException <b>Sí no es ninguna de las anteriores.</b>
+     * 
+     */
     public static void cargarficherocac() throws IOException {
 	ndatos = 0;
 	String saltolinia = "\n";
@@ -233,6 +260,11 @@ public class P07 {
 	}
     }
 
+    /**
+     * Este metodo carga un fichero <b>línea a línea</b>.
+     * @throws IOException <b>Sí tenemos algún error de input output</b>
+     * 
+     */
     public static void cargarficherolal() throws IOException {
 	ndatos = 0;
 	String saltolinia = "\n";
@@ -303,7 +335,13 @@ public class P07 {
 	writer.close();
     }
 
-    public static void imprimirlog(String error) throws IOException {
+    /**
+     * Se encarga de imprimir en el log.
+     * @param error <b>En caso de obtener un error en alguno de los metodos anteriores, le pasaremos un texto con ese
+     * texto para que este metodo se encarga de escribirlo en un log.</b>
+     * @throws IOException
+     */
+    public static void imprimirlog(String error) throws IOException {//se llama error porque puede
 	BufferedReader readerlog = new BufferedReader(new FileReader("log.log"));//decoración? jejs
 	BufferedWriter writerlog = new BufferedWriter(new FileWriter("log.log", true));
 	writerlog.write(obtenerFecha() + " " + error + "\n");
@@ -311,6 +349,10 @@ public class P07 {
 	readerlog.close();
     }
 
+    /**
+     * <b>Obtiene la fecha actual.</b>
+     * @return Devuelve la fecha actual.
+     */
     public static String obtenerFecha() {
 	Date mydate = new Date();
 	String fecha = new SimpleDateFormat("YYYY/MM/dd").format(mydate);
@@ -318,14 +360,19 @@ public class P07 {
 	String fechaCompleta = fecha + " " + hora;
 	return fechaCompleta;
     }
-    public static void leerObjeto(int opcion){
+
+    /**
+     * Lee objetos y los trata
+     * @param opcion Obtenemos la opción del usuario.
+     */
+    public static void leerObjeto(int opcion) {
 	System.out.println("Indica la ruta del archivo a leer y su salida....");
 	File archivoEntrada = new File(sc.next());
 	File archivoSalida = new File(sc.next());
-	
+
     }
 }
-class excepcionprueba extends IOException{
-    
+
+class excepcionprueba extends IOException {
 
 }
