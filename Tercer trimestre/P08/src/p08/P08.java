@@ -26,7 +26,7 @@ import java.util.Date;
 public class P08 { //connection -statement - executeupdate/query resultset next get
 
     static Scanner sc = new Scanner(System.in);
-    static String[] mensajes = {"+---------Resultado de la consulta---------+\n","+------------Consulta finalizada-----------+\n"};
+    static String[] mensajes = {"+---------Resultado de la consulta---------+\n", "+------------Consulta finalizada-----------+\n"};
 
     /**
      * @param args the command line arguments
@@ -50,7 +50,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 			break;
 		    case 4:
 			mostrarTablas(st);
-			verTabla(st);
+			verTabla(st, 0);
 			break;
 		    case 5:
 			st.executeQuery("ROLLBACK");
@@ -69,7 +69,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	    Logger.getLogger(P08.class.getName()).log(Level.SEVERE, null, ex);
 	    System.out.println("Error en la conexion de la base de datos");
 	} catch (Exception e) {
-	   Logger.getLogger(P08.class.getName()).log(Level.SEVERE, null, e);
+	    Logger.getLogger(P08.class.getName()).log(Level.SEVERE, null, e);
 	} finally {
 	    //obtenerConexion().close(); //No es necesario ??¿¿
 	}
@@ -96,7 +96,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	return x;
     }
 
-    public static void verTabla(Statement st) throws SQLException {
+    public static void verTabla(Statement st, int tipo) throws SQLException, IOException {
 	System.out.println("Que tablas deseas ver:");
 	String tabla = sc.nextLine();
 	int filas = 0;
@@ -120,68 +120,88 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	    System.out.println();
 	}
 	//rs.close(); no es necesario ??¿¿
+	if (tipo == 1) {//Clausla where
+	    System.out.println("Que columna deseas filtrar?");
+	    String columna = sc.next();
+	    System.out.println("Qué condición debe cumplir");
+	    String condicion = sc.next();
+	    String conwhere = "Select * from " + tabla + " where " + columna + " like '%" + condicion + "%'";
+	    System.out.println(conwhere);
+	    cfilas = st.executeQuery("Select count(*) from " + tabla + " where " + columna + " like '%" + condicion + "%'");
+	    while (cfilas.next()) {
+		filas = cfilas.getInt(1);
+	    }
+	    rs = st.executeQuery(conwhere);
+	    log("Consulta realizada: " + rs.getStatement().toString().concat(": " + conwhere) + ";", 1);
+	    log(1);
+	    rsmd = rs.getMetaData();
+	    columnas = rsmd.getColumnCount();
+	    String query = "";
+	    //String query[][] = new String[filas][columnas];
+	    for (int i = 1; i - 1 < filas && rs.next() == true; i++) {
+		query = "";
+		System.out.print("+");
+		for (int j = 1; j - 1 < columnas; j++) {
+		    String campo = rs.getString(j);
+		    if (j > columnas - 1) {
+			System.out.print(campo);
+			//query[i-1][j-1] = campo;
+		    } else {
+			System.out.print(campo + " | ");
+		    }
+		    query = query.concat(campo);
+		}
+		System.out.println();
+		log(query, 2);
+	    }
+	    log(2);//mensaje de finalización de la consulta
+	} else if (tipo == 2) {//prepared Statement
+	    //quien lo entienda 1€ le debo
+	    System.out.println("Que columna deseas filtrar?");
+	    String columna = sc.next();
+	    System.out.println("Qué condición debe cumplir");
+	    String condicion = sc.next();
+	    String conwhere = "select * from " + tabla + " where " + columna + " like ?";
+	    String cfilaswhere = "select count(*) from " + tabla + " where " + columna + " like ?";
+	    PreparedStatement pst = obtenerConexion().prepareStatement(conwhere);
+	    pst.setString(1, "%" + condicion + "%");
+	    PreparedStatement cfilaspst = obtenerConexion().prepareStatement(cfilaswhere);
+	    cfilaspst.setString(1, "%" + condicion + "%");
+	    rs = cfilaspst.executeQuery();
+	    filas = 0;
+	    while (rs.next()) {
+		filas = rs.getInt(1);
+	    }
+	    System.out.println(pst.toString() + "\n" + cfilaspst.toString());
+	    System.out.println(filas);
+	    log("Consulta realizada: " + pst.toString() + ";", 1);
+	    log(1);
+	    rs = pst.executeQuery();
+	    rsmd = rs.getMetaData();
+	    columnas = rsmd.getColumnCount();
+	    String query = "";
+	    for (int i = 1; i - 1 < filas && rs.next() == true; i++) {
+		query = "";
+		System.out.print("+");
+		for (int j = 1; j - 1 < columnas; j++) {
+		    String campo = rs.getString(j);
+		    if (j > columnas - 1) {
+			System.out.print(campo);
+			//query[i-1][j-1] = campo;
+		    } else {
+			System.out.print(campo + " | ");
+		    }
+		    query = query.concat(campo);
+		}
+		System.out.println();
+		log(query, 2);
+	    }
+	    log(2);
+	}
     }
 
-    public static void verTablawhere(Statement st) throws SQLException, IOException {
-	System.out.println("Que tablas deseas ver:");
-	String tabla = sc.nextLine();
-	int filas = 0;
-	//ResultSet cfilas = st.executeQuery("Select count(*) from " + tabla + "where ? ilike '?'");
-	ResultSet cfilas = st.executeQuery("Select count(*) from " + tabla);
-	while (cfilas.next()) {
-	    filas = cfilas.getInt(1);
-	}
-	ResultSet rs = st.executeQuery("Select * From " + tabla);
-	ResultSetMetaData rsmd = rs.getMetaData();
-	int columnas = rsmd.getColumnCount();
-	for (int i = 1; i - 1 < filas && rs.next() == true; i++) {
-	    System.out.print("+");
-	    for (int j = 1; j - 1 < columnas; j++) {
-		String campo = rs.getString(j);
-		if (j > columnas - 1) {
-		    System.out.print(campo);
-		} else {
-		    System.out.print(campo + " | ");
-		}
-	    }
-	    System.out.println();
-	}
-	System.out.println("Que columna deseas filtrar?");
-	String columna = sc.next();
-	System.out.println("Qué condición debe cumplir");
-	String condicion = sc.next();
-	String conwhere = "Select * from " + tabla + " where " + columna + " like '%" + condicion + "%'";
-	System.out.println(conwhere);
-	cfilas = st.executeQuery("Select count(*) from " + tabla + " where " + columna + " like '%" + condicion + "%'");
+    public static void verTabla() throws SQLException, IOException {
 
-	while (cfilas.next()) {
-	    filas = cfilas.getInt(1);
-	}
-	log("Consulta realizada: " + conwhere + ";", 1);
-	log(1);
-	rs = st.executeQuery(conwhere);
-	rsmd = rs.getMetaData();
-	columnas = rsmd.getColumnCount();
-	String query = "";
-	//String query[][] = new String[filas][columnas];
-	for (int i = 1; i - 1 < filas && rs.next() == true; i++) {
-	    query = "";
-	    System.out.print("+");
-	    for (int j = 1; j - 1 < columnas; j++) {
-		String campo = rs.getString(j);
-		if (j > columnas - 1) {
-		    System.out.print(campo);
-		    //query[i-1][j-1] = campo;
-		} else {
-		    System.out.print(campo + " | ");
-		}
-		query = query.concat(campo);
-	    }	    
-	    System.out.println();
-	    log(query, 2);	    
-	}
-	log(2);
-	//rs.close(); no es necesario ??¿¿
     }
 
     private static void mostrarTablas(Statement st) throws SQLException {
@@ -199,14 +219,13 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
     public static int menuConsulta() {
 	System.out.println("----------Consulta----------");
 	System.out.println("1) Ver todos los campos de una tabla");
-	System.out.println("2) Ver el campo de una tabla");
-	System.out.println("3) Ver campos con la clausula where");
-	System.out.println("4) Ver campo con prepared statement");
-	System.out.println("5) Ver clave primaria");
-	System.out.println("6) Ver clave primaria prepared statement");
-	System.out.println("7) ROLLBACK");
-	System.out.println("8) COMMIT");
-	System.out.println("9) Salir");
+	System.out.println("2) Ver campos con la clausula where");
+	System.out.println("3) Ver campo con prepared statement");
+	System.out.println("4) Ver clave primaria");
+	System.out.println("5) Ver clave primaria prepared statement");
+	System.out.println("6) ROLLBACK");
+	System.out.println("7) COMMIT");
+	System.out.println("8) Salir");
 	System.out.println("--------------------------");
 	int x = sc.nextInt();
 	sc.nextLine();// :)
@@ -214,17 +233,30 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
     }
 
     public static void consulta(Statement st) throws SQLException, IOException {
-	switch (menuConsulta()) {
-	    case 1:
-		mostrarTablas(st);
-		verTabla(st);
-		break;
-	    case 2:
-		mostrarTablas(st);
-		verTablawhere(st);
-		break;
-	    default:
-		throw new AssertionError();
+
+	boolean salir = false;
+	while (!salir) {
+
+	    switch (menuConsulta()) {
+
+		case 1:
+		    mostrarTablas(st);
+		    verTabla(st, 0);
+		    break;
+		case 2:
+		    mostrarTablas(st);
+		    verTabla(st, 1);
+		    break;
+		case 3:
+		    mostrarTablas(st);
+		    verTabla(st, 2);
+		    break;
+		case 4:
+
+		    break;
+		default:
+		    throw new AssertionError();
+	    }
 	}
     }
 
@@ -238,21 +270,20 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	    mensaje = mensaje.concat("\n");
 	    writer.write(obtenerFecha() + mensaje);
 	    System.out.println("ya ta bro");
-	   
+
 	} else if (tipo == 2) {
 	    mensaje = "+ " + mensaje + "\n";
 	    writer.write(mensaje);
 	}
-	 writer.close();
+	writer.close();
     }
 
     public static void log(int mensaje) throws FileNotFoundException, IOException {
 	BufferedWriter writer = new BufferedWriter(new FileWriter("log.log", true));
 	if (mensaje == 1) {//por poner algo
 	    writer.write(mensajes[0]);
-	    
-	}
-	else if (mensaje == 2){
+
+	} else if (mensaje == 2) {
 	    writer.write(mensajes[1]);
 	}
 	writer.close();
