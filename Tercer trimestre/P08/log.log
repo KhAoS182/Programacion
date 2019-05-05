@@ -1,0 +1,44 @@
+pepepepespepe2019/05/05 03:26:23 pepe2019/05/05 03:30:57 pepe
+2019/05/05 03:30:58 pepe
+2019/05/05 03:30:59 pepe
+2019/05/05 03:30:59 pepe
+2019/05/05 03:30:59 pepe
+2019/05/05 03:31:00 pepe
+2019/05/05 03:31:00 pepe
+2019/05/05 03:31:01 pepe
+2019/05/05 03:32:08 pepe
+2019/05/05 03:40:13 Consulta realizada: Select * from bar where name like '%Down%'
+2019/05/05 03:45:21 Consulta realizada: Select * from bar where name like '%Down%';
+2019/05/05 03:46:47 Consulta realizada: Select * from bar where name like '%Down%';
+2019/05/05 03:46:47 s
+2019/05/05 03:48:24 Consulta realizada: Select * from bar where name like '%Down%';
+2019/05/05 03:48:24 802 W. Main Street
+2019/05/05 03:49:38 Consulta realizada: Select * from bar where name like '%name%';
+2019/05/05 03:49:52 Consulta realizada: Select * from bar where name like '%Down%';
+2019/05/05 03:49:52 Down Under Pub802 W. Main Street
+2019/05/05 04:05:16 Consulta realizada: Select * from bar where name like '%Down%';
+2019/05/05 04:06:30 Consulta realizada: Select * from bar where name like '%Down%';
+2019/05/05 04:08:37 Consulta realizada: Select * from bar where name like '%Down%';
+2019/05/05 04:10:22 Consulta realizada: Select * from bar where name like '%Down%';
++---------Resultado de la consulta---------+
+2019/05/05 04:14:44 Consulta realizada: Select * from bar where name like '%Do%';
++---------Resultado de la consulta---------+
++Down Under Pub802 W. Main Street+------------Consulta finalizada-----------+
+2019/05/05 04:17:01 Consulta realizada: Select * from bar where name like '%A%';
++---------Resultado de la consulta---------+
++ James Joyce Pub912 W. Main Street
++ James Joyce Pub912 W. Main StreetSatisfaction905 W. Main Street
++ James Joyce Pub912 W. Main StreetSatisfaction905 W. Main StreetTalk of the Town108 E. Main Street
++------------Consulta finalizada-----------+
+2019/05/05 04:19:00 Consulta realizada: Select * from bar where name like '%a%';
++---------Resultado de la consulta---------+
++ 
++ 
++ 
++------------Consulta finalizada-----------+
+2019/05/05 04:19:37 Consulta realizada: Select * from bar where name like '%a%';
++---------Resultado de la consulta---------+
++ James Joyce Pub912 W. Main Street
++ Satisfaction905 W. Main Street
++ Talk of the Town108 E. Main Street
++------------Consulta finalizada-----------+
