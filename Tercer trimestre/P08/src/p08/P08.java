@@ -99,15 +99,12 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
     public static void verTabla(Statement st, int tipo) throws SQLException, IOException {
 	System.out.println("Que tablas deseas ver:");
 	String tabla = sc.nextLine();
-	int filas = 0;
-	ResultSet cfilas = st.executeQuery("Select count(*) from " + tabla);
-	while (cfilas.next()) {
-	    filas = cfilas.getInt(1);
-	}
 	ResultSet rs = st.executeQuery("Select * From " + tabla);
 	ResultSetMetaData rsmd = rs.getMetaData();
 	int columnas = rsmd.getColumnCount();
-	for (int i = 1; i - 1 < filas && rs.next() == true; i++) {
+	int tamaño[] = new int[columnas];
+	//lengthofrow(rs);
+	for (int i = 1; rs.next() == true; i++) {
 	    System.out.print("+");
 	    for (int j = 1; j - 1 < columnas; j++) {
 		String campo = rs.getString(j);
@@ -127,10 +124,6 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	    String condicion = sc.next();
 	    String conwhere = "Select * from " + tabla + " where " + columna + " like '%" + condicion + "%'";
 	    System.out.println(conwhere);
-	    cfilas = st.executeQuery("Select count(*) from " + tabla + " where " + columna + " like '%" + condicion + "%'");
-	    while (cfilas.next()) {
-		filas = cfilas.getInt(1);
-	    }
 	    rs = st.executeQuery(conwhere);
 	    log("Consulta realizada: " + rs.getStatement().toString().concat(": " + conwhere) + ";", 1);
 	    log(1);
@@ -138,7 +131,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	    columnas = rsmd.getColumnCount();
 	    String query = "";
 	    //String query[][] = new String[filas][columnas];
-	    for (int i = 1; i - 1 < filas && rs.next() == true; i++) {
+	    for (int i = 1;rs.next() == true; i++) {
 		query = "";
 		System.out.print("+");
 		for (int j = 1; j - 1 < columnas; j++) {
@@ -149,7 +142,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 		    } else {
 			System.out.print(campo + " | ");
 		    }
-		    query = query.concat(campo);
+		    query = query.concat(campo+" ");
 		}
 		System.out.println();
 		log(query, 2);
@@ -167,20 +160,14 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	    pst.setString(1, "%" + condicion + "%");
 	    PreparedStatement cfilaspst = obtenerConexion().prepareStatement(cfilaswhere);
 	    cfilaspst.setString(1, "%" + condicion + "%");
-	    rs = cfilaspst.executeQuery();
-	    filas = 0;
-	    while (rs.next()) {
-		filas = rs.getInt(1);
-	    }
 	    System.out.println(pst.toString() + "\n" + cfilaspst.toString());
-	    System.out.println(filas);
 	    log("Consulta realizada: " + pst.toString() + ";", 1);
 	    log(1);
 	    rs = pst.executeQuery();
 	    rsmd = rs.getMetaData();
 	    columnas = rsmd.getColumnCount();
 	    String query = "";
-	    for (int i = 1; i - 1 < filas && rs.next() == true; i++) {
+	    for (int i = 1;rs.next() == true; i++) {
 		query = "";
 		System.out.print("+");
 		for (int j = 1; j - 1 < columnas; j++) {
@@ -191,15 +178,24 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 		    } else {
 			System.out.print(campo + " | ");
 		    }
-		    query = query.concat(campo);
+		    query = query.concat(campo+" ");
 		}
 		System.out.println();
 		log(query, 2);
 	    }
 	    log(2);
+	} else if (tipo == 3) {
+	    String PK = "";
+	    System.out.println("Qué condición debe cumplir");
+	    String condicion = sc.next();
+	    String conwhere = "select * from " + tabla + " where " + PK + " like ?";
 	}
     }
-
+    public static int[] lengthofrow(ResultSet rs) throws SQLException{
+	ResultSetMetaData rsmd = rs.getMetaData();
+	int columnas = rsmd.getColumnCount();
+	
+    }
     public static void verTabla() throws SQLException, IOException {
 
     }
@@ -221,7 +217,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	System.out.println("1) Ver todos los campos de una tabla");
 	System.out.println("2) Ver campos con la clausula where");
 	System.out.println("3) Ver campo con prepared statement");
-	System.out.println("4) Ver clave primaria");
+	System.out.println("4) Ver clave primaria clausula where");
 	System.out.println("5) Ver clave primaria prepared statement");
 	System.out.println("6) ROLLBACK");
 	System.out.println("7) COMMIT");

@@ -91,4 +91,45 @@ pepepepespepe2019/05/05 03:26:23 pepe2019/05/05 03:30:57 pepe
 +------------Consulta finalizada-----------+
 2019/05/05 20:42:34 Consulta realizada: com.mysql.cj.jdbc.ClientPreparedStatement: select * from bar where name like '%polla%';
 +---------Resultado de la consulta---------+
++------------Consulta finalizada-----------+2019/05/06 03:21:09 Consulta realizada: com.mysql.cj.jdbc.StatementImpl@10d59286: Select * from serves where bar like '%a%';
++---------Resultado de la consulta---------+
++ James Joyce PubAmstel3.00
++ James Joyce PubCorona3.25
++ James Joyce PubDixie3.00
++ James Joyce PubErdinger3.50
++ SatisfactionAmstel2.75
++ SatisfactionBudweiser2.25
++ SatisfactionCorona2.75
++ SatisfactionDixie2.75
++ SatisfactionFull Sail2.75
++ Talk of the TownAmstel2.50
++ Talk of the TownBudweiser2.20
++------------Consulta finalizada-----------+
+2019/05/06 03:25:47 Consulta realizada: com.mysql.cj.jdbc.StatementImpl@10d59286: Select * from serves where bar like '%a%';
++---------Resultado de la consulta---------+
++ James Joyce PubAmstel3.00
++ James Joyce PubCorona3.25
++ James Joyce PubDixie3.00
++ James Joyce PubErdinger3.50
++ SatisfactionAmstel2.75
++ SatisfactionBudweiser2.25
++ SatisfactionCorona2.75
++ SatisfactionDixie2.75
++ SatisfactionFull Sail2.75
++ Talk of the TownAmstel2.50
++ Talk of the TownBudweiser2.20
++------------Consulta finalizada-----------+
+2019/05/06 03:27:40 Consulta realizada: com.mysql.cj.jdbc.StatementImpl@10d59286: Select * from serves where bar like '%a%';
++---------Resultado de la consulta---------+
++ James Joyce Pub Amstel 3.00 
++ James Joyce Pub Corona 3.25 
++ James Joyce Pub Dixie 3.00 
++ James Joyce Pub Erdinger 3.50 
++ Satisfaction Amstel 2.75 
++ Satisfaction Budweiser 2.25 
++ Satisfaction Corona 2.75 
++ Satisfaction Dixie 2.75 
++ Satisfaction Full Sail 2.75 
++ Talk of the Town Amstel 2.50 
++ Talk of the Town Budweiser 2.20 
 +------------Consulta finalizada-----------+
