@@ -102,7 +102,6 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	ResultSet rs = st.executeQuery("Select * From " + tabla);
 	ResultSetMetaData rsmd = rs.getMetaData();
 	int columnas = rsmd.getColumnCount();
-	int tamaño[] = new int[columnas];
 	//lengthofrow(rs);
 	for (int i = 1; rs.next() == true; i++) {
 	    System.out.print("+");
@@ -115,6 +114,15 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 		}
 	    }
 	    System.out.println();
+	}
+	String[][] rowsformateadas = rowlength(st,"select * from " + tabla);
+	for (int i = 0; i < rowsformateadas.length; i++) {
+	    for (int j = 0; j < rowsformateadas[i].length; j++) {
+		System.out.print(rowsformateadas[i][j] + "-");
+		
+	    }
+	    System.out.println();
+	    
 	}
 	//rs.close(); no es necesario ??¿¿
 	if (tipo == 1) {//Clausla where
@@ -131,7 +139,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	    columnas = rsmd.getColumnCount();
 	    String query = "";
 	    //String query[][] = new String[filas][columnas];
-	    for (int i = 1;rs.next() == true; i++) {
+	    for (int i = 1; rs.next() == true; i++) {
 		query = "";
 		System.out.print("+");
 		for (int j = 1; j - 1 < columnas; j++) {
@@ -142,7 +150,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 		    } else {
 			System.out.print(campo + " | ");
 		    }
-		    query = query.concat(campo+" ");
+		    query = query.concat(campo + " ");
 		}
 		System.out.println();
 		log(query, 2);
@@ -167,7 +175,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	    rsmd = rs.getMetaData();
 	    columnas = rsmd.getColumnCount();
 	    String query = "";
-	    for (int i = 1;rs.next() == true; i++) {
+	    for (int i = 1; rs.next() == true; i++) {
 		query = "";
 		System.out.print("+");
 		for (int j = 1; j - 1 < columnas; j++) {
@@ -178,7 +186,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 		    } else {
 			System.out.print(campo + " | ");
 		    }
-		    query = query.concat(campo+" ");
+		    query = query.concat(campo + " ");
 		}
 		System.out.println();
 		log(query, 2);
@@ -191,11 +199,49 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	    String conwhere = "select * from " + tabla + " where " + PK + " like ?";
 	}
     }
-    public static int[] lengthofrow(ResultSet rs) throws SQLException{
+
+    public static String[][] rowlength(Statement st, String sql) throws SQLException, IOException {//campos /total
+	ResultSet rs = st.executeQuery(sql);
 	ResultSetMetaData rsmd = rs.getMetaData();
 	int columnas = rsmd.getColumnCount();
+	int filas = 0;
+
+	String query = "";
+	for (int i = 1; rs.next() == true; i++) {
+	    query = "";
+	    for (int j = 1; j - 1 < columnas; j++) {
+		String campo = rs.getString(j);
+		query = query.concat(campo + " ");
+
+	    }
+	    filas++;
+	}
+	rs = st.executeQuery(sql);
+	int rowlength[][] = new int[filas][columnas];
+	String rowformat[][] = new String[filas][columnas];
+	int restante[] = new int[filas];
+	for (int i = 1; rs.next() == true; i++) {
+	    query = "";
+	    for (int j = 1; j - 1 < columnas; j++) {
+		String campo = rs.getString(j);
+		rowlength[i-1][j-1] = campo.length();
+		rowformat[i-1][j-1] = campo;
+	    }
+	    
+	}
+	for (int i = 0; i < rowformat.length; i++) {
+	    for (int j = 0; j < rowformat[i].length; j++) {
+		String row = rowformat[i][j];
+		
+		
+	    }
+	    
+	}
+	
+	return rowformat;
 	
     }
+
     public static void verTabla() throws SQLException, IOException {
 
     }
