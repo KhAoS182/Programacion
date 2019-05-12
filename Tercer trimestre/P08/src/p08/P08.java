@@ -102,23 +102,10 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	ResultSet rs = st.executeQuery("Select * From " + tabla);
 	ResultSetMetaData rsmd = rs.getMetaData();
 	int columnas = rsmd.getColumnCount();
-	//lengthofrow(rs);
-	for (int i = 1; rs.next() == true; i++) {
-	    System.out.print("+");
-	    for (int j = 1; j - 1 < columnas; j++) {
-		String campo = rs.getString(j);
-		if (j > columnas - 1) {
-		    System.out.print(campo);
-		} else {
-		    System.out.print(campo + " | ");
-		}
-	    }
-	    System.out.println();
-	}
-	String[][] rowsformateadas = rowlength(st,"select * from " + tabla);
+	String[][] rowsformateadas = rowformat(st,"select * from " + tabla);
 	for (int i = 0; i < rowsformateadas.length; i++) {
 	    for (int j = 0; j < rowsformateadas[i].length; j++) {
-		System.out.print(rowsformateadas[i][j] + "-");
+		System.out.print(rowsformateadas[i][j]);
 		
 	    }
 	    System.out.println();
@@ -200,7 +187,7 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	}
     }
 
-    public static String[][] rowlength(Statement st, String sql) throws SQLException, IOException {//campos /total
+    public static String[][] rowformat(Statement st, String sql) throws SQLException, IOException {//campos /total
 	ResultSet rs = st.executeQuery(sql);
 	ResultSetMetaData rsmd = rs.getMetaData();
 	int columnas = rsmd.getColumnCount();
@@ -219,25 +206,59 @@ public class P08 { //connection -statement - executeupdate/query resultset next 
 	rs = st.executeQuery(sql);
 	int rowlength[][] = new int[filas][columnas];
 	String rowformat[][] = new String[filas][columnas];
-	int restante[] = new int[filas];
 	for (int i = 1; rs.next() == true; i++) {
 	    query = "";
 	    for (int j = 1; j - 1 < columnas; j++) {
 		String campo = rs.getString(j);
-		rowlength[i-1][j-1] = campo.length();
-		rowformat[i-1][j-1] = campo;
+		rowlength[i-1][j-1] = campo.length()+1;
+		rowformat[i-1][j-1] = campo.concat(" ");
 	    }
 	    
 	}
-	for (int i = 0; i < rowformat.length; i++) {
-	    for (int j = 0; j < rowformat[i].length; j++) {
-		String row = rowformat[i][j];
-		
-		
+	int[] maxlength = new int[rowlength.length];
+	for (int i = 0; i < rowlength.length; i++) {
+	    int max = 0;
+	    for (int j = 0; j < rowlength[j].length; j++) {
+			if (rowlength[i][j] > max){
+			    max = rowlength[i][j];
+			}
 	    }
-	    
+	    maxlength[i] = max;    
 	}
 	
+	int[] max = new int[rowlength.length];
+	for (int i = 0; i < rowlength.length; i++) {
+	    for (int j = 0; j < rowlength[i].length; j++) {
+		if (rowlength[i][j] > max[i]){
+		    
+		}
+		
+	    }
+	    
+	}
+	//rip here
+	for (int i = 0; i < rowformat.length; i++) {
+	    for (int j = 0; j < rowformat[i].length; j++) {
+		int diferencia = maxlength[i] - rowformat[i][j].length();
+		for (int k = 0; k < diferencia; k++) {
+		    rowformat[i][j] = rowformat[i][j].concat(" ");
+		    
+		}
+		/*if (i+1 == rowformat.length && j+1 == rowformat[i].length){
+		    rowformat[i][j] = rowformat[i][j] + " ";
+		    rowformat[i][j] = rowformat[i][j] + "|";
+		    System.out.println("hola1");
+		}
+		else*/ if (j+1==rowformat[i].length){
+		    rowformat[i][j] = rowformat[i][j]+ " +";
+		    System.out.println(rowformat[i][j]);
+		    System.out.println("hola2");
+		}
+		else{
+		rowformat[i][j] = rowformat[i][j] + "|";
+		}
+	    }    
+	}
 	return rowformat;
 	
     }
