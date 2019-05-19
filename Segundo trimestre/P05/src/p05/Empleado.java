@@ -10,9 +10,9 @@ import java.util.Scanner;
  * @author Adrian
  */
 public abstract class Empleado {
-    String nombre, apellido1, apellido2, nif;
-    int edad;
-    float salario;//f
+    private String nombre, apellido1, apellido2, nif;
+    private int edad;
+    private float salario;//f
     
     /*public abstract int getVentas_realizadas();
     public abstract void setVentas_realizadas(int i);
@@ -90,7 +90,7 @@ public abstract class Empleado {
     public void setSalario(float salario) {
 	this.salario = salario;
     }
-    public void mostrarAtributos(){
+    public void mostrarAtributos(){//faltan getters
 	System.out.println("Nombre: " +nombre+" " + apellido1+ " " + apellido2 +"\nNIF: "+ nif+ "\nEdad: " + edad+ "\nSalario: " + salario);
     }
     public void pedirAlta(){

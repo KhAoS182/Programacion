@@ -11,9 +11,10 @@ import java.util.Scanner;
  *
  * @author Adrian
  */
-public class Comercial extends Empleado {
-    int ventas_realizadas;
-    float comision;
+public  class Comercial extends Empleado {
+
+    private int ventas_realizadas;
+    private float comision;
 
     public Comercial(Empleado a) {
 	super(a);
@@ -30,7 +31,7 @@ public class Comercial extends Empleado {
 	this.ventas_realizadas = ventas_realizadas;
 	this.comision = comision;
     }
- 
+
     public Comercial(Comercial a) {
 	this.ventas_realizadas = a.ventas_realizadas;
 	this.comision = a.comision;
@@ -39,7 +40,7 @@ public class Comercial extends Empleado {
     public int getVentas_realizadas() {
 	return ventas_realizadas;
     }
-    
+
     public void setVentas_realizadas(int ventas_realizadas) {
 	this.ventas_realizadas = ventas_realizadas;
     }
@@ -51,32 +52,34 @@ public class Comercial extends Empleado {
     public void setComision(float comision) {
 	this.comision = comision;
     }
+
     @Override
-    public void mostrarAtributos (){
+    public void mostrarAtributos() {//revisado
 	System.out.println("------------Comercial------------");
-	System.out.println("Nombre: " +nombre+" " + apellido1+ " " + apellido2 +"\nNIF: "+ nif+ "\nEdad: " + edad+ "\nSalario: " + salario + "\nVentas realizadas: " + ventas_realizadas + "\nComision: "+ comision);
+	System.out.println("Nombre: " + super.getNombre() + " " + super.getApellido1() + " " + super.getApellido2() + "\nNIF: " + super.getNif() + "\nEdad: " + super.getEdad() + "\nSalario: " + super.getSalario() + "\nVentas realizadas: " + getVentas_realizadas() + "\nComision: " + getComision());
     }
+
     @Override
-    public void pedirAlta(){
+    public void pedirAlta() {//revisado
 	Scanner sc = new Scanner(System.in);
 	System.out.print("Nombre: ");
 	setNombre(sc.nextLine());
 	System.out.print("Apellido: ");
-	apellido1 = sc.nextLine();
+	setApellido1(sc.nextLine());
 	System.out.print("Segundo Apellido: ");
-	apellido2 = sc.nextLine();
+	setApellido2(sc.nextLine());
 	System.out.print("NIF: ");
-	nif = sc.nextLine();
+	setNif(sc.nextLine());
 	System.out.print("Edad: ");
-	edad = sc.nextInt();
+	setEdad(sc.nextInt());
 	sc.nextLine();
 	System.out.print("Salario: ");
-	salario = sc.nextInt();
+	setSalario(sc.nextFloat());
 	sc.nextLine();
 	System.out.print("Comision: ");
-	comision = sc.nextFloat();
+	setComision(sc.nextFloat());
 	sc.nextLine();
-	ventas_realizadas = 0;
+	setVentas_realizadas(0);
     }
-    
+
 }

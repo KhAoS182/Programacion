@@ -49,23 +49,23 @@ public class Repartidor extends Empleado {
     }
     @Override
     public void mostrarAtributos (){
-	System.out.println("Nombre: " +nombre+" " + apellido1+ " " + apellido2 +"\nNIF: "+ nif+ "\nEdad: " + edad+ "\nSalario: " + salario + "\nHoras realizadas: " + horas_trabajadas + "\nZona: "+ zona);
+	System.out.println("Nombre: " + super.getNombre() + " " + super.getApellido1() + " " + super.getApellido2() + "\nNIF: " + super.getNif() + "\nEdad: " + super.getEdad() + "\nSalario: " + super.getSalario() + "\nHoras realizadas: " + getHoras_trabajadas() + "\nZona: "+ getZona());
     }
     public void pedirAlta(){
 	Scanner sc = new Scanner(System.in);
 	System.out.print("Nombre: ");
-	nombre = sc.nextLine();
+	setNombre(sc.nextLine());
 	System.out.print("Apellido: ");
-	apellido1 = sc.nextLine();
+	setApellido1(sc.nextLine());
 	System.out.print("Segundo Apellido: ");
-	apellido2 = sc.nextLine();
+	setApellido2(sc.nextLine());
 	System.out.print("NIF: ");
-	nif = sc.nextLine();
+	setNif(sc.nextLine());
 	System.out.print("Edad: ");
-	edad = sc.nextInt();
+	setEdad(sc.nextInt());
 	sc.nextLine();
 	System.out.print("Salario: ");
-	salario = sc.nextInt();
+	setSalario(sc.nextFloat());
 	sc.nextLine();
 	System.out.print("Zona: ");
 	zona = sc.nextLine();

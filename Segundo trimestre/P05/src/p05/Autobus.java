@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  * @author Adrian
  */
-public class Autobus extends Vehiculo {
+public final class Autobus extends Vehiculo {
     private int plazas;
     private int  paradas;//se supone?
 
